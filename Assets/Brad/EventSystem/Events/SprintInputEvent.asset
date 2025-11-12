@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f8e03f99b18f5447990370f640a5b6d, type: 3}
-  m_Name: FireInputEvent
-  m_EditorClassIdentifier: Assembly-CSharp::Events.EmptyPayloadEvent
+  m_Script: {fileID: 11500000, guid: 492378360b0ec334880d7e18208c1e8b, type: 3}
+  m_Name: SprintInputEvent
+  m_EditorClassIdentifier: Assembly-CSharp::Events.BoolPayloadEvent
