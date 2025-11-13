@@ -136,6 +136,7 @@ MonoBehaviour:
   moveInputUpdate: {fileID: 11400000, guid: 61bd482cb51cffe489109d8976dc6d3e, type: 2}
   sprintInputUpdate: {fileID: 11400000, guid: dc2c87e5ff2067e44b6e8b4ce7eca84f, type: 2}
   gamePausedEvent: {fileID: 11400000, guid: f059c6428bfa4ca4987dd0f98964a0e8, type: 2}
+  beDrivingEvent: {fileID: 11400000, guid: d330464ffccd8db4dadf039a53542621, type: 2}
 --- !u!114 &83716514301783745
 MonoBehaviour:
   m_ObjectHideFlags: 0

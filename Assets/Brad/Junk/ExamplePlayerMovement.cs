@@ -12,12 +12,14 @@ public class ExamplePlayerMovement : MonoBehaviour
     public const string IDLE = "IDLE";
     public const string WALKING = "WALKING";
     public const string SPRINTING = "SPRINTING";
+    public const string DRIVING = "DRIVING";
 
     public const string TO_PARKED = "TO_PARKED";
     public const string TO_IDLE = "TO_IDLE";
     public const string TO_WALKING = "TO_WALKING";
     public const string TO_SPRINTING = "TO_SPRINTING";
-    
+    public const string TO_DRIVING = "TO_DRIVING";
+
     [SerializeField] float moveSpeed = 4.0f;
     [Range(1.0f, 5.0f)] [SerializeField] float sprintMultiplier;
     [SerializeField] private TMP_Text animText;
@@ -27,6 +29,7 @@ public class ExamplePlayerMovement : MonoBehaviour
     [SerializeField] private Vector2PayloadEvent moveInputUpdate;
     [SerializeField] private BoolPayloadEvent sprintInputUpdate;
     [SerializeField] private BoolPayloadEvent gamePausedEvent;
+    [SerializeField] private BoolPayloadEvent beDrivingEvent;
     
 
     
@@ -55,12 +58,14 @@ public class ExamplePlayerMovement : MonoBehaviour
         moveInputUpdate.OnEventTriggered += IngestMoveUpdate;
         sprintInputUpdate.OnEventTriggered += IngestSprintUpdate;
         gamePausedEvent.OnEventTriggered += IngestIsPaused;
+        beDrivingEvent.OnEventTriggered += IngestBeDrivingEvent;
     }
     private void OnDisable()
     {
         moveInputUpdate.OnEventTriggered -= IngestMoveUpdate;
         sprintInputUpdate.OnEventTriggered -= IngestSprintUpdate;
         gamePausedEvent.OnEventTriggered -= IngestIsPaused;
+        beDrivingEvent.OnEventTriggered -= IngestBeDrivingEvent;
     }
 
     private void Update()
@@ -71,6 +76,13 @@ public class ExamplePlayerMovement : MonoBehaviour
                 // There are no Update() behaviors for the PARKED state in this example
                 // if there were, we would put them here.
                 return;
+
+            case DRIVING:
+                // DONT walk!
+                // listen for and react to events that trigger state transitions
+                // Do other driving stuff
+                return;
+
             case IDLE:
                 if (currentMoveInput.magnitude >= MINIMUM_MOVE_INPUT && !isSprinting)
                 {
@@ -126,6 +138,13 @@ public class ExamplePlayerMovement : MonoBehaviour
                 // Do on enter Parked stuff
                 // for example maybe make the player sptite invisible, or make the rb kinematic
                 return;
+
+            case DRIVING:
+                // DONT walk!
+                // listen for and react to events that trigger state transitions
+                // playe the driving anim
+                return;
+
             case IDLE:
                 playerState = IDLE;
                 animText.text = "IDLE\nANIMATION";
@@ -147,6 +166,17 @@ public class ExamplePlayerMovement : MonoBehaviour
             default:
                 return;
         }
+    }
+
+    private void IngestBeDrivingEvent(bool _isDriving)
+    {
+        if (_isDriving)
+        {
+            stateMachine.TriggerTransition(TO_DRIVING);
+            return;
+        }
+        stateMachine.TriggerTransition(TO_IDLE);
+        return;
     }
 
     private void IngestMoveUpdate(Vector2 _input)
