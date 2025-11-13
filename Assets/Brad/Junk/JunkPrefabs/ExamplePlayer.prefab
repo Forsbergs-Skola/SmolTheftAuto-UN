@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExamplePlayerMovement
   moveSpeed: 4
-  sprintMultiplier: 2
+  sprintMultiplier: 2.17
   animText: {fileID: 5418818302384116033}
   stateMachine: {fileID: 11400000, guid: d77393677cbed3246923b564d8b26e72, type: 2}
   moveInputUpdate: {fileID: 11400000, guid: 61bd482cb51cffe489109d8976dc6d3e, type: 2}

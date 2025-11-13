@@ -42,7 +42,6 @@ public class ExamplePlayerMovement : MonoBehaviour
         {
             if (value == _playerState) { return; }
             _playerState = value;
-            Debug.Log($"Player entered state: {_playerState}");
         }
     }
 

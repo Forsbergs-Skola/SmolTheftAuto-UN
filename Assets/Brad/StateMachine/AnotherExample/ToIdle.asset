@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1867374ec7f521d44b3359cebb78b913, type: 3}
+  m_Name: ToIdle
+  m_EditorClassIdentifier: Assembly-CSharp::StateMachine.StateTransitionSO
+  toState: {fileID: 11400000, guid: 7e82dd5ee43f9424abdbc681b7bed168, type: 2}
+  transitionName: TO_IDLE
+  eventString: TO_IDLE
+  transitionID: e49b42aa-4a46-4f7b-9223-541d6579de65

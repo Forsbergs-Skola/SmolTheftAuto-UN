@@ -18,7 +18,7 @@ public class ExampleEnemy : MonoBehaviour
     [Header("Event Channels")]
     [SerializeField] private BoolPayloadEvent gamePausedEvent;
     [SerializeField] private FloatPayloadEvent hitEvent;
-
+    [SerializeField] private EmptyPayloadEvent somethingHappenedEvent;
 
     private void Start()
     {
@@ -33,6 +33,7 @@ public class ExampleEnemy : MonoBehaviour
             state.OnStateEntered += HandleOnEnterState;
         }
         gamePausedEvent.OnEventTriggered += IngestGamePausedEvent;
+        somethingHappenedEvent.OnEventTriggered += HandleSomethingHappened;
     }
     private void OnDisable()
     {
@@ -41,8 +42,13 @@ public class ExampleEnemy : MonoBehaviour
             state.OnStateEntered -= HandleOnEnterState;
         }
         gamePausedEvent.OnEventTriggered -= IngestGamePausedEvent;
+        somethingHappenedEvent.OnEventTriggered -= HandleSomethingHappened;
     }
 
+    private void HandleSomethingHappened()
+    {
+        Debug.Log("SOmething happeneded!!");
+    }
    
 
     private void HandleOnEnterState(StateData stateData)
@@ -54,9 +60,15 @@ public class ExampleEnemy : MonoBehaviour
                 animText.text = "PARKED";
                 return;
             case IDLE:
+                // play an animation
+                // play the idle sound
+                // do whatever else
                 animText.text = "IDLE";
                 return;
             case REACT:
+                // play the react anim
+                // increment hit counter
+                // tell the UI to do whatever it needs to do
                 animText.text = "REACTING";
                 return;
         }

@@ -9,6 +9,8 @@ public class ExampleUI : MonoBehaviour
     [Header("Event Channels")]
     [SerializeField] private FloatPayloadEvent enemyHitEvent;
     [SerializeField] private BoolPayloadEvent gamePausedEvent;
+
+    [SerializeField] private EmptyPayloadEvent somethingHappenedEvent;
     
     private int score = 0;
 
@@ -23,6 +25,11 @@ public class ExampleUI : MonoBehaviour
             pausePanel.SetActive(_isPaused);
             gamePausedEvent.TriggerEvent(_isPaused);
         }
+    }
+
+    public void HandleDemoButtonPressed()
+    {
+        somethingHappenedEvent.TriggerEvent();
     }
     
     

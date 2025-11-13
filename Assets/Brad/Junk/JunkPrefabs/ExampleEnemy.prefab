@@ -129,6 +129,7 @@ MonoBehaviour:
   animText: {fileID: 657831107174305818}
   gamePausedEvent: {fileID: 11400000, guid: f059c6428bfa4ca4987dd0f98964a0e8, type: 2}
   hitEvent: {fileID: 11400000, guid: 1065f1e15537dbe44ac760732d93a191, type: 2}
+  somethingHappenedEvent: {fileID: 11400000, guid: 1522cb19ab4329643b22e29792ebf74f, type: 2}
 --- !u!1 &7526759528089880795
 GameObject:
   m_ObjectHideFlags: 0
