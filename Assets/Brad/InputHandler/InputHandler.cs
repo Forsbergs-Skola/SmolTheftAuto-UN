@@ -52,7 +52,7 @@ namespace GameTools
             }
             else
             {
-                IngestMouseKeyboardInput(Keyboard.current, Mouse.current);
+                IngestMouseKeyboardInput(Keyboard.current);
             }
         }
 
@@ -75,7 +75,7 @@ namespace GameTools
             }
         }
 
-        private void IngestMouseKeyboardInput(Keyboard kb, Mouse mouse)
+        private void IngestMouseKeyboardInput(Keyboard kb)
         {
             // KB move input
             float moveX = 0.0f;
@@ -87,12 +87,12 @@ namespace GameTools
             moveInput = new Vector2(moveX, moveY).normalized;
 
             // KB sprint input
-            sprintIsPressed = mouse.rightButton.isPressed;
+            sprintIsPressed = kb.leftShiftKey.isPressed;
 
-            // Mouse & fire input
+            // KB fire input
             if (!pressedInputDampened)
             {
-                if (kb.spaceKey.wasPressedThisFrame || mouse.leftButton.wasPressedThisFrame)
+                if (kb.spaceKey.wasPressedThisFrame)
                 {
                     fireInputEvent.TriggerEvent();
                     StartCoroutine(DampenPressedInput());

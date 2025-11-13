@@ -4,18 +4,38 @@ using Events;
 
 public class ExampleUI : MonoBehaviour
 {
-    [SerializeField] FloatPayloadEvent enemyHitEvent;
-    [SerializeField] TMP_Text scoreText;
-
+    [SerializeField] private FloatPayloadEvent enemyHitEvent;
+    [SerializeField] private BoolPayloadEvent gamePausedEvent;
+    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private GameObject pausePanel;
     private int score = 0;
+
+    private bool _isPaused = false;
+    private bool isPaused
+    {
+        get => _isPaused;
+        set
+        {
+            if (value == _isPaused) { return; }
+            _isPaused = value;
+            pausePanel.SetActive(_isPaused);
+            gamePausedEvent.TriggerEvent(_isPaused);
+        }
+    }
+    
     
 
-    private void Start()
+    public void HandleOnPauseToggled()
     {
-        scoreText.text = $"SCORE: {score}";
+        isPaused = !isPaused;
     }
 
 
+    private void Start()
+    {
+        pausePanel.SetActive(isPaused);
+        scoreText.text = $"SCORE: {score}";
+    }
     private void OnEnable()
     {
         enemyHitEvent.OnEventTriggered += IngestHitEvent;
@@ -24,11 +44,9 @@ public class ExampleUI : MonoBehaviour
     {
         enemyHitEvent.OnEventTriggered -= IngestHitEvent;
     }
-
     private void IngestHitEvent(float hitDamage)
     {
         score += (int)hitDamage;
         scoreText.text = $"SCORE: {score}";
     }
-
 }
