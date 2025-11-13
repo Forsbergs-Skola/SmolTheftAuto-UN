@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599d3733172f7074cbdf0652085e7656, type: 3}
+  m_Name: AnotherExample
+  m_EditorClassIdentifier: Assembly-CSharp::StateMachine.SimpleStateMachineSO
+  initialState: {fileID: 11400000, guid: b9f77e5256832a24c9b8aae3e8bd2a4a, type: 2}
+  states:
+  - {fileID: 11400000, guid: b9f77e5256832a24c9b8aae3e8bd2a4a, type: 2}
+  - {fileID: 11400000, guid: 7e82dd5ee43f9424abdbc681b7bed168, type: 2}
+  - {fileID: 11400000, guid: 174a27d2d0da35f4cad6fc8b13da6438, type: 2}
+  - {fileID: 11400000, guid: 3a4dab6525744bf4797f35707bdfac49, type: 2}
+  transitions:
+  - {fileID: 11400000, guid: 1353444676d95f34a948c237bae5372d, type: 2}
+  - {fileID: 11400000, guid: 96a1fe34b1cc17f46995760246dbbff5, type: 2}
+  - {fileID: 11400000, guid: 2a85e579ae337044a8fd9be4006cc785, type: 2}
+  - {fileID: 11400000, guid: 4bde2b0bcef7b1b4ab2755a3d5c01d44, type: 2}
