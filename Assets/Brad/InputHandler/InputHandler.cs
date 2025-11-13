@@ -6,10 +6,12 @@ namespace GameTools
 {
     public class InputHandler : MonoBehaviour
     {
+        [Range(0.005f, 0.1f)] [SerializeField] private float pressedInputCooldownSeconds = 0.05f;
+        [Header("Event Channels")]
         [SerializeField] private Vector2PayloadEvent moveInputEvent;
         [SerializeField] private EmptyPayloadEvent fireInputEvent;
         [SerializeField] private BoolPayloadEvent sprintInputEvent;
-        [Range(0.005f, 0.1f)][SerializeField] private float pressedInputCooldownSeconds = 0.05f;
+        
 
         private Vector2 _moveInput = Vector2.zero;
         private Vector2 moveInput

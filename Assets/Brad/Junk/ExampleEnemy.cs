@@ -15,6 +15,7 @@ public class ExampleEnemy : MonoBehaviour
 
     [SerializeField] private SimpleStateMachineSO stateMachine;
     [SerializeField] private TMP_Text animText;
+    [Header("Event Channels")]
     [SerializeField] private BoolPayloadEvent gamePausedEvent;
     [SerializeField] private FloatPayloadEvent hitEvent;
 
@@ -50,13 +51,13 @@ public class ExampleEnemy : MonoBehaviour
         {
             case PARKED:
                 StopAllCoroutines();
-                animText.text = "PARKED\n(no animation)";
+                animText.text = "PARKED";
                 return;
             case IDLE:
-                animText.text = "IDLE\nANIMATION";
+                animText.text = "IDLE";
                 return;
             case REACT:
-                animText.text = "REACT\nANIMATION";
+                animText.text = "REACTING";
                 return;
         }
     }

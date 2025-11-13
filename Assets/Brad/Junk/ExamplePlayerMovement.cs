@@ -5,6 +5,9 @@ using Events;
 
 public class ExamplePlayerMovement : MonoBehaviour
 {
+
+    private const float MINIMUM_MOVE_INPUT = 0.1f;
+
     public const string PARKED = "PARKED";
     public const string IDLE = "IDLE";
     public const string WALKING = "WALKING";
@@ -14,18 +17,19 @@ public class ExamplePlayerMovement : MonoBehaviour
     public const string TO_IDLE = "TO_IDLE";
     public const string TO_WALKING = "TO_WALKING";
     public const string TO_SPRINTING = "TO_SPRINTING";
+    
+    [SerializeField] float moveSpeed = 4.0f;
+    [Range(1.0f, 5.0f)] [SerializeField] float sprintMultiplier;
+    [SerializeField] private TMP_Text animText;
+    [SerializeField] private SimpleStateMachineSO stateMachine;
 
-    private const float MINIMUM_MOVE_INPUT = 0.1f;
-
+    [Header("Event Channels")]
     [SerializeField] private Vector2PayloadEvent moveInputUpdate;
     [SerializeField] private BoolPayloadEvent sprintInputUpdate;
     [SerializeField] private BoolPayloadEvent gamePausedEvent;
-    [SerializeField] private SimpleStateMachineSO stateMachine;
+    
 
-    [SerializeField] private TMP_Text animText;
-
-    [SerializeField] float moveSpeed = 4.0f;
-    [Range(1.0f, 5.0f)] [SerializeField] float sprintMultiplier;
+    
 
     private Vector2 currentMoveInput = Vector2.zero;
     private bool isSprinting;

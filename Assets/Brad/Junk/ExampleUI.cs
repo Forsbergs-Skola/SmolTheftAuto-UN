@@ -4,10 +4,12 @@ using Events;
 
 public class ExampleUI : MonoBehaviour
 {
-    [SerializeField] private FloatPayloadEvent enemyHitEvent;
-    [SerializeField] private BoolPayloadEvent gamePausedEvent;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private GameObject pausePanel;
+    [Header("Event Channels")]
+    [SerializeField] private FloatPayloadEvent enemyHitEvent;
+    [SerializeField] private BoolPayloadEvent gamePausedEvent;
+    
     private int score = 0;
 
     private bool _isPaused = false;
