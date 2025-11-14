@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599d3733172f7074cbdf0652085e7656, type: 3}
+  m_Name: PlayerStateMachine
+  m_EditorClassIdentifier: Assembly-CSharp::StateMachine.SimpleStateMachineSO
+  initialState: {fileID: 11400000, guid: af09f56857f8a3c48822f71682cb47ed, type: 2}
+  states:
+  - {fileID: 11400000, guid: 00fee8710e2baea479b88f3343d45f45, type: 2}
+  - {fileID: 11400000, guid: af09f56857f8a3c48822f71682cb47ed, type: 2}
+  transitions:
+  - {fileID: 11400000, guid: b2ca1f0701a3d6a4b8e4771fb653eb97, type: 2}
+  - {fileID: 11400000, guid: fa6a1fb032f340d47bd1c13e36b7e700, type: 2}
