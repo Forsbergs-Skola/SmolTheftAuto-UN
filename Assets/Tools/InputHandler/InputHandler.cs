@@ -11,7 +11,7 @@ namespace GameTools
         [SerializeField] private Vector2PayloadEvent moveInputEvent;
         [SerializeField] private EmptyPayloadEvent fireInputEvent;
         [SerializeField] private BoolPayloadEvent sprintInputEvent;
-        
+        [SerializeField] private BoolPayloadEvent gamePausedEvent;
 
         private Vector2 _moveInput = Vector2.zero;
         private Vector2 moveInput
@@ -74,6 +74,10 @@ namespace GameTools
                     fireInputEvent.TriggerEvent();
                     StartCoroutine(DampenPressedInput());
                 }
+                if (gp.startButton.wasPressedThisFrame)
+                {
+                    TogglePause();
+                }
             }
         }
 
@@ -99,6 +103,21 @@ namespace GameTools
                     fireInputEvent.TriggerEvent();
                     StartCoroutine(DampenPressedInput());
                 }
+
+                if (kb.escapeKey.wasPressedThisFrame)
+                {
+                    TogglePause();
+                }
+
+            }
+        }
+
+        private void TogglePause()
+        {
+            GameObject smObj = GameObject.FindGameObjectWithTag(Constants.Tags.SCENE_MANAGER);
+            if (smObj != null)
+            {
+                smObj.GetComponent<SceneManager>().TogglePauseGame();
             }
         }
 

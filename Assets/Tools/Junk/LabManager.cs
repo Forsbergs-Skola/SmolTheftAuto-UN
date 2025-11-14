@@ -1,5 +1,7 @@
 using UnityEngine;
 
+
+
 public class LabManager : MonoBehaviour
 {
     [SerializeField] private GameObject playerPrefab;

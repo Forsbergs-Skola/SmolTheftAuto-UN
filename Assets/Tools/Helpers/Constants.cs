@@ -7,6 +7,7 @@ namespace GameTools
         {
             public const string INPUT_HANDLER = "INPUT_HANDLER";
             public const string BULLET = "BULLET";
+            public const string SCENE_MANAGER = "SCENE_MANAGER";
         }
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 using GameTools;
 namespace Quests
 {
+
     public struct QuestData
     {
         private string questName;
@@ -18,7 +19,6 @@ namespace Quests
                 string _questDescription,
                 string _questID,
                 bool _isComplete
-
             )
         {
             questName = _questName;
@@ -39,10 +39,7 @@ namespace Quests
         private bool isComplete = false;
         private QuestData myData;
 
-
         public QuestData Data { get => myData; }
-
-
 
         public void InitializeNew()
         {

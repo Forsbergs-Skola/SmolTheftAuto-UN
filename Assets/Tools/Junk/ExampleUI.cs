@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using GameTools;
 using Events;
 
 public class ExampleUI : MonoBehaviour
@@ -22,9 +23,24 @@ public class ExampleUI : MonoBehaviour
         {
             if (value == _isPaused) { return; }
             _isPaused = value;
-            pausePanel.SetActive(_isPaused);
-            gamePausedEvent.TriggerEvent(_isPaused);
+            GameObject smObj = GameObject.FindGameObjectWithTag(Constants.Tags.SCENE_MANAGER);
+            if (smObj != null)
+            {
+                smObj.GetComponent<SceneManager>().TogglePauseGame();
+            }
         }
+    }
+
+
+    private void Awake()
+    {
+        gamePausedEvent.OnEventTriggered += HandlePauseUI;
+    }
+
+
+    public void HandlePauseUI(bool pausedValue)
+    {
+        pausePanel.SetActive(pausedValue);
     }
 
     public void HandleDemoButtonPressed()
@@ -48,10 +64,12 @@ public class ExampleUI : MonoBehaviour
     private void OnEnable()
     {
         enemyHitEvent.OnEventTriggered += IngestHitEvent;
+        gamePausedEvent.OnEventTriggered += HandlePauseUI;
     }
     private void OnDisable()
     {
         enemyHitEvent.OnEventTriggered -= IngestHitEvent;
+        gamePausedEvent.OnEventTriggered -= HandlePauseUI;
     }
     private void IngestHitEvent(float hitDamage)
     {

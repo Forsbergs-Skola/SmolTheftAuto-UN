@@ -6,6 +6,7 @@ TagManager:
   tags:
   - INPUT_HANDLER
   - BULLET
+  - SCENE_MANAGER
   layers:
   - Default
   - TransparentFX
