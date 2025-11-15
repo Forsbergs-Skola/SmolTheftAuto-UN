@@ -65,7 +65,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: A thing needs to be done. The one to do it is you.
+  m_text: 'A shady fireworks elf asks for help removing troublemakers. Clearing the
+    area will earn the player a box of special matches. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c1a0f93d92a60e24a9d2f01589e7f933, type: 2}
   m_sharedMaterial: {fileID: -8695914656863075527, guid: c1a0f93d92a60e24a9d2f01589e7f933, type: 2}
@@ -283,6 +284,7 @@ GameObject:
   - component: {fileID: 2878208961495694718}
   - component: {fileID: 2097789875730481402}
   - component: {fileID: 2203406671057321045}
+  - component: {fileID: 7141754964279435763}
   m_Layer: 5
   m_Name: TinySparkBigProblem
   m_TagString: Untagged
@@ -306,10 +308,10 @@ RectTransform:
   - {fileID: 8313489424960342766}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: -123}
-  m_SizeDelta: {x: 0, y: -658.55005}
+  m_SizeDelta: {x: 0, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2097789875730481402
 CanvasRenderer:
@@ -349,3 +351,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7141754964279435763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9113247623338957632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1024530ac81e100459450c49428f85b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestItem
+  questName: 2
+  titleText: {fileID: 4611586708530756641}
+  descriptionText: {fileID: 7305880628815079556}

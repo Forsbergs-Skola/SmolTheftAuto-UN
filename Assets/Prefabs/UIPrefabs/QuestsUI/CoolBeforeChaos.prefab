@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1264213402202815631}
   - component: {fileID: 4975054362028094677}
   - component: {fileID: 1830673649293642233}
+  - component: {fileID: 1868542837865848458}
   m_Layer: 5
   m_Name: CoolBeforeChaos
   m_TagString: Untagged
@@ -34,10 +35,10 @@ RectTransform:
   - {fileID: 2837909912625323030}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 246}
-  m_SizeDelta: {x: 0, y: -658.55005}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 960, y: -294}
+  m_SizeDelta: {x: 1920, y: 16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4975054362028094677
 CanvasRenderer:
@@ -77,6 +78,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1868542837865848458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2384767422488887132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1024530ac81e100459450c49428f85b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestItem
+  questName: 1
+  titleText: {fileID: 8704962358207730277}
+  descriptionText: {fileID: 7290246215837636659}
 --- !u!1 &4924298243963113886
 GameObject:
   m_ObjectHideFlags: 0

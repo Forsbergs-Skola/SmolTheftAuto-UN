@@ -1279,7 +1279,7 @@ MonoBehaviour:
   sunglassesPrefab: {fileID: 2384767422488887132, guid: d5be5e464bed5b243a65cd7ec62e3472, type: 3}
   gasCanPrefab: {fileID: 7138379753728955471, guid: 0698672a27867924e8402a6005ac2ac6, type: 3}
   matchesPrefab: {fileID: 9113247623338957632, guid: 990978d4287b9e3449b0df79d40c774f, type: 3}
-  finalPrefab: {fileID: 9113247623338957632, guid: 990978d4287b9e3449b0df79d40c774f, type: 3}
+  finalPrefab: {fileID: 2430028817027878443, guid: 544cc81313cd1d54ab6b141c37d90dd6, type: 3}
 --- !u!1 &3338588374913689041
 GameObject:
   m_ObjectHideFlags: 0
@@ -2776,6 +2776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f83f9b805978ac04da65c55c990b76ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CanvasManager
+  _questPanel: {fileID: 5753836624004831473}
 --- !u!1 &5604637751284290183
 GameObject:
   m_ObjectHideFlags: 0

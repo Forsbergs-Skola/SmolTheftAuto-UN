@@ -43,6 +43,10 @@ public enum EnumCanvasName
 
 public class CanvasManager : MonoBehaviour
 {
+    [SerializeField] private QuestPanel _questPanel;
+    public QuestPanel questPanel { get => _questPanel; }
+
+
     private List<ICanvasable> canvases = new List<ICanvasable>();
 
     private void Awake()
