@@ -8,6 +8,7 @@ TagManager:
   - BULLET
   - UI_EVENT_SYSTEM
   - CANVAS_MANAGER
+  - GAME_MANAGER
   layers:
   - Default
   - TransparentFX
