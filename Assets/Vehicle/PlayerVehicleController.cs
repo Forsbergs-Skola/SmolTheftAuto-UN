@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.Cinemachine;
+using UnityEngine.InputSystem;   // <-- needed for InputAction & CallbackContext
 using StateMachine;
 using Events;
 using Vehicles;
@@ -9,7 +10,9 @@ public class PlayerVehicleController : MonoBehaviour
     [Header("References")]
     [SerializeField] private CharacterController characterController;
     [SerializeField] private PlayerController playerController;    // Euan's main player controller script  
-    [SerializeField] private Animator animator;                    // same one PlayerController uses to move  drive animations
+    [SerializeField] private Animator animator;                    // same one PlayerController uses to drive animations
+
+    private PlayerControls controls;
 
     [Header("State Machine")]
     [Tooltip("The main player state machine asset.")]
@@ -28,13 +31,12 @@ public class PlayerVehicleController : MonoBehaviour
     [SerializeField] private EmptyPayloadEvent fireInputEvent;
 
     [Header("Cinemachine")]
-[SerializeField] private CinemachineCamera onFootCamera;
-[SerializeField] private CinemachineCamera drivingCamera;
-
+    [SerializeField] private CinemachineCamera onFootCamera;
+    [SerializeField] private CinemachineCamera drivingCamera;
 
     // Runtime state
     private bool isDriving = false;
-    private VehicleMover currentVehicle;
+    private VehicleMover currentVehicle; // the vehicle the player is currently driving
     private Transform currentSeat; // where the player sits in the car
 
     // Cached input
@@ -42,14 +44,16 @@ public class PlayerVehicleController : MonoBehaviour
     private float currentSteer;
     private bool currentBrake;
 
-    private void Awake()
+    private void Awake() // initialize references
     {
-        if (animator == null) animator = GetComponent<Animator>();
+        if (animator == null)           animator = GetComponent<Animator>();
         if (characterController == null) characterController = GetComponent<CharacterController>();
-        if (playerController == null) playerController = GetComponent<PlayerController>();
+        if (playerController == null)    playerController    = GetComponent<PlayerController>();
+
+        controls = new PlayerControls();
     }
 
-    private void OnEnable()
+    private void OnEnable() // subscribe to events
     {
         if (drivingState != null)
         {
@@ -65,9 +69,16 @@ public class PlayerVehicleController : MonoBehaviour
 
         if (fireInputEvent != null)
             fireInputEvent.OnEventTriggered += OnFireInput;
+
+        if (controls == null)
+            controls = new PlayerControls();
+
+        controls.Enable();
+        controls.Player.EnterVehicle.performed += OnEnterVehiclePressed;
+        
     }
 
-    private void OnDisable()
+    private void OnDisable() // unsubscribe from events
     {
         if (drivingState != null)
         {
@@ -83,19 +94,43 @@ public class PlayerVehicleController : MonoBehaviour
 
         if (fireInputEvent != null)
             fireInputEvent.OnEventTriggered -= OnFireInput;
+
+        if (controls != null)
+        {
+            controls.Player.EnterVehicle.performed -= OnEnterVehiclePressed;
+            controls.Disable();
+        }
     }
 
-    private void Update()
+    private void Update()// push input to vehicle each frame
     {
         if (!isDriving || currentVehicle == null) return;
 
-        // pushing cached input into the car each frame
+        // push cached input into the car each frame
         currentVehicle.SetInput(currentThrottle, currentSteer, currentBrake);
     }
 
-    // ---------- Public API (called by VehicleSeatInteraction) ----------
+    
 
-    public void RequestEnterVehicle(VehicleMover vehicle, Transform seatTransform)
+    private void TryInteractWithNearbyVehicle()// look for nearby vehicle to enter
+    {
+        // Search sphere around the player for a VehicleSeatInteraction
+        Collider[] hits = Physics.OverlapSphere(transform.position, 2f);
+
+        foreach (var hit in hits)
+        {
+            VehicleSeatInteraction seat = hit.GetComponent<VehicleSeatInteraction>();
+            if (seat != null)
+            {
+                RequestEnterVehicle(seat.Vehicle, seat.SeatTransform);
+                return;
+            }
+        }
+
+        Debug.Log("No vehicle nearby to enter.");
+    }
+
+    public void RequestEnterVehicle(VehicleMover vehicle, Transform seatTransform) // request to enter a specific vehicle
     {
         if (vehicle == null || playerStateMachine == null) return;
 
@@ -106,20 +141,35 @@ public class PlayerVehicleController : MonoBehaviour
         playerStateMachine.TriggerTransition(enterVehicleEventString);
     }
 
-    public void RequestExitVehicle()
+    private void OnEnterVehiclePressed(InputAction.CallbackContext ctx)// handle enter/exit vehicle input
+    {
+        // Single E key behaviour:
+        // If not driving: try to enter nearest vehicle
+        //  If driving: exit current vehicle
+        if (isDriving)
+        {
+            RequestExitVehicle();
+        }
+        else
+        {
+            TryInteractWithNearbyVehicle();
+        }
+    }
+
+    public void RequestExitVehicle() // request to exit current vehicle
     {
         if (playerStateMachine == null) return;
 
         playerStateMachine.TriggerTransition(exitVehicleEventString);
     }
 
-    // ---------- State Machine Callbacks ----------
+    
 
-    private void OnDrivingEntered(StateData data)
+    private void OnDrivingEntered(StateData data) // called when player enters driving state
     {
         isDriving = true;
 
-        // snap player to seat & hide / freeze controller
+        // snap player to seat & disable player controller
         if (currentSeat != null)
         {
             transform.position = currentSeat.position;
@@ -140,11 +190,11 @@ public class PlayerVehicleController : MonoBehaviour
         if (drivingCamera != null) drivingCamera.Priority = 10;
     }
 
-    private void OnDrivingExited(StateData data)
+    private void OnDrivingExited(StateData data) // called when player exits driving state
     {
         isDriving = false;
 
-        // basic exit logic: step a bit to the left of the seat
+        // exit positioning to the left of the car
         if (currentSeat != null)
         {
             Vector3 exitPos = currentSeat.position + currentSeat.right * -1f;
@@ -155,25 +205,25 @@ public class PlayerVehicleController : MonoBehaviour
         if (characterController != null) characterController.enabled = true;
         if (playerController != null)    playerController.enabled    = true;
 
-        // Clear car + input
+        // Clear car input
         currentVehicle?.SetInput(0f, 0f, false);
         currentVehicle = null;
         currentSeat    = null;
         currentThrottle = currentSteer = 0f;
         currentBrake = false;
 
-        // switch cameras back
+        // switching between camera
         if (onFootCamera != null)  onFootCamera.Priority = 10;
         if (drivingCamera != null) drivingCamera.Priority = 0;
     }
 
-    // ---------- Input Callbacks ----------
+    
 
-    private void OnMoveInput(Vector2 move)
+    private void OnMoveInput(Vector2 move) // handle move input for driving
     {
         if (!isDriving) return;
 
-        // W/S = throttle (vertical), A/D = steering (horizontal)
+        // W/S = throttle , A/D = steering 
         currentThrottle = move.y;
         currentSteer    = move.x;
     }
@@ -182,7 +232,7 @@ public class PlayerVehicleController : MonoBehaviour
     {
         if (!isDriving) return;
 
-        // treat Sprint as brake / handbrake for now
+        // treating Sprint as brake  for now later move this to spacebar maybe
         currentBrake = sprintHeld;
     }
 
@@ -190,7 +240,7 @@ public class PlayerVehicleController : MonoBehaviour
     {
         if (!isDriving) return;
 
-        // horn / shoot from car
+        // horn 
         Debug.Log("Vehicle fire/horn pressed");
     }
 }
