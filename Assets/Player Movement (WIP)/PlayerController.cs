@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public float gravity = -9.81f;
     
     private Vector3 velocity;
+    public float rotationDeadzone = 0.15f;
     
     [Header("Ground Check")]
     public float groundCheckDistance = 0.3f;
@@ -57,10 +58,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMovement(bool sprintHeld) //here I handle all the horizontal ground movement
     {
-        
         Vector2 moveInput = controls.Player.Move.ReadValue<Vector2>();
-        float horizontal = moveInput.x;
-        float vertical = moveInput.y;
         
         Vector3 camForward = cam.forward;
         Vector3 camRight = cam.right;
@@ -70,9 +68,10 @@ public class PlayerController : MonoBehaviour
         camForward.Normalize();
         camRight.Normalize();
         
-        Vector3 moveDirection = camForward * vertical + camRight * horizontal; //move where cam is looking
-        
-        if (moveDirection.magnitude > 0.1f) //Smooths the playermodel rotation when you turn your moouse
+        Vector3 moveDirection = camForward * moveInput.y + camRight * moveInput.x; //move where cam is looking
+
+            
+        if (moveDirection.magnitude > rotationDeadzone) //Smooths the playermodel rotation when you turn your moouse
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
