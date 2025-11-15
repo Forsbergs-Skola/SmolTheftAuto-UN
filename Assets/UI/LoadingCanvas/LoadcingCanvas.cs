@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DialogueCanvas : MonoBehaviour, ICanvasable
+public class LoadcingCanvas : MonoBehaviour, ICanvasable
 {
     private bool _isVisible = false;
     private bool isVisible
@@ -15,6 +15,7 @@ public class DialogueCanvas : MonoBehaviour, ICanvasable
             }
         }
     }
+
     private void Awake()
     {
         isVisible = gameObject.activeInHierarchy;
@@ -22,7 +23,7 @@ public class DialogueCanvas : MonoBehaviour, ICanvasable
 
     public EnumCanvasName CanvasName()
     {
-        return EnumCanvasName.DIALOGUE;
+        return EnumCanvasName.LOADING;
     }
     public GameObject GetCanvasObject()
     {

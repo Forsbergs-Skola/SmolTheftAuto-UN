@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DialogueCanvas : MonoBehaviour, ICanvasable
+public class MainMenuCanvas : MonoBehaviour, ICanvasable
 {
     private bool _isVisible = false;
     private bool isVisible
@@ -22,7 +22,7 @@ public class DialogueCanvas : MonoBehaviour, ICanvasable
 
     public EnumCanvasName CanvasName()
     {
-        return EnumCanvasName.DIALOGUE;
+        return EnumCanvasName.MAIN;
     }
     public GameObject GetCanvasObject()
     {
