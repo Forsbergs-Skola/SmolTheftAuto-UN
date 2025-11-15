@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -6,6 +7,8 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private PlayerControls controls;
     public Transform cam;
+
+    [SerializeField] private CinemachineCamera aimCamera;
     
     [Header("Movement")]
     public float walkSpeed = 6f;
@@ -50,13 +53,15 @@ public class PlayerController : MonoBehaviour
     {
         bool grounded = IsGrounded();
         bool sprintHeld = controls.Player.Sprint.IsPressed();
+        bool aimHeld = controls.Player.Aim.IsPressed();
         
-        PlayerMovement(sprintHeld);
+        PlayerMovement(sprintHeld, aimHeld);
         JumpingAndGravityLogic(grounded);
         AnimationHandling(grounded, sprintHeld);
+        CameraBlending(aimHeld);
     }
 
-    void PlayerMovement(bool sprintHeld) //here I handle all the horizontal ground movement
+    void PlayerMovement(bool sprintHeld, bool aimHeld) //here I handle all the horizontal ground movement
     {
         Vector2 moveInput = controls.Player.Move.ReadValue<Vector2>();
         
@@ -70,11 +75,22 @@ public class PlayerController : MonoBehaviour
         
         Vector3 moveDirection = camForward * moveInput.y + camRight * moveInput.x; //move where cam is looking
 
-            
-        if (moveDirection.magnitude > rotationDeadzone) //Smooths the playermodel rotation when you turn your moouse
+
+        if (aimHeld)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            Vector3 lookDirection = cam.forward;
+            lookDirection.y = 0f;
+            
+            Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+        }
+        else
+        {
+            if (moveDirection.magnitude > rotationDeadzone) //Smooths the playermodel rotation when you turn your moouse
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+            }
         }
         
         float speed = sprintHeld ? sprintSpeed : walkSpeed; //Sets the speed based on if the sprint button (shift currently) is down
@@ -130,5 +146,17 @@ public class PlayerController : MonoBehaviour
         
         animator.SetBool("Sprinting", sprintHeld);
         
+    }
+
+    void CameraBlending(bool aimHeld)
+    {
+        if (aimHeld)
+        {
+            aimCamera.Priority = 20;
+        }
+        else
+        {
+            aimCamera.Priority = 5;
+        }
     }
 }
