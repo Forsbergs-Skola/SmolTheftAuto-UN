@@ -12,6 +12,9 @@ public class QuestItem : MonoBehaviour
     {
         titleText.fontStyle = FontStyles.Strikethrough;
         descriptionText.fontStyle = FontStyles.Strikethrough;
+
+        titleText.color = Color.grey;
+        descriptionText.color = Color.grey;
     }
 
 }

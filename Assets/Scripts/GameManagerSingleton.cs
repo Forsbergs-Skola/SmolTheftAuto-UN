@@ -99,11 +99,10 @@ public class GameManagerSingleton : MonoBehaviour
         CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
         cm.questPanel.InitializeQuestUI(currentPlayerData, currentQuestStartedData);
 
-        questStartedEvent.TriggerEvent(EnumQuest.SUNGLASSES);
-        questStartedEvent.TriggerEvent(EnumQuest.MATCHES);
-        questStartedEvent.TriggerEvent(EnumQuest.GAS_CAN);
-
-        questCompletedEvent.TriggerEvent(EnumQuest.MATCHES);
+        //questStartedEvent.TriggerEvent(EnumQuest.SUNGLASSES);
+        //questStartedEvent.TriggerEvent(EnumQuest.MATCHES);
+        //questStartedEvent.TriggerEvent(EnumQuest.GAS_CAN);
+        //questCompletedEvent.TriggerEvent(EnumQuest.MATCHES);
 
     }
 
@@ -189,14 +188,17 @@ public class GameManagerSingleton : MonoBehaviour
         {
             case EnumQuest.GAS_CAN:
                 // update player data
+                currentPlayerData.hasGasCan = true;
                 // update the inventory UI
                 break;
             case EnumQuest.MATCHES:
                 // update player data
+                currentPlayerData.hasMatches = true;
                 // update the inventory UI
                 break;
             case EnumQuest.SUNGLASSES:
                 // update player data
+                currentPlayerData.hasSunglasses = true;
                 // update the inventory UI
                 break;
             default:

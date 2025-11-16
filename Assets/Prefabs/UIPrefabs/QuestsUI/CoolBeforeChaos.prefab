@@ -161,8 +161,8 @@ MonoBehaviour:
   m_text: 'A stylish elf refuses to support the player unless they prove themselves
     by collecting money around the Plaza. '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c1a0f93d92a60e24a9d2f01589e7f933, type: 2}
-  m_sharedMaterial: {fileID: -8695914656863075527, guid: c1a0f93d92a60e24a9d2f01589e7f933, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 78f70291b293a0e45825ca5d30155179, type: 2}
+  m_sharedMaterial: {fileID: -74709707466328134, guid: 78f70291b293a0e45825ca5d30155179, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -297,8 +297,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Cool Before Chaos
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 75ed078ec0ef8ad419a836a99765552e, type: 2}
-  m_sharedMaterial: {fileID: -8976381277500246418, guid: 75ed078ec0ef8ad419a836a99765552e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0ec78ed060013a14cbc0febd98c21928, type: 2}
+  m_sharedMaterial: {fileID: -4100523396934355594, guid: 0ec78ed060013a14cbc0febd98c21928, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
