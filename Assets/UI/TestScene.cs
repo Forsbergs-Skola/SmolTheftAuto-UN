@@ -9,6 +9,9 @@ public class TestScene : MonoBehaviour
 
     [SerializeField] private EnumQuestPayloadEvent questStartedEvent;
     [SerializeField] private EnumQuestPayloadEvent questEndedEvent;
+    [SerializeField] private EmptyPayloadEvent saveGameEvent;
+    [SerializeField] private EmptyPayloadEvent clearSaveEvent;
+    [SerializeField] private BoolPayloadEvent saveExistsChangedEvent;
 
     [SerializeField] private Button startSunglassesButton;
     [SerializeField] private Button startMatchesButton;
@@ -16,6 +19,9 @@ public class TestScene : MonoBehaviour
     [SerializeField] private Button finishSunglassesButton;
     [SerializeField] private Button finishMatchesButton;
     [SerializeField] private Button finishGasCanButton;
+
+    [SerializeField] private Button clearSaveButton;
+    
 
 
     private CanvasManager cm;
@@ -25,10 +31,32 @@ public class TestScene : MonoBehaviour
         cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
         cm.ClearCanvases();
 
-        finishSunglassesButton.gameObject.SetActive(false);
-        finishMatchesButton.gameObject.SetActive(false);
-        finishGasCanButton.gameObject.SetActive(false);
+    }
 
+    public void FixButtons(PlayerData p, QuestStartedData q)
+    {
+        Debug.Log($"Player has sunglasses: {p.hasSunglasses}");
+        Debug.Log($"Player has gas can: {p.hasGasCan}");
+        Debug.Log($"Player has matches: {p.hasMatches}");
+
+
+        startSunglassesButton.gameObject.SetActive(!q.sunglasses);
+        startMatchesButton.gameObject.SetActive(!q.matches);
+        startGasCanButton.gameObject.SetActive(!q.gasCan);
+
+        finishSunglassesButton.gameObject.SetActive(!p.hasSunglasses && q.sunglasses);
+        finishMatchesButton.gameObject.SetActive(!p.hasMatches && q.matches);
+        finishGasCanButton.gameObject.SetActive(!p.hasGasCan && q.gasCan);
+    }
+
+
+    private void OnEnable()
+    {
+        saveExistsChangedEvent.OnEventTriggered += HandleSaveExistsChanged;
+    }
+    private void OnDisable()
+    {
+        saveExistsChangedEvent.OnEventTriggered -= HandleSaveExistsChanged;
     }
 
 
@@ -77,7 +105,7 @@ public class TestScene : MonoBehaviour
         }
 
         GameManagerSingleton gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
-        bool finalReady = (gm.currentPlayerData.hasGasCan && gm.currentPlayerData.hasSunglasses && gm.currentPlayerData.hasMatches);
+        bool finalReady = (gm.CurrentPlayerData.hasGasCan && gm.CurrentPlayerData.hasSunglasses && gm.CurrentPlayerData.hasMatches);
         //if (finalReady) { Debug.Log("FINAL READY"); }
         if (finalReady)
         {
@@ -132,6 +160,19 @@ public class TestScene : MonoBehaviour
         cm.DisplayCanvas(EnumCanvasName.LOADING, false);
     }
 
+    public void SaveGame()
+    {
+        saveGameEvent.TriggerEvent();
+    }
+    public void ClearSave()
+    {
+        clearSaveEvent.TriggerEvent();
+    }
+
+    private void HandleSaveExistsChanged(bool exists)
+    {
+        clearSaveButton.gameObject.SetActive(exists);
+    }
 
     public void ClearAllCanvases()
     {

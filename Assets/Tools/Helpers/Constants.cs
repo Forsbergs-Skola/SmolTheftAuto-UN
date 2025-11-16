@@ -11,6 +11,7 @@ namespace GameTools
             public const string UI_EVENT_SYSTEM = "UI_EVENT_SYSTEM";
             public const string CANVAS_MANAGER = "CANVAS_MANAGER";
             public const string GAME_MANAGER = "GAME_MANAGER";
+            public const string SAVE_MANAGER = "SAVE_MANAGER";
         }
     }
 }

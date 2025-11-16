@@ -70,6 +70,19 @@ public class QuestPanel : MonoBehaviour
         finishedItem.StrikethoughText();
     }
 
+    public void ResetQuestUI()
+    {
+        List<QuestItem> freshList = new List<QuestItem>();
+        for (int i = activeQuests.Count - 1; i >= 0; i--)
+        {
+            QuestItem thisItem = activeQuests[i];
+            activeQuests.RemoveAt(i);
+            Destroy(thisItem.gameObject);
+        }
+        activeQuests = freshList;
+
+    }
+
     public void InitializeQuestUI(PlayerData playerdata, QuestStartedData questStartedData)
     {
         if (playerdata.hasSunglasses)
