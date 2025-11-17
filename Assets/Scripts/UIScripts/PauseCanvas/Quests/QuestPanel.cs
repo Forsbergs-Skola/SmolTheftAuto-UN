@@ -14,7 +14,6 @@ public class QuestPanel : MonoBehaviour
 
     List<QuestItem> activeQuests = new List<QuestItem>();
 
-
     public void StartQuest(EnumQuest quest)
     {
         foreach(QuestItem _quest in activeQuests)
@@ -80,7 +79,6 @@ public class QuestPanel : MonoBehaviour
             Destroy(thisItem.gameObject);
         }
         activeQuests = freshList;
-
     }
 
     public void InitializeQuestUI(PlayerData playerdata, QuestStartedData questStartedData)
@@ -136,13 +134,10 @@ public class QuestPanel : MonoBehaviour
     {
         if (order < 0) { order = 0; }
         if (order > 3) { order = 3; }
-
-        float magicNumber = -SPACING - ((float)order * SPACING);
-
+        float spacing = -SPACING - ((float)order * SPACING);
         rectXForm.anchorMin = new Vector2(0f, 1f);
         rectXForm.anchorMax = new Vector2(1f, 1f);
-        rectXForm.offsetMax = new Vector2(0f, magicNumber);
+        rectXForm.offsetMax = new Vector2(0f, spacing);
         rectXForm.offsetMin = new Vector2(0f, 0f);
-
     }
 }

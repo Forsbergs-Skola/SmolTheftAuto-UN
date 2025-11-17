@@ -31,15 +31,12 @@ public class TestScene : MonoBehaviour
         cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
         cm.ClearCanvases();
 
+        TestDisplayPause();
+
     }
 
     public void FixButtons(PlayerData p, QuestStartedData q)
     {
-        Debug.Log($"Player has sunglasses: {p.hasSunglasses}");
-        Debug.Log($"Player has gas can: {p.hasGasCan}");
-        Debug.Log($"Player has matches: {p.hasMatches}");
-
-
         startSunglassesButton.gameObject.SetActive(!q.sunglasses);
         startMatchesButton.gameObject.SetActive(!q.matches);
         startGasCanButton.gameObject.SetActive(!q.gasCan);

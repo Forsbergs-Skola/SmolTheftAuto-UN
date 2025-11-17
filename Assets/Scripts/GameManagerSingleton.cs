@@ -13,11 +13,12 @@ public enum EnumQuest
 
 public class GameManagerSingleton : MonoBehaviour
 {
-
-    // for testing --  remove later
-    [SerializeField] private TestScene testScene;
-
     public const int MAX_HEALTH = 100;
+
+    [SerializeField] private SaveManager sm;
+    
+    [Header("For Testing -- Remove later")]
+    [SerializeField] private TestScene testScene;
 
     [Header("Event Channels")]
     [SerializeField] private EnumQuestPayloadEvent questCompletedEvent;
@@ -47,7 +48,6 @@ public class GameManagerSingleton : MonoBehaviour
     }
     private void Start()
     {
-        SaveManager sm = GameObject.FindGameObjectWithTag(Constants.Tags.SAVE_MANAGER).GetComponent<SaveManager>();
         if (sm.SaveExists())
         {
             SaveData data = sm.Load();
@@ -61,10 +61,12 @@ public class GameManagerSingleton : MonoBehaviour
             currentQuestStartedData = ResetQuestsData();
             saveExistsChangedEvent.TriggerEvent(false);
         }
-
-        CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
-        cm.questPanel.InitializeQuestUI(currentPlayerData, currentQuestStartedData);
-        testScene.FixButtons(currentPlayerData, currentQuestStartedData);
+        CanvasManager? cm = GetCanvasManager();
+        if (cm != null)
+        {
+            cm.questPanel.InitializeQuestUI(currentPlayerData, currentQuestStartedData);
+            testScene.FixButtons(currentPlayerData, currentQuestStartedData);
+        }
     }
 
     private PlayerData ResetPlayerData()
@@ -103,25 +105,22 @@ public class GameManagerSingleton : MonoBehaviour
     
     private void HandleOnSaveRequested()
     {
-        SaveManager sm = GameObject.FindGameObjectWithTag(Constants.Tags.SAVE_MANAGER).GetComponent<SaveManager>();
         sm.Save(currentPlayerData, currentQuestStartedData);
         saveExistsChangedEvent.TriggerEvent(true);
-        Debug.Log("SAVE");
     }
     private void HandleOnClearSaveRequested()
     {
-        SaveManager sm = GameObject.FindGameObjectWithTag(Constants.Tags.SAVE_MANAGER).GetComponent<SaveManager>();
         sm.Clear();
         currentPlayerData = ResetPlayerData();
         currentQuestStartedData = ResetQuestsData();
         saveExistsChangedEvent.TriggerEvent(false);
 
-        CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
-        cm.questPanel.ResetQuestUI();
+        CanvasManager? cm = GetCanvasManager();
+        if (cm != null) { cm.questPanel.ResetQuestUI(); }
 
         // TEMP
-        Debug.Log("CLEAR SAVE");
-        testScene.FixButtons(currentPlayerData, currentQuestStartedData);
+        if (testScene != null) { testScene.FixButtons(currentPlayerData, currentQuestStartedData); }
+        
     }
 
     private void HandleOnAmmoChanged(int ammo)
@@ -139,12 +138,8 @@ public class GameManagerSingleton : MonoBehaviour
     
     private void HandleOnQuestStarted(EnumQuest startedQuest)
     {
-        CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
-        if (cm == null)
-        {
-            Debug.LogError("No reference to CanvasManager");
-            return;
-        }
+        CanvasManager? cm = GetCanvasManager();
+        if (cm == null) { Debug.LogError("No CM"); return; }
 
         switch (startedQuest)
         {
@@ -172,12 +167,8 @@ public class GameManagerSingleton : MonoBehaviour
 
     private void HandleOnQuestCompleted(EnumQuest completedQuest)
     {
-        CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
-        if (cm == null)
-        {
-            Debug.LogError("No reference to CanvasManager");
-            return;
-        }
+        CanvasManager? cm = GetCanvasManager();
+        if (cm == null) { Debug.LogError("No CM"); return; }
         cm.questPanel.FinishQuest(completedQuest);
 
 
@@ -201,6 +192,10 @@ public class GameManagerSingleton : MonoBehaviour
             default:
                 return;
         }
-        // Save the new player data to the persistent data store
+    }
+
+    private CanvasManager? GetCanvasManager()
+    {
+        return GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
     }
 }

@@ -59,14 +59,6 @@ public class SaveManager : MonoBehaviour
     private string SaveFilePath =>
         Path.Combine(Application.persistentDataPath, "save.json");
 
-    private void Awake()
-    {
-        // Lazy Singleton
-        if (GameObject.FindGameObjectsWithTag(Constants.Tags.SAVE_MANAGER).Length > 0) { Destroy(gameObject); }
-        tag = Constants.Tags.SAVE_MANAGER;
-        DontDestroyOnLoad(gameObject);
-    }
-
     /////////
     // API //
     /////////
