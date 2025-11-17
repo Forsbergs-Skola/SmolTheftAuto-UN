@@ -1,2 +1,69 @@
 # SmolTheftAuto-UN
-School Project
+
+A Christmas-themed Small Theft Auto game built in Unity with C#.
+
+## Project Overview
+
+- **Team Size:** 5 members
+- **Duration:** 3 weeks
+- **Theme:** Christmas/Holiday
+- **Assets:** Kenney Assets (Holiday Kit, Buildings, Roads, Vehicles, Characters)
+
+## Project Structure
+
+See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for detailed folder organization.
+
+
+## Features
+
+### Core Features (Tasks for G)
+- ✅ Player movement and controls
+- ✅ World with roads and buildings
+- ✅ NPC spawning and behavior
+- ✅ NPC damage system
+- ✅ Player health and regeneration
+- ✅ Weapon system (handgun, machine gun)
+- ✅ Weapon reloading
+- ✅ Money system
+- ✅ Vehicle system (entry/exit, driving, damage)
+
+### Additional Features (Tasks for VG)
+- Ammunition system
+- Store system
+- Grenade system
+- Quest system
+- Save/Load system
+
+## Getting Started
+
+### Setup
+1. Clone the repository
+2. Open the project in Unity
+3. See feature-specific guides in respective folders
+
+## Team Workflow
+
+1. Create feature branches for your work
+2. Work on assigned features
+3. Commit frequently with clear messages
+4. Push to GitHub and create pull requests
+5. Review and merge after approval
+
+## Code Standards
+
+- Use namespaces: `SmolTheftAuto.FeatureName`
+- Avoid massive Update() blocks
+- Use events for system communication
+- Create helper functions to avoid repetition
+- Comment complex logic
+- Follow folder structure guidelines
+
+## Resources
+
+- [Unity Documentation](https://docs.unity3d.com/)
+- [Kenney Assets](https://kenney.nl/)
+- [Project Structure Guide](PROJECT_STRUCTURE.md)
+
+## License
+
+School Project - Educational Use
