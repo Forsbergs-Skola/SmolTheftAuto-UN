@@ -11,6 +11,8 @@ public enum EnumQuest
     FINAL
 }
 
+
+
 public class GameManagerSingleton : MonoBehaviour
 {
     public const int MAX_HEALTH = 100;
