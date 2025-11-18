@@ -211,7 +211,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: COOL_ELF_CONVO_2
+          m_StringArgument: EXAMPLE_DIALOGUE
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &182564153
@@ -5346,6 +5346,7 @@ MonoBehaviour:
   conversations:
   - {fileID: 11400000, guid: afbcedf561a45614faa9eb878e1d7e45, type: 2}
   - {fileID: 11400000, guid: 89adfb35f06bba04c9f8be28ee30ca16, type: 2}
+  - {fileID: 11400000, guid: 1c54574d959d28c4dabe6f806ccfa52f, type: 2}
 --- !u!1 &3724370847941302629
 GameObject:
   m_ObjectHideFlags: 0
