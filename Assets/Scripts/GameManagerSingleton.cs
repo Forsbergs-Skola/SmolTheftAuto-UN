@@ -201,6 +201,7 @@ public class GameManagerSingleton : MonoBehaviour
         if (cm == null) { Debug.LogError("No CM"); return; }
         cm.questPanel.FinishQuest(completedQuest);
 
+        cm.ActivateMissionPassed();
 
         switch (completedQuest)
         {
