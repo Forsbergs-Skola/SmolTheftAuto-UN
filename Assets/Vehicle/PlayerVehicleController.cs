@@ -46,10 +46,27 @@ public class PlayerVehicleController : MonoBehaviour
     {
         if (animator == null) animator = GetComponent<Animator>();
         if (characterController == null) characterController = GetComponent<CharacterController>();
+<<<<<<< Updated upstream
         if (playerController == null) playerController = GetComponent<PlayerController>();
     }
 
     private void OnEnable()
+=======
+        if (playerController == null)    playerController    = GetComponent<PlayerController>();
+
+        controls = new PlayerControls();
+        foreach (StateSO state in playerStateMachine.GetStates())
+        {
+            state.OnStateEntered += HandleOnStateEntered;   
+        }
+        
+    }
+ private void HandleOnStateEntered(StateData data)
+    {
+        Debug.Log("Entered State: " + data.StateName);
+    }
+    private void OnEnable() // subscribe to events
+>>>>>>> Stashed changes
     {
         if (drivingState != null)
         {
