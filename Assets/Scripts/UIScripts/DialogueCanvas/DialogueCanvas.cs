@@ -71,8 +71,14 @@ public class DialogueCanvas : MonoBehaviour, ICanvasable
             speakerNameText.text = thisLine.speakerName;
 
             //portraitImage.texture = Resources.Load<Texture>(thisLine.portraitTexturePath);
+
+            
+
             leftPortraitImage.texture = Resources.Load<Texture>(thisLine.leftTexturePath);
             rightPortraitImage.texture = Resources.Load<Texture>(thisLine.rightTexturePath);
+
+            if (leftPortraitImage.texture == null) { leftPortraitImage.texture = Resources.Load<Texture>("DialoguePortraits/Blank"); }
+            if (rightPortraitImage.texture == null) { rightPortraitImage.texture = Resources.Load<Texture>("DialoguePortraits/Blank"); }
 
             if (thisLine.subdueLeft) { leftPortraitImage.color = Color.grey; }
             else { leftPortraitImage.color = Color.white; }
