@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53bcdae15120d964a9e49dd513d4b7c7, type: 3}
+  m_Name: TestConvo_A
+  m_EditorClassIdentifier: Assembly-CSharp::Conversation
+  conversationName: COOL_ELF_CONVO_1
+  lines:
+  - speakerName: Sunglasses Elf
+    dialogueLine: You need some sunglasses, bruh...
+    portraitTexturePath: DialoguePortraits/ExampleElf
+  - speakerName: Sunglasses Elf
+    dialogueLine: Go find some money and I'll sell you some
+    portraitTexturePath: DialoguePortraits/AltExampleElf_01
+  - speakerName: Sunglasses Elf
+    dialogueLine: Don't even try coming back here without my f***ing money.
+    portraitTexturePath: DialoguePortraits/AltExampleElf_02

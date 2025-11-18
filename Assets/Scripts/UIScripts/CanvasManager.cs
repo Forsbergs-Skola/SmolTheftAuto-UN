@@ -45,9 +45,13 @@ public class CanvasManager : MonoBehaviour
 {
     [SerializeField] private QuestPanel _questPanel;
     public QuestPanel questPanel { get => _questPanel; }
-
-
     private List<ICanvasable> canvases = new List<ICanvasable>();
+
+    private EnumCanvasName? currentActiveCanvas = null;
+    private EnumCanvasName? previousActiveCanvas = null;
+    public EnumCanvasName? CurrentActiveCanvas { get => currentActiveCanvas; }
+    public EnumCanvasName? PreviousActiveCanvas { get => previousActiveCanvas; }
+
 
     private void Awake()
     {
@@ -67,7 +71,7 @@ public class CanvasManager : MonoBehaviour
         ClearCanvases();
     }
 
-    public void DisplayCanvas(EnumCanvasName canvasName, bool clearFirst = true)
+    public void DisplayCanvas(EnumCanvasName? canvasName, bool clearFirst = true)
     {
         if (clearFirst)
         {
@@ -85,15 +89,58 @@ public class CanvasManager : MonoBehaviour
         {
             if (canvas.CanvasName() == canvasName)
             {
+                previousActiveCanvas = currentActiveCanvas;
                 canvas.SetIsVisible(true);
                 // set the sorting order to 10, so it is on top
                 canvas.GetCanvasObject().GetComponent<Canvas>().sortingOrder = 10;
+                currentActiveCanvas = canvas.CanvasName();
                 return;
             }
         }
         Debug.LogError($"Invalid canvas name: {canvasName}");
         return;
     }
+
+
+    public void StartDialogue(string convoName)
+    {
+        // tell the dialogue canvas to find and load the correct conversation
+
+        ICanvasable dialogueIC = GetCanvasWithName(EnumCanvasName.DIALOGUE);
+        if (dialogueIC == null) { Debug.LogError("Can't get DIALOGUE canvas"); return; }
+        
+        DialogueCanvas dc = dialogueIC.GetCanvasObject().GetComponent<DialogueCanvas>();
+        if (dc.PrepareConvo(convoName))
+        {
+            DisplayCanvas(EnumCanvasName.DIALOGUE);
+            dc.StartCurrentConvo();
+
+        }
+        else
+        {
+            Debug.LogError($"Invalid conversation name: {convoName}");
+        }
+    }
+    public void FinishDialogue()
+    {
+        ICanvasable dialogueIC = GetCanvasWithName(EnumCanvasName.DIALOGUE);
+        if (dialogueIC == null) { Debug.LogError("Can't get DIALOGUE canvas"); return; }
+        DialogueCanvas dc = dialogueIC.GetCanvasObject().GetComponent<DialogueCanvas>();
+        dc.CleanUp();
+
+        DisplayCanvas(previousActiveCanvas);
+    }
+
+
+    private ICanvasable? GetCanvasWithName(EnumCanvasName? canvasName)
+    {
+        foreach (ICanvasable canv in canvases)
+        {
+            if (canv.CanvasName() == canvasName) { return canv; }
+        }
+        return null;
+    }
+
 
     public void ClearCanvases()
     {

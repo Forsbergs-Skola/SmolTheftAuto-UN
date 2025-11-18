@@ -22,12 +22,21 @@ public class GameManagerSingleton : MonoBehaviour
     [Header("For Testing -- Remove later")]
     [SerializeField] private TestScene testScene;
 
-    [Header("Event Channels")]
+    [Header("Quest Event Channels")]
     [SerializeField] private EnumQuestPayloadEvent questCompletedEvent;
     [SerializeField] private EnumQuestPayloadEvent questStartedEvent;
+
+    [Header("Gameplay Events")]
     [SerializeField] private IntPayloadEvent moneyChangedEvent;
     [SerializeField] private IntPayloadEvent ammoChangedEvent;
     [SerializeField] private IntPayloadEvent healthChangedEvent;
+
+    [Header("Dialogue Events")]
+    [SerializeField] private StringPayloadEvent dialogueStartedEvent;
+    [SerializeField] private EmptyPayloadEvent dialogueEndedEvent;
+    [SerializeField] private EmptyPayloadEvent dialogueAdvancedEvent;
+
+    [Header("Save Game Events")]
     [SerializeField] private EmptyPayloadEvent saveGameRequestedEvent;
     [SerializeField] private EmptyPayloadEvent clearSaveRequestedEvent;
     [SerializeField] private BoolPayloadEvent saveExistsChangedEvent;
@@ -67,7 +76,19 @@ public class GameManagerSingleton : MonoBehaviour
         if (cm != null)
         {
             cm.questPanel.InitializeQuestUI(currentPlayerData, currentQuestStartedData);
-            testScene.FixButtons(currentPlayerData, currentQuestStartedData);
+
+            // testing logic -- remove later
+
+            cm.DisplayCanvas(EnumCanvasName.HUD);
+
+
+
+
+
+
+
+            testScene = null;
+            if (testScene!= null) { testScene.FixButtons(currentPlayerData, currentQuestStartedData); }
         }
     }
 
@@ -89,6 +110,10 @@ public class GameManagerSingleton : MonoBehaviour
         healthChangedEvent.OnEventTriggered += HandleOnHealthChanged;
         saveGameRequestedEvent.OnEventTriggered += HandleOnSaveRequested;
         clearSaveRequestedEvent.OnEventTriggered += HandleOnClearSaveRequested;
+
+        dialogueStartedEvent.OnEventTriggered += HandleOnStartDialogue;
+        dialogueEndedEvent.OnEventTriggered += HandleOnFinishDialogue;
+
     }
     private void OnDisable()
     {
@@ -99,6 +124,9 @@ public class GameManagerSingleton : MonoBehaviour
         healthChangedEvent.OnEventTriggered -= HandleOnHealthChanged;
         saveGameRequestedEvent.OnEventTriggered -= HandleOnSaveRequested;
         clearSaveRequestedEvent.OnEventTriggered -= HandleOnClearSaveRequested;
+
+        dialogueStartedEvent.OnEventTriggered -= HandleOnStartDialogue;
+        dialogueEndedEvent.OnEventTriggered -= HandleOnFinishDialogue;
     }
 
     ////////////////////
@@ -195,6 +223,45 @@ public class GameManagerSingleton : MonoBehaviour
                 return;
         }
     }
+
+    private void HandleOnStartDialogue(string conversationName)
+    {
+        CanvasManager cm = GetCanvasManager();
+        if (cm.CurrentActiveCanvas == EnumCanvasName.DIALOGUE)
+        {
+            Debug.LogWarning("There is already an active dialogue");
+            return;
+        }
+
+        // check if conversationName triggers any "quest started" or "quest finished" events
+        // if so, trigger them
+        // Keep ^^that data in GameTools.Constants maybe
+
+        ////////////////////
+        // PAUSE gameplay //
+        ////////////////////
+        // ...TODO
+
+        cm.StartDialogue(conversationName);
+    }
+    private void HandleOnFinishDialogue()
+    {
+        CanvasManager cm = GetCanvasManager();
+        if (cm.CurrentActiveCanvas != EnumCanvasName.DIALOGUE)
+        {
+            Debug.LogWarning("Something weird happened");
+            return;
+        }
+
+        ///////////////////////
+        // Un-PAUSE gameplay //
+        ///////////////////////
+        // ...TODO
+
+        cm.FinishDialogue();
+
+    }
+
 
     private CanvasManager? GetCanvasManager()
     {
