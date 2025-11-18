@@ -10,7 +10,8 @@ public class DialogueCanvas : MonoBehaviour, ICanvasable
 
     [Range(0.001f, 0.5f)][SerializeField] private float textRevealInterval = 0.01f;
 
-    [SerializeField] private RawImage portraitImage;
+    [SerializeField] private RawImage leftPortraitImage;
+    [SerializeField] private RawImage rightPortraitImage;
     [SerializeField] private TMP_Text speakerNameText;
     [SerializeField] private TMP_Text dialogueLineText;
     [SerializeField] private Button continueButton;
@@ -68,11 +69,24 @@ public class DialogueCanvas : MonoBehaviour, ICanvasable
             currentLineIdx++;
             DialogueLine thisLine = currentConvo.GetLineAtIdx(currentLineIdx);
             speakerNameText.text = thisLine.speakerName;
-            portraitImage.texture = Resources.Load<Texture>(thisLine.portraitTexturePath);
+
+            //portraitImage.texture = Resources.Load<Texture>(thisLine.portraitTexturePath);
+            leftPortraitImage.texture = Resources.Load<Texture>(thisLine.leftTexturePath);
+            rightPortraitImage.texture = Resources.Load<Texture>(thisLine.rightTexturePath);
+
+            if (thisLine.subdueLeft) { leftPortraitImage.color = Color.grey; }
+            else { leftPortraitImage.color = Color.white; }
+            if (thisLine.subdueRight) { rightPortraitImage.color = Color.grey; }
+            else { rightPortraitImage.color = Color.white; }
+
+
+
             continueButton.gameObject.SetActive(false);
             StartCoroutine(LineRevealer(thisLine.dialogueLine));
         }
     }
+
+
 
 
 
@@ -95,7 +109,9 @@ public class DialogueCanvas : MonoBehaviour, ICanvasable
 
     public void CleanUp()
     {
-        portraitImage.texture = null;
+        //portraitImage.texture = null;
+        leftPortraitImage.texture = null;
+        rightPortraitImage.texture = null;
         speakerNameText.text = "";
         dialogueLineText.text = "";
         currentConvo = null;

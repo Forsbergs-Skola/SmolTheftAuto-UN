@@ -14,12 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Conversation
   conversationName: COOL_ELF_CONVO_2
   lines:
-  - speakerName: Reminder Elf
+  - speakerName: Player Elf
     dialogueLine: Jeffery Epstein...
-    portraitTexturePath: DialoguePortraits/AltExampleElf_01
-  - speakerName: Reminder Elf
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/ExampleElf
+    subdueLeft: 0
+    subdueRight: 1
+  - speakerName: NPC Elf
     dialogueLine: did not...
-    portraitTexturePath: DialoguePortraits/AltExampleElf_01
-  - speakerName: Reminder Elf
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/ExampleElf
+    subdueLeft: 1
+    subdueRight: 0
+  - speakerName: Player Elf
     dialogueLine: kill himself.
-    portraitTexturePath: DialoguePortraits/AltExampleElf_01
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/ExampleElf
+    subdueLeft: 0
+    subdueRight: 1

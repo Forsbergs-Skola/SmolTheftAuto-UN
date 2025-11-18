@@ -14,12 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Conversation
   conversationName: COOL_ELF_CONVO_1
   lines:
-  - speakerName: Sunglasses Elf
-    dialogueLine: You need some sunglasses, bruh...
-    portraitTexturePath: DialoguePortraits/ExampleElf
-  - speakerName: Sunglasses Elf
-    dialogueLine: Go find some money and I'll sell you some
-    portraitTexturePath: DialoguePortraits/AltExampleElf_01
-  - speakerName: Sunglasses Elf
-    dialogueLine: Don't even try coming back here without my f***ing money.
-    portraitTexturePath: DialoguePortraits/AltExampleElf_02
+  - speakerName: Elf Guard
+    dialogueLine: Halt! This area is for authorized elves only.
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/ExampleElf
+    subdueLeft: 1
+    subdueRight: 0
+  - speakerName: Player Elf
+    dialogueLine: Relax, I'm just delivering some Christmac cheer...I think.
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/ExampleElf
+    subdueLeft: 0
+    subdueRight: 1
+  - speakerName: ElfGuard
+    dialogueLine: Fine. But stay out of trouble. The snaowmen are watching you.
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/ExampleElf
+    subdueLeft: 1
+    subdueRight: 0
