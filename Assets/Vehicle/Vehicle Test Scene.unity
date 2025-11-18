@@ -939,8 +939,12 @@ MonoBehaviour:
   characterController: {fileID: 1775165359}
   playerController: {fileID: 1775165358}
   animator: {fileID: 1775165357}
+  playerStateMachine: {fileID: 11400000, guid: 7e31ab99498937c44b1474ea698320c8, type: 2}
+  drivingState: {fileID: 11400000, guid: a05d9f86aa7f0bb4b9d47e87b009f4fb, type: 2}
+=======
   playerStateMachine: {fileID: 11400000, guid: d77393677cbed3246923b564d8b26e72, type: 2}
   drivingState: {fileID: 11400000, guid: d938796f8f7de25419e234089061a9a4, type: 2}
+
   enterVehicleEventString: EnterVehicle
   exitVehicleEventString: ExitVehicle
   moveInputEvent: {fileID: 11400000, guid: 61bd482cb51cffe489109d8976dc6d3e, type: 2}

@@ -51,9 +51,25 @@ public class PlayerVehicleController : MonoBehaviour
         if (playerController == null)    playerController    = GetComponent<PlayerController>();
 
         controls = new PlayerControls();
+        foreach (StateSO state in playerStateMachine.GetStates())
+        {
+            state.OnStateEntered += HandleOnStateEntered;   
+        }
+        
+    }
+ private void HandleOnStateEntered(StateData data)
+    {
+        Debug.Log("Entered State: " + data.StateName);
+    }
+    private void OnEnable() // subscribe to events
+=======
+        if (playerController == null)    playerController    = GetComponent<PlayerController>();
+
+        controls = new PlayerControls();
     }
 
     private void OnEnable() // subscribe to events
+
     {
         if (drivingState != null)
         {
