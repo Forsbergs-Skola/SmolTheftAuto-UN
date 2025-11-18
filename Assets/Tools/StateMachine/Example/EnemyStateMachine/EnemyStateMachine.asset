@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599d3733172f7074cbdf0652085e7656, type: 3}
+  m_Name: EnemyStateMachine
+  m_EditorClassIdentifier: Assembly-CSharp::StateMachine.SimpleStateMachineSO
+  initialState: {fileID: 11400000, guid: 8e510db850f381847a91843d1e2777c2, type: 2}
+  states:
+  - {fileID: 11400000, guid: 8e510db850f381847a91843d1e2777c2, type: 2}
+  - {fileID: 11400000, guid: 824cc5371d2bac741924eeaf2caaf07d, type: 2}
+  - {fileID: 11400000, guid: cf7d94d172ec06240988304a45c79dd1, type: 2}
+  transitions:
+  - {fileID: 11400000, guid: fe4ee8cf8633f2d448ad4f18513ed940, type: 2}
+  - {fileID: 11400000, guid: 4092903c8a3ccb6418e9bc57bbf519b3, type: 2}
+  - {fileID: 11400000, guid: 9be1b6a4323eae44589669bbbeb87cc9, type: 2}

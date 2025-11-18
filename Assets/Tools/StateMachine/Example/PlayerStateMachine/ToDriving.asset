@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1867374ec7f521d44b3359cebb78b913, type: 3}
+  m_Name: ToDriving
+  m_EditorClassIdentifier: Assembly-CSharp::StateMachine.StateTransitionSO
+  toState: {fileID: 11400000, guid: d938796f8f7de25419e234089061a9a4, type: 2}
+  transitionName: TO_DRIVING
+  eventString: TO_DRIVING
+  transitionID: 0bf39479-3dec-41a7-acf1-45bfabd35996
