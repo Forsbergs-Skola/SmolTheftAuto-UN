@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private PlayerControls controls;
     public Transform cam;
 
-    [SerializeField] private CinemachineCamera aimCamera;
+    [SerializeField] private Transform yawTarget;
     
     [Header("Movement")]
     public float walkSpeed = 6f;
@@ -25,64 +25,63 @@ public class PlayerController : MonoBehaviour
     [Header("Ground Check")]
     public float groundCheckDistance = 0.3f;
     public LayerMask groundLayer;
-    
-    void Awake()
-    {
-        controls = new PlayerControls();
-    }
-    
-    void OnEnable()
-    {
-        controls.Enable();
-    }
+    public bool isAiming;
 
-    void OnDisable()
-    {
-        controls.Disable();
-    }
-    
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        
-        animator = GetComponent<Animator>();
-    }
+    private Vector3 moveDirection;
+
+    void Awake() => controls = new PlayerControls();
+    void OnEnable() => controls.Enable();
+    void OnDisable() => controls.Disable();
+    void Start() => animator = GetComponent<Animator>();
     
     void Update()
     {
         bool grounded = IsGrounded();
         bool sprintHeld = controls.Player.Sprint.IsPressed();
-        bool aimHeld = controls.Player.Aim.IsPressed();
         
-        PlayerMovement(sprintHeld, aimHeld);
+        PlayerMovement(sprintHeld);
         JumpingAndGravityLogic(grounded);
         AnimationHandling(grounded, sprintHeld);
-        CameraBlending(aimHeld);
     }
 
-    void PlayerMovement(bool sprintHeld, bool aimHeld) //here I handle all the horizontal ground movement
+    void PlayerMovement(bool sprintHeld) //here I handle all the horizontal ground movement
     {
         Vector2 moveInput = controls.Player.Move.ReadValue<Vector2>();
-        
-        Vector3 camForward = cam.forward;
-        Vector3 camRight = cam.right;
-        
-        camForward.y = 0f;
-        camRight.y = 0f;
-        camForward.Normalize();
-        camRight.Normalize();
-        
-        Vector3 moveDirection = camForward * moveInput.y + camRight * moveInput.x; //move where cam is looking
 
-
-        if (aimHeld)
+        if (isAiming)
         {
-            Vector3 lookDirection = cam.forward;
+            Vector3 forward = transform.forward;
+            Vector3 right = transform.right;
+        
+            forward.y = 0f;
+            right.y = 0f;
+            forward.Normalize();
+            right.Normalize();
+           
+            moveDirection = forward * moveInput.y + right * moveInput.x; //move where cam is looking
+        }
+        else
+        {
+            Vector3 camForward = cam.forward;
+            Vector3 camRight = cam.right;
+        
+            camForward.y = 0f;
+            camRight.y = 0f;
+            camForward.Normalize();
+            camRight.Normalize();
+            moveDirection = camForward * moveInput.y + camRight * moveInput.x; //move where cam is looking
+        }
+
+        if (isAiming)
+        {
+            Vector3 lookDirection = yawTarget.forward;
             lookDirection.y = 0f;
-            
-            Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+
+            if (lookDirection.sqrMagnitude > rotationDeadzone)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+            }
         }
         else
         {
@@ -121,7 +120,7 @@ public class PlayerController : MonoBehaviour
             velocity.y = jumpForce;
     }
 
-    void AnimationHandling(bool grounded, bool sprintHeld) //Handles Sprinting, Falling and Jumping animations
+    void AnimationHandling(bool grounded, bool sprintHeld) //Sprinting, Falling, Jumping animations
     {
         animator.SetBool("Grounded", grounded);
         
@@ -147,16 +146,5 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Sprinting", sprintHeld);
         
     }
-
-    void CameraBlending(bool aimHeld)
-    {
-        if (aimHeld)
-        {
-            aimCamera.Priority = 20;
-        }
-        else
-        {
-            aimCamera.Priority = 5;
-        }
-    }
+    
 }

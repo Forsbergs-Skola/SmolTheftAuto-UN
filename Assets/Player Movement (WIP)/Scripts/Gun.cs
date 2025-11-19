@@ -13,7 +13,7 @@ public class Gun : MonoBehaviour
     private void Awake() => controls = new PlayerControls();
     private void OnEnable() => controls.Enable();
     private void OnDisable() => controls.Disable();
-    private void Start() => cooldown = gunCooldown;
+    private void Start() => cooldown = 0f;
 
     private void Update()
     {
