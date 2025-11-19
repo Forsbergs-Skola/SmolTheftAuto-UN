@@ -112,9 +112,11 @@ public class GameManagerSingleton : MonoBehaviour
         healthChangedEvent.OnEventTriggered += HandleOnHealthChanged;
         saveGameRequestedEvent.OnEventTriggered += HandleOnSaveRequested;
         clearSaveRequestedEvent.OnEventTriggered += HandleOnClearSaveRequested;
-
         dialogueStartedEvent.OnEventTriggered += HandleOnStartDialogue;
         dialogueEndedEvent.OnEventTriggered += HandleOnFinishDialogue;
+
+        checkpointReachedEvent.OnEventTriggered += HandleOnCheckpointReached;
+        npcKilledEvent.OnEventTriggered += HandleOnNpcKilled;
 
     }
     private void OnDisable()
@@ -126,9 +128,11 @@ public class GameManagerSingleton : MonoBehaviour
         healthChangedEvent.OnEventTriggered -= HandleOnHealthChanged;
         saveGameRequestedEvent.OnEventTriggered -= HandleOnSaveRequested;
         clearSaveRequestedEvent.OnEventTriggered -= HandleOnClearSaveRequested;
-
         dialogueStartedEvent.OnEventTriggered -= HandleOnStartDialogue;
         dialogueEndedEvent.OnEventTriggered -= HandleOnFinishDialogue;
+
+        checkpointReachedEvent.OnEventTriggered -= HandleOnCheckpointReached;
+        npcKilledEvent.OnEventTriggered -= HandleOnNpcKilled;
     }
 
     ////////////////////
@@ -163,9 +167,9 @@ public class GameManagerSingleton : MonoBehaviour
     {
         currentPlayerData.health = health;
     }
-    private void HandleOnMoneyChanged(int money)
+    private void HandleOnMoneyChanged(int moneyAdded)
     {
-        currentPlayerData.money = money;
+        currentPlayerData.money += moneyAdded;
     }
     
     private void HandleOnQuestStarted(EnumQuest startedQuest)
@@ -264,6 +268,17 @@ public class GameManagerSingleton : MonoBehaviour
         cm.FinishDialogue();
 
     }
+
+    private void HandleOnNpcKilled()
+    {
+        currentPlayerData.npcsKilled += 1;
+    }
+    private void HandleOnCheckpointReached()
+    {
+        currentPlayerData.checkpointsReached += 1;
+    }
+
+
 
 
     private CanvasManager? GetCanvasManager()

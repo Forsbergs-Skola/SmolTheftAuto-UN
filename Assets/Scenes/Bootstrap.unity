@@ -8273,8 +8273,8 @@ MonoBehaviour:
   moneyChangedEvent: {fileID: 11400000, guid: ac49038f3051f634d86cf7e241e32a79, type: 2}
   ammoChangedEvent: {fileID: 11400000, guid: aa9803c1e0d111743bb07b3a2781551a, type: 2}
   healthChangedEvent: {fileID: 11400000, guid: 253e17d71a966904a8e01c7aaab73b3e, type: 2}
-  npcKilledEvent: {fileID: 0}
-  checkpointReachedEvent: {fileID: 0}
+  npcKilledEvent: {fileID: 11400000, guid: 2020a57a7160c7f489e4db9f8f8fad0c, type: 2}
+  checkpointReachedEvent: {fileID: 11400000, guid: e5b85c627d945bf41b7f51f25a378e21, type: 2}
   dialogueStartedEvent: {fileID: 11400000, guid: db6cea8352e37324da875bd219ce1560, type: 2}
   dialogueEndedEvent: {fileID: 11400000, guid: 70e945e95e1ed2c4db841020cf790207, type: 2}
   dialogueAdvancedEvent: {fileID: 11400000, guid: 571069f879906bb45963653e51079261, type: 2}
