@@ -30,6 +30,8 @@ public class GameManagerSingleton : MonoBehaviour
     [SerializeField] private IntPayloadEvent moneyChangedEvent;
     [SerializeField] private IntPayloadEvent ammoChangedEvent;
     [SerializeField] private IntPayloadEvent healthChangedEvent;
+    [SerializeField] private EmptyPayloadEvent npcKilledEvent;
+    [SerializeField] private EmptyPayloadEvent checkpointReachedEvent;
 
     [Header("Dialogue Events")]
     [SerializeField] private StringPayloadEvent dialogueStartedEvent;
@@ -94,7 +96,7 @@ public class GameManagerSingleton : MonoBehaviour
 
     private PlayerData ResetPlayerData()
     {
-        return new PlayerData(0, 0, MAX_HEALTH, false, false, false);
+        return new PlayerData(0, 0, MAX_HEALTH, 0, 0, false, false, false);
     }
     private QuestStartedData ResetQuestsData()
     {
@@ -201,6 +203,7 @@ public class GameManagerSingleton : MonoBehaviour
         if (cm == null) { Debug.LogError("No CM"); return; }
         cm.questPanel.FinishQuest(completedQuest);
 
+        cm.ActivateMissionPassed();
 
         switch (completedQuest)
         {

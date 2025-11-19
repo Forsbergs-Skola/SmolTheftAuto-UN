@@ -131,6 +131,14 @@ public class CanvasManager : MonoBehaviour
         DisplayCanvas(previousActiveCanvas);
     }
 
+    public void ActivateMissionPassed()
+    {
+        ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
+        if (hudIC == null) { Debug.LogError("Can't get HUD canvas"); return; }
+        HudCanvas hud = hudIC.GetCanvasObject().GetComponent<HudCanvas>();
+        hud.ActivateMissionPassedEffect();
+    }
+
 
     private ICanvasable? GetCanvasWithName(EnumCanvasName? canvasName)
     {

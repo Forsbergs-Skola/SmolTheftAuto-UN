@@ -115,6 +115,7 @@ public class DialogueCanvas : MonoBehaviour, ICanvasable
 
     public void CleanUp()
     {
+        Resources.UnloadUnusedAssets();
         //portraitImage.texture = null;
         leftPortraitImage.texture = null;
         rightPortraitImage.texture = null;

@@ -174,5 +174,6 @@ public class TestScene : MonoBehaviour
     public void ClearAllCanvases()
     {
         cm.ClearCanvases();
+        cm.DisplayCanvas(cm.PreviousActiveCanvas);
     }
 }
