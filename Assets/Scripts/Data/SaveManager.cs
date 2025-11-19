@@ -9,6 +9,9 @@ public struct PlayerData
     public int ammo;
     public int health;
 
+    public int checkpointsReached;
+    public int npcsKilled;
+
     public bool hasGasCan;
     public bool hasMatches;
     public bool hasSunglasses;
@@ -17,14 +20,19 @@ public struct PlayerData
             int _money,
             int _ammo,
             int _health,
+            int _checkpointsReached,
+            int _npcsKilled,
             bool _hasGasCan,
             bool _hasMatches,
             bool _hasSunglasses
+
         )
     {
         money = _money;
         ammo = _ammo;
         health = _health;
+        checkpointsReached = _checkpointsReached;
+        npcsKilled = _npcsKilled;
         hasGasCan = _hasGasCan;
         hasMatches = _hasMatches;
         hasSunglasses = _hasSunglasses;
@@ -121,6 +129,8 @@ public class SaveManager : MonoBehaviour
             data.money,
             data.ammo,
             data.health,
+            data.checkpointsReached,
+            data.npcsKilled,
             data.hasGasCan,
             data.hasMatches,
             data.hasSunglasses

@@ -7,6 +7,9 @@ public class SaveData
     public int ammo;
     public int money;
 
+    public int checkpointsReached;
+    public int npcsKilled;
+
     public bool hasSunglasses;
     public bool hasMatches;
     public bool hasGasCan;

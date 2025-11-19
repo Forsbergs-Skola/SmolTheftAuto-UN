@@ -10,25 +10,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53bcdae15120d964a9e49dd513d4b7c7, type: 3}
-  m_Name: AnotherExampleConversation
+  m_Name: GAS_CAN_START
   m_EditorClassIdentifier: Assembly-CSharp::Conversation
-  conversationName: ANOTHER_EXAMPLE
+  conversationName: GAS_CAN_START
   lines:
-  - speakerName: Stephanny
-    dialogueLine: Hello world, I am Stephanny!
+  - speakerName: Mechanic Elf
+    dialogueLine: Finally! Someone I can boss around.
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/ExampleElf
+    subdueLeft: 1
+    subdueRight: 0
+  - speakerName: Player
+    dialogueLine: "\u2026Great."
     leftTexturePath: DialoguePortraits/RightFacingElf
     rightTexturePath: DialoguePortraits/ExampleElf
     subdueLeft: 0
     subdueRight: 1
-  - speakerName: Brad
-    dialogueLine: Hello world, I am Brad!
+  - speakerName: Mechanic Elf
+    dialogueLine: I need this car tested.
     leftTexturePath: DialoguePortraits/RightFacingElf
     rightTexturePath: DialoguePortraits/ExampleElf
     subdueLeft: 1
     subdueRight: 0
-  - speakerName: Brad
-    dialogueLine: Where's Stephanny?
+  - speakerName: Mechanic Elf
+    dialogueLine: Just drive through the checkpoints. Try not to explode.
     leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: FILE_THAT_DOES_NOT_EXIST
+    rightTexturePath: DialoguePortraits/ExampleElf
     subdueLeft: 1
     subdueRight: 0
+  - speakerName: Player
+    dialogueLine: Encouraging.
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/ExampleElf
+    subdueLeft: 0
+    subdueRight: 1
