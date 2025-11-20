@@ -99,6 +99,8 @@ public class GameManagerSingleton : MonoBehaviour
 
             //testScene = null;
             if (testScene!= null) { testScene.FixButtons(currentPlayerData, currentQuestStartedData); }
+
+            currentPlayerData.ammo = maxAmmo;
         }
     }
 
@@ -203,9 +205,10 @@ public class GameManagerSingleton : MonoBehaviour
 
     private void HandleOnAmmoChanged(int ammo)
     {
-        if (currentPlayerData.ammo + ammo < 0) { currentPlayerData.ammo = 0; return; }
+        if (currentPlayerData.ammo + ammo < 0) { currentPlayerData.ammo = 0; Debug.Log("You got no ammo"); return; }
         if (currentPlayerData.ammo + ammo > maxAmmo) { currentPlayerData.ammo = maxAmmo; return; }
         currentPlayerData.ammo += ammo;
+        Debug.Log("Ammo: " + currentPlayerData.ammo);
     }
     private void HandleOnMoneyChanged(int moneyAdded)
     {

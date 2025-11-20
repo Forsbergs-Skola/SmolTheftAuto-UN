@@ -16,15 +16,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "7412e29a-4762-4137-803e-3357710d4e15",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "c75f0e61-ac77-4341-b483-1505d6bf935a",
@@ -43,9 +34,54 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Aim",
+                    "type": "Button",
+                    "id": "461718a4-70bf-482e-9d75-1d77210f27ea",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "1eec5577-d398-4f88-8a84-20e4f2d9bfaa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ShoulderSwap",
+                    "type": "Button",
+                    "id": "b1d3741f-1314-4fe6-9c40-64b2150142dc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "WeaponSelect",
+                    "type": "PassThrough",
+                    "id": "2deacc60-f03b-4c27-a9e3-7b998489cbf6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Grenade",
+                    "type": "Button",
+                    "id": "8e3866f4-494b-4869-a197-99a6f3ab42f4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "EnterVehicle",
                     "type": "Button",
-                    "id": "4902b2c0-dd76-4c3f-8d62-73399f0c8ba3",
+                    "id": "1b70e0b5-0a3d-4be7-9593-c5f00544000e",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -54,7 +90,7 @@
                 {
                     "name": "ExitVehicle",
                     "type": "Button",
-                    "id": "d5c348e5-8ec2-44c6-a467-3ff908626b32",
+                    "id": "e549d298-3ad8-45b8-98e5-8bfe513eab2a",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -119,17 +155,6 @@
                 },
                 {
                     "name": "",
-                    "id": "64a8642b-eef0-4eae-b9c9-4036c729debf",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1f695ed4-362a-4f95-aea2-89fd756d8058",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -152,7 +177,84 @@
                 },
                 {
                     "name": "",
-                    "id": "2e747a77-063c-4a78-824d-6a53287a7d23",
+                    "id": "4c71d1fe-f2f6-46f0-9238-203c07d216a1",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1120d108-b8e0-419b-b2d9-c0c239004da1",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0e3ceb90-f4a1-4064-a6d9-c447be9689ce",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShoulderSwap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "50b2f54d-d523-492d-a802-b6e7d4696374",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "Scale",
+                    "groups": "",
+                    "action": "WeaponSelect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3fd5d772-5269-4dee-9766-f598d8072eee",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "Scale(factor=2)",
+                    "groups": "",
+                    "action": "WeaponSelect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "64d85aaa-df1f-4d77-a2b2-9e9316a8d3e8",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "Scale(factor=3)",
+                    "groups": "",
+                    "action": "WeaponSelect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0c515ce2-6285-44d6-80fe-fe332db8cac8",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grenade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a5e7d74-766a-4eaa-a596-3291d6365c29",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
@@ -163,7 +265,7 @@
                 },
                 {
                     "name": "",
-                    "id": "38e439dd-a1d6-45b6-87b9-46ed22491305",
+                    "id": "6dc6c37a-3607-4b6b-8ba5-1e5489036534",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
@@ -171,6 +273,76 @@
                     "action": "ExitVehicle",
                     "isComposite": false,
                     "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Camera",
+            "id": "a13a57d9-154f-45cc-a3fd-825daebd1323",
+            "actions": [
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "72f22250-acaf-40d2-8e5a-ba33e3ff7c0e",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Zoom",
+                    "type": "Value",
+                    "id": "f26aa75c-7c73-436e-a5b6-edd4fcd3d519",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ddb5957a-7532-4016-a160-05ad201eb687",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Mouse",
+                    "id": "6928ce6d-4230-4592-857e-69046f23081e",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "f73c11bc-9233-453a-9cf3-2c98a79d660f",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "878875d1-7e62-419f-972e-3faeb665a676",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
