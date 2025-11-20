@@ -36,14 +36,10 @@ public class TestScene : MonoBehaviour
     }
 
     public void FixButtons(PlayerData p, QuestStartedData q)
-    {
+    {                             
         startSunglassesButton.gameObject.SetActive(!q.sunglasses);
         startMatchesButton.gameObject.SetActive(!q.matches);
         startGasCanButton.gameObject.SetActive(!q.gasCan);
-
-        finishSunglassesButton.gameObject.SetActive(!p.hasSunglasses && q.sunglasses);
-        finishMatchesButton.gameObject.SetActive(!p.hasMatches && q.matches);
-        finishGasCanButton.gameObject.SetActive(!p.hasGasCan && q.gasCan);
     }
 
 
@@ -64,17 +60,17 @@ public class TestScene : MonoBehaviour
             case "SUNGLASSES":
                 questStartedEvent.TriggerEvent(EnumQuest.SUNGLASSES);
                 startSunglassesButton.gameObject.SetActive(false);
-                finishSunglassesButton.gameObject.SetActive(true);
+                //finishSunglassesButton.gameObject.SetActive(true);
                 break;
             case "MATCHES":
                 questStartedEvent.TriggerEvent(EnumQuest.MATCHES);
                 startMatchesButton.gameObject.SetActive(false);
-                finishMatchesButton.gameObject.SetActive(true);
+                //finishMatchesButton.gameObject.SetActive(true);
                 break;
             case "GAS_CAN":
                 questStartedEvent.TriggerEvent(EnumQuest.GAS_CAN);
                 startGasCanButton.gameObject.SetActive(false);
-                finishGasCanButton.gameObject.SetActive(true);
+                //finishGasCanButton.gameObject.SetActive(true);
                 break;
             default: return;
         }
@@ -174,5 +170,6 @@ public class TestScene : MonoBehaviour
     public void ClearAllCanvases()
     {
         cm.ClearCanvases();
+        cm.DisplayCanvas(cm.PreviousActiveCanvas);
     }
 }
