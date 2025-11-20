@@ -62,13 +62,6 @@ public class PlayerVehicleController : MonoBehaviour
         Debug.Log("Entered State: " + data.StateName);
     }
     private void OnEnable() // subscribe to events
-=======
-        if (playerController == null)    playerController    = GetComponent<PlayerController>();
-
-        controls = new PlayerControls();
-    }
-
-    private void OnEnable() // subscribe to events
 
     {
         if (drivingState != null)
