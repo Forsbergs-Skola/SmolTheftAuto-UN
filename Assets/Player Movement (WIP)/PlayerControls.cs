@@ -123,6 +123,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Aim"",
                     ""type"": ""Button"",
                     ""id"": ""461718a4-70bf-482e-9d75-1d77210f27ea"",
+                    ""name"": ""EnterVehicle"",
+                    ""type"": ""Button"",
+                    ""id"": ""4902b2c0-dd76-4c3f-8d62-73399f0c8ba3"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -159,6 +162,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Grenade"",
                     ""type"": ""Button"",
                     ""id"": ""8e3866f4-494b-4869-a197-99a6f3ab42f4"",
+                    ""name"": ""ExitVehicle"",
+                    ""type"": ""Button"",
+                    ""id"": ""d5c348e5-8ec2-44c6-a467-3ff908626b32"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -389,6 +395,25 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                    ""id"": ""2e747a77-063c-4a78-824d-6a53287a7d23"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EnterVehicle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38e439dd-a1d6-45b6-87b9-46ed22491305"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ExitVehicle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -409,6 +434,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Look = m_Camera.FindAction("Look", throwIfNotFound: true);
         m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
+        m_Player_EnterVehicle = m_Player.FindAction("EnterVehicle", throwIfNotFound: true);
+        m_Player_ExitVehicle = m_Player.FindAction("ExitVehicle", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -498,6 +525,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ShoulderSwap;
     private readonly InputAction m_Player_WeaponSelect;
     private readonly InputAction m_Player_Grenade;
+    private readonly InputAction m_Player_EnterVehicle;
+    private readonly InputAction m_Player_ExitVehicle;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -541,6 +570,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Grenade".
         /// </summary>
         public InputAction @Grenade => m_Wrapper.m_Player_Grenade;
+        /// Provides access to the underlying input action "Player/EnterVehicle".
+        /// </summary>
+        public InputAction @EnterVehicle => m_Wrapper.m_Player_EnterVehicle;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ExitVehicle".
+        /// </summary>
+        public InputAction @ExitVehicle => m_Wrapper.m_Player_ExitVehicle;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -591,6 +627,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Grenade.started += instance.OnGrenade;
             @Grenade.performed += instance.OnGrenade;
             @Grenade.canceled += instance.OnGrenade;
+            @EnterVehicle.started += instance.OnEnterVehicle;
+            @EnterVehicle.performed += instance.OnEnterVehicle;
+            @EnterVehicle.canceled += instance.OnEnterVehicle;
+            @ExitVehicle.started += instance.OnExitVehicle;
+            @ExitVehicle.performed += instance.OnExitVehicle;
+            @ExitVehicle.canceled += instance.OnExitVehicle;
         }
 
         /// <summary>
@@ -626,6 +668,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Grenade.started -= instance.OnGrenade;
             @Grenade.performed -= instance.OnGrenade;
             @Grenade.canceled -= instance.OnGrenade;
+            @EnterVehicle.started -= instance.OnEnterVehicle;
+            @EnterVehicle.performed -= instance.OnEnterVehicle;
+            @EnterVehicle.canceled -= instance.OnEnterVehicle;
+            @ExitVehicle.started -= instance.OnExitVehicle;
+            @ExitVehicle.performed -= instance.OnExitVehicle;
+            @ExitVehicle.canceled -= instance.OnExitVehicle;
         }
 
         /// <summary>
@@ -803,6 +851,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnAim(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Fire" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        void OnSprint(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "EnterVehicle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
@@ -810,6 +861,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "ShoulderSwap" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        void OnEnterVehicle(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ExitVehicle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
@@ -851,5 +905,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnZoom(InputAction.CallbackContext context);
+        void OnExitVehicle(InputAction.CallbackContext context);
     }
 }

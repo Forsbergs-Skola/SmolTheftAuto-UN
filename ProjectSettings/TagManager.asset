@@ -6,6 +6,10 @@ TagManager:
   tags:
   - INPUT_HANDLER
   - BULLET
+  - UI_EVENT_SYSTEM
+  - CANVAS_MANAGER
+  - GAME_MANAGER
+  - SAVE_MANAGER
   layers:
   - Default
   - TransparentFX
