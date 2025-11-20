@@ -89,7 +89,10 @@ public class CanvasManager : MonoBehaviour
         {
             if (canvas.CanvasName() == canvasName)
             {
-                previousActiveCanvas = currentActiveCanvas;
+                if (previousActiveCanvas != currentActiveCanvas)
+                {
+                    previousActiveCanvas = currentActiveCanvas;
+                }
                 canvas.SetIsVisible(true);
                 // set the sorting order to 10, so it is on top
                 canvas.GetCanvasObject().GetComponent<Canvas>().sortingOrder = 10;

@@ -453,7 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UiTestPlayer
   moveInputEvent: {fileID: 11400000, guid: 2ed731b0b2273ee4396449adb2709a87, type: 2}
   dialogueStartEvent: {fileID: 11400000, guid: db6cea8352e37324da875bd219ce1560, type: 2}
-  dialogueFinishedEvent: {fileID: 11400000, guid: 70e945e95e1ed2c4db841020cf790207, type: 2}
+  dialogueFinishedEvent: {fileID: 11400000, guid: a27f60acfe311394d8162c5889142054, type: 2}
 --- !u!1 &182564150
 GameObject:
   m_ObjectHideFlags: 0
@@ -2782,8 +2782,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UITestNpc
   dialogueStartEvent: {fileID: 11400000, guid: db6cea8352e37324da875bd219ce1560, type: 2}
-  dialogueFinishedEvent: {fileID: 11400000, guid: 70e945e95e1ed2c4db841020cf790207, type: 2}
-  testDialogueName: GAS_CAN_START
+  dialogueFinishedEvent: {fileID: 11400000, guid: a27f60acfe311394d8162c5889142054, type: 2}
+  testDialogueName: GAS_CAN_FINISH
 --- !u!224 &70926097998129132
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6059,7 +6059,7 @@ MonoBehaviour:
   dialogueLineText: {fileID: 1370213648}
   continueButton: {fileID: 1791462352}
   advanceDialogueEvent: {fileID: 11400000, guid: 571069f879906bb45963653e51079261, type: 2}
-  dialogueCompleteEvent: {fileID: 11400000, guid: 70e945e95e1ed2c4db841020cf790207, type: 2}
+  dialogueCompleteEvent: {fileID: 11400000, guid: a27f60acfe311394d8162c5889142054, type: 2}
   conversations:
   - {fileID: 11400000, guid: 973dfe18e28667b46b8eba6c6099868c, type: 2}
   - {fileID: 11400000, guid: 88f74062e0e9a734394d8e27b4ce5a7c, type: 2}
@@ -7602,7 +7602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &5310831397334568831
 GameObject:
   m_ObjectHideFlags: 0
@@ -7792,7 +7792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &5467933226829870085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8121,7 +8121,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &5880199481383276202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8272,11 +8272,12 @@ MonoBehaviour:
   questStartedEvent: {fileID: 11400000, guid: 334c3444b58e2564a81fd03cf8666f18, type: 2}
   moneyChangedEvent: {fileID: 11400000, guid: ac49038f3051f634d86cf7e241e32a79, type: 2}
   ammoChangedEvent: {fileID: 11400000, guid: aa9803c1e0d111743bb07b3a2781551a, type: 2}
+  grenadesChangedEvent: {fileID: 11400000, guid: 1e71b758488a67747a6dddc232546679, type: 2}
   healthChangedEvent: {fileID: 11400000, guid: 253e17d71a966904a8e01c7aaab73b3e, type: 2}
   npcKilledEvent: {fileID: 11400000, guid: 2020a57a7160c7f489e4db9f8f8fad0c, type: 2}
   checkpointReachedEvent: {fileID: 11400000, guid: e5b85c627d945bf41b7f51f25a378e21, type: 2}
   dialogueStartedEvent: {fileID: 11400000, guid: db6cea8352e37324da875bd219ce1560, type: 2}
-  dialogueEndedEvent: {fileID: 11400000, guid: 70e945e95e1ed2c4db841020cf790207, type: 2}
+  dialogueEndedEvent: {fileID: 11400000, guid: a27f60acfe311394d8162c5889142054, type: 2}
   dialogueAdvancedEvent: {fileID: 11400000, guid: 571069f879906bb45963653e51079261, type: 2}
   saveGameRequestedEvent: {fileID: 11400000, guid: 71f58ab77d3e68b4bb09b13327d4ea03, type: 2}
   clearSaveRequestedEvent: {fileID: 11400000, guid: 7dee3557d98eaf74882d511b57cfc2d8, type: 2}
@@ -10117,7 +10118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &8937651756949869731
 CanvasRenderer:
   m_ObjectHideFlags: 0
