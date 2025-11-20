@@ -6,7 +6,7 @@ public class UITestNpc : MonoBehaviour
 {
 
     [SerializeField] private StringPayloadEvent dialogueStartEvent;
-    [SerializeField] private EmptyPayloadEvent dialogueFinishedEvent;
+    [SerializeField] private StringPayloadEvent dialogueFinishedEvent;
 
     [SerializeField] private string testDialogueName;
 
@@ -40,7 +40,7 @@ public class UITestNpc : MonoBehaviour
     }
 
 
-    private void HandleDialogueFinished()
+    private void HandleDialogueFinished(string _str)
     {
         isEnabled = true;
     }

@@ -18,7 +18,8 @@ public class DialogueCanvas : MonoBehaviour, ICanvasable
 
     [Header("Event Channels")]
     [SerializeField] private EmptyPayloadEvent advanceDialogueEvent; // maybe for a SFX
-    [SerializeField] private EmptyPayloadEvent dialogueCompleteEvent;
+    //[SerializeField] private EmptyPayloadEvent dialogueCompleteEvent;
+    [SerializeField] private StringPayloadEvent dialogueCompleteEvent;
     
     [SerializeField] private List<Conversation> conversations;
 
@@ -61,7 +62,7 @@ public class DialogueCanvas : MonoBehaviour, ICanvasable
     {
         if (currentLineIdx >= currentConvo.LineCount - 1)
         {
-            dialogueCompleteEvent.TriggerEvent();
+            dialogueCompleteEvent.TriggerEvent(currentConvo.ConversationName);
         }
         else
         {

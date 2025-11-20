@@ -5,7 +5,7 @@ public class UiTestPlayer : MonoBehaviour
 {
     [SerializeField] private Vector2PayloadEvent moveInputEvent;
     [SerializeField] private StringPayloadEvent dialogueStartEvent;
-    [SerializeField] private EmptyPayloadEvent dialogueFinishedEvent;
+    [SerializeField] private StringPayloadEvent dialogueFinishedEvent;
     private void OnEnable()
     {
         moveInputEvent.OnEventTriggered += HandleMoveInput;
@@ -35,7 +35,7 @@ public class UiTestPlayer : MonoBehaviour
         rb.isKinematic = true;
     }
 
-    private void HandleOnDialogueFinished()
+    private void HandleOnDialogueFinished(string _str)
     {
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
