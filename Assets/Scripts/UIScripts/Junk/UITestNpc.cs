@@ -8,10 +8,18 @@ public class UITestNpc : MonoBehaviour
     [SerializeField] private StringPayloadEvent dialogueStartEvent;
     [SerializeField] private StringPayloadEvent dialogueFinishedEvent;
 
-    [SerializeField] private string testDialogueName;
+    //[SerializeField] private string testDialogueName;
 
     private bool isEnabled = true;
     private GameManagerSingleton gm;
+    //private NpcDialogueHandler dialogueHandler;
+
+
+    private void Awake()
+    {
+        //dialogueHandler = GetComponent<NpcDialogueHandler>();
+    }
+
     private void Start()
     {
         gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
@@ -20,13 +28,25 @@ public class UITestNpc : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
+        // if I don't have a dialogue handler, there is no dialogue.
+        NpcDialogueHandler dialogueHandler = GetComponent<NpcDialogueHandler>();
+        if (dialogueHandler == null) { return; }
+
         if (!isEnabled) return;
         if (other.gameObject.GetComponent<UiTestPlayer>())
         {
             isEnabled = false;
             other.gameObject.transform.position -= Vector3.right * 1.5f;
 
-            dialogueStartEvent.TriggerEvent(testDialogueName);
+            // if my quest is not started, serve up the quest started dialogue
+            // else...
+            //     if the quest completion criteria not met, serve up the flavor dialogue
+            //     else serve up the quest finished dialogue, and destroy the dialogue handler.
+
+
+
+            //dialogueStartEvent.TriggerEvent(testDialogueName);
         }
     }
 

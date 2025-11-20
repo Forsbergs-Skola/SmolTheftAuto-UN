@@ -11,8 +11,6 @@ public enum EnumQuest
     FINAL
 }
 
-
-
 public class GameManagerSingleton : MonoBehaviour
 {
     public const int MAX_HEALTH = 100;
@@ -66,7 +64,6 @@ public class GameManagerSingleton : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag(Constants.Tags.GAME_MANAGER).Length > 0) { Destroy(gameObject); }
         tag = Constants.Tags.GAME_MANAGER;
         DontDestroyOnLoad(gameObject);
-        
     }
     private void Start()
     {
@@ -122,14 +119,18 @@ public class GameManagerSingleton : MonoBehaviour
     {
         questCompletedEvent.OnEventTriggered += HandleOnQuestCompleted;
         questStartedEvent.OnEventTriggered += HandleOnQuestStarted;
+
         moneyChangedEvent.OnEventTriggered += HandleOnMoneyChanged;
         ammoChangedEvent.OnEventTriggered += HandleOnAmmoChanged;
         grenadesChangedEvent.OnEventTriggered += HandleOnGrenadesChanged;
         healthChangedEvent.OnEventTriggered += HandleOnHealthChanged;
+
         saveGameRequestedEvent.OnEventTriggered += HandleOnSaveRequested;
         clearSaveRequestedEvent.OnEventTriggered += HandleOnClearSaveRequested;
+
         dialogueStartedEvent.OnEventTriggered += HandleOnStartDialogue;
         dialogueEndedEvent.OnEventTriggered += HandleOnFinishDialogue;
+
         checkpointReachedEvent.OnEventTriggered += HandleOnCheckpointReached;
         npcKilledEvent.OnEventTriggered += HandleOnNpcKilled;
 
@@ -149,6 +150,25 @@ public class GameManagerSingleton : MonoBehaviour
         checkpointReachedEvent.OnEventTriggered -= HandleOnCheckpointReached;
         npcKilledEvent.OnEventTriggered -= HandleOnNpcKilled;
     }
+
+    /*
+    public bool GetIsQuestCriteriaMet(EnumQuest quest)
+    {
+        switch (quest)
+        {
+            case EnumQuest.GAS_CAN:
+                if (currentPlayerData.checkpointsReached)
+                return true; //
+            case EnumQuest.MATCHES:
+                return true; //
+            case EnumQuest.SUNGLASSES:
+                return true; //
+            default:
+                return false;
+        }
+        return false;
+    }
+    */
 
     ////////////////////
     // Event Handlers //
@@ -335,10 +355,11 @@ public class GameManagerSingleton : MonoBehaviour
     }
 
 
-
+    // Helpers
 
     private CanvasManager? GetCanvasManager()
     {
+
         return GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
     }
 }
