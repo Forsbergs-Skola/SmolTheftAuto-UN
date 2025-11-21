@@ -9,7 +9,14 @@ public struct PlayerData
     public int ammo;
     public int granades;
     public int health;
-    
+
+    // rifle ammo
+    // pistol ammo
+    // shotgun ammo
+
+    // rifleAmmoCurrentClip
+    // pistolAmmoCurrentClip
+    // shotgunAmmoCurrentClip
 
     public int checkpointsReached;
     public int npcsKilled;
@@ -28,7 +35,6 @@ public struct PlayerData
             bool _hasGasCan,
             bool _hasMatches,
             bool _hasSunglasses
-
         )
     {
         money = _money;
@@ -64,30 +70,21 @@ public struct QuestStartedData
     }
 }
 
-/*
-public struct QuestFinishedData
+public struct SceneAndPlayerPos
 {
-    public bool gasCan;
-    public bool sunglasses;
-    public bool matches;
-    public bool final;
+    public Vector3 playerPos;
+    public string sceneName;
 
-    public QuestFinishedData
+    public SceneAndPlayerPos
         (
-            bool _gasCan,
-            bool _sunglasses,
-            bool _matches,
-            bool _final
+            Vector3 _playerPos,
+            string _sceneName
         )
     {
-        gasCan = _gasCan;
-        sunglasses = _sunglasses;
-        matches = _matches;
-        final = _final;
+        playerPos = _playerPos;
+        sceneName = _sceneName;
     }
 }
-*/
-
 
 public class SaveManager : MonoBehaviour
 {
@@ -98,14 +95,13 @@ public class SaveManager : MonoBehaviour
     /////////
     // API //
     /////////
-    
     public bool SaveExists()
     {
         return File.Exists(SaveFilePath);
     }
-    public void Save(PlayerData player, QuestStartedData questStarted)
+    public void Save(PlayerData player, QuestStartedData questStarted, SceneAndPlayerPos sceneData)
     {
-        SaveData data = ConvertToSaveData(player, questStarted);
+        SaveData data = ConvertToSaveData(player, questStarted, sceneData);
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(SaveFilePath, json);
     }
@@ -117,8 +113,6 @@ public class SaveManager : MonoBehaviour
 
         string json = File.ReadAllText(SaveFilePath);
         return JsonUtility.FromJson<SaveData>(json);
-
-        
     }
 
     public void Clear()
@@ -133,7 +127,7 @@ public class SaveManager : MonoBehaviour
     // Conversion Helpers //
     ////////////////////////
 
-    private SaveData ConvertToSaveData(PlayerData player, QuestStartedData questStarted)
+    private SaveData ConvertToSaveData(PlayerData player, QuestStartedData questStarted, SceneAndPlayerPos sceneData)
     {
         return new SaveData
         {
@@ -151,6 +145,12 @@ public class SaveManager : MonoBehaviour
             matchesQuestStarted = questStarted.matches,
             sunglassesQuestStarted = questStarted.sunglasses,
             finalQuestStarted = questStarted.final,
+
+            playerPosX = sceneData.playerPos.x,
+            playerPosY = sceneData.playerPos.y,
+            playerposZ = sceneData.playerPos.z,
+            gameSceneName = sceneData.sceneName
+
         };
     }
     public PlayerData ConvertPlayer(SaveData data)
@@ -167,6 +167,13 @@ public class SaveManager : MonoBehaviour
             data.hasSunglasses
         );
     }
+
+    public SceneAndPlayerPos ConvertSceneData(SaveData data)
+    {
+        Vector3 playerPos = new Vector3(data.playerPosX, data.playerPosY, data.playerposZ);
+        string sceneName = data.gameSceneName;
+        return new SceneAndPlayerPos(playerPos, sceneName);
+    }
     public QuestStartedData ConvertQuestStarted(SaveData data)
     {
         return new QuestStartedData(
@@ -176,17 +183,4 @@ public class SaveManager : MonoBehaviour
             data.finalQuestStarted
         );
     }
-
-    /*
-    public QuestFinishedData ConvertQuestFinished(SaveData data)
-    {
-        return new QuestFinishedData(
-            data.gasCanQuestFinished,
-            data.sunglassesQuestFinished,
-            data.matchesQuestFinished,
-            data.finalQuestFinished
-        );
-    }
-    */
-
 }
