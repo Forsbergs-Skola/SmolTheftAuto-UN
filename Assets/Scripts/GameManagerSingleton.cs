@@ -16,7 +16,8 @@ public enum EnumWeapon
 {
     PISTOL,
     RIFLE,
-    SHOTGUN
+    SHOTGUN,
+    NONE
 }
 
 public class GameManagerSingleton : MonoBehaviour
@@ -35,6 +36,11 @@ public class GameManagerSingleton : MonoBehaviour
     [SerializeField] private int shotgunClipCapacity = 5;
     [SerializeField] private int pistolClipCapacity = 10;
     [SerializeField] private int rifleClipCapacity = 20;
+
+    [Header("Ammo pickup values")]
+    [SerializeField] private int riflePickup = 20;
+    [SerializeField] private int pistolPickup = 10;
+    [SerializeField] private int shotgunPickup = 5;
     
     [Header("For Testing -- Remove later")]
     [SerializeField] private TestScene testScene;
@@ -45,7 +51,11 @@ public class GameManagerSingleton : MonoBehaviour
 
     [Header("Gameplay Events")]
     [SerializeField] private IntPayloadEvent moneyChangedEvent;
-    [SerializeField] private IntPayloadEvent ammoChangedEvent;
+    //[SerializeField] private IntPayloadEvent ammoChangedEvent;
+    [SerializeField] private EnumWeaponPayloadEvent ammoDiscargedEvent;
+
+    [SerializeField] private EnumWeaponPayloadEvent ammoPickupEvent;
+
     [SerializeField] private IntPayloadEvent grenadesChangedEvent;
     [SerializeField] private EnumWeaponPayloadEvent weaponReloadEvent;
 
@@ -64,13 +74,13 @@ public class GameManagerSingleton : MonoBehaviour
     [SerializeField] private EmptyPayloadEvent clearSaveRequestedEvent;
     [SerializeField] private BoolPayloadEvent saveExistsChangedEvent;
 
-
     private PlayerData currentPlayerData;
     private QuestStartedData currentQuestStartedData;
     //private QuestFinishedData currentQuestFinishedData;
 
     public PlayerData CurrentPlayerData { get => currentPlayerData; }
     public QuestStartedData CurrentQuestStartedData { get => currentQuestStartedData; }
+
     
 
     private void Awake()
@@ -109,7 +119,10 @@ public class GameManagerSingleton : MonoBehaviour
 
     private PlayerData ResetPlayerData()
     {
-        return new PlayerData(0, 0, 0, MAX_HEALTH, 0, 0, false, false, false);
+        return new PlayerData
+            (
+                0,0,0,0,0,0,0,0,maxHealth,0,0,false,false,false
+            );
     }
     private QuestStartedData ResetQuestStaredData()
     {
@@ -126,7 +139,11 @@ public class GameManagerSingleton : MonoBehaviour
         questStartedEvent.OnEventTriggered += HandleOnQuestStarted;
 
         moneyChangedEvent.OnEventTriggered += HandleOnMoneyChanged;
-        ammoChangedEvent.OnEventTriggered += HandleOnAmmoChanged;
+        //ammoChangedEvent.OnEventTriggered += HandleOnAmmoChanged;
+
+        ammoPickupEvent.OnEventTriggered += HandleAmmoPickup;
+        ammoDiscargedEvent.OnEventTriggered += HandleOnAmmoDischarged;
+
         grenadesChangedEvent.OnEventTriggered += HandleOnGrenadesChanged;
         healthChangedEvent.OnEventTriggered += HandleOnHealthChanged;
 
@@ -141,13 +158,19 @@ public class GameManagerSingleton : MonoBehaviour
         checkpointReachedEvent.OnEventTriggered += HandleOnCheckpointReached;
         npcKilledEvent.OnEventTriggered += HandleOnNpcKilled;
 
+
+
+
+
     }
     private void OnDisable()
     {
         questCompletedEvent.OnEventTriggered -= HandleOnQuestCompleted;
         questStartedEvent.OnEventTriggered -= HandleOnQuestStarted;
         moneyChangedEvent.OnEventTriggered -= HandleOnMoneyChanged;
-        ammoChangedEvent.OnEventTriggered -= HandleOnAmmoChanged;
+        //ammoChangedEvent.OnEventTriggered -= HandleOnAmmoChanged;
+        ammoPickupEvent.OnEventTriggered -= HandleAmmoPickup;
+        ammoDiscargedEvent.OnEventTriggered -= HandleOnAmmoDischarged;
         grenadesChangedEvent.OnEventTriggered -= HandleOnGrenadesChanged;
         healthChangedEvent.OnEventTriggered -= HandleOnHealthChanged;
         weaponReloadEvent.OnEventTriggered -= HandleOnWeaponReloaded;
@@ -180,6 +203,11 @@ public class GameManagerSingleton : MonoBehaviour
     // Event Handlers //
     ////////////////////
     
+
+    private void DoScreenShake()
+    {
+        // blah blah blah
+    }
     private void HandleOnSaveRequested()
     {
 
@@ -213,9 +241,9 @@ public class GameManagerSingleton : MonoBehaviour
 
     private void HandleOnAmmoChanged(int ammo)
     {
-        if (currentPlayerData.ammo + ammo < 0) { currentPlayerData.ammo = 0; return; }
-        if (currentPlayerData.ammo + ammo > maxAmmo) { currentPlayerData.ammo = maxAmmo; return; }
-        currentPlayerData.ammo += ammo;
+        //if (currentPlayerData.ammo + ammo < 0) { currentPlayerData.ammo = 0; return; }
+        //if (currentPlayerData.ammo + ammo > maxAmmo) { currentPlayerData.ammo = maxAmmo; return; }
+        //currentPlayerData.ammo += ammo;
     }
     private void HandleOnMoneyChanged(int moneyAdded)
     {
@@ -346,6 +374,7 @@ public class GameManagerSingleton : MonoBehaviour
 
     private void HandleOnNpcKilled()
     {
+        // do screen shake stuff
         currentPlayerData.npcsKilled += 1;
     }
     private void HandleOnCheckpointReached()
@@ -368,6 +397,20 @@ public class GameManagerSingleton : MonoBehaviour
     private void HandleOnWeaponReloaded(EnumWeapon weapon)
     {
         // TODO
+        // switch weaponType
+        // replinish in-clip for that weapon, up to its capacity or total ammo remaining
+    }
+    private void HandleAmmoPickup(EnumWeapon weaponType) // <-- this can come from an actual pickup, or a dialogue option in the store
+    {
+        // TODO
+        // switch weaponType
+        // add the pickup value to the total ammo, up to the max for that weapon
+    }
+    private void HandleOnAmmoDischarged(EnumWeapon weaponType)
+    {
+        // TODO
+        // switch weaponType
+        // subtract 1 from the in-clip value for that weapon
     }
 
     // Helpers

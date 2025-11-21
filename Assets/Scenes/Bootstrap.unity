@@ -634,6 +634,7 @@ MonoBehaviour:
   dialogueStartEvent: {fileID: 11400000, guid: db6cea8352e37324da875bd219ce1560, type: 2}
   dialogueFinishedEvent: {fileID: 11400000, guid: a27f60acfe311394d8162c5889142054, type: 2}
   moneyEvent: {fileID: 11400000, guid: ac49038f3051f634d86cf7e241e32a79, type: 2}
+  weaponReloadEvent: {fileID: 0}
 --- !u!1 &221369568
 GameObject:
   m_ObjectHideFlags: 0
@@ -8180,11 +8181,15 @@ MonoBehaviour:
   maxAmmo: 100
   maxMoney: 1000000
   maxGrenades: 20
+  shotgunClipCapacity: 5
+  pistolClipCapacity: 10
+  rifleClipCapacity: 20
   testScene: {fileID: 1889629162}
   questCompletedEvent: {fileID: 11400000, guid: a3511ab8191f3c643a7158abebea45e6, type: 2}
   questStartedEvent: {fileID: 11400000, guid: 334c3444b58e2564a81fd03cf8666f18, type: 2}
   moneyChangedEvent: {fileID: 11400000, guid: ac49038f3051f634d86cf7e241e32a79, type: 2}
-  ammoChangedEvent: {fileID: 11400000, guid: aa9803c1e0d111743bb07b3a2781551a, type: 2}
+  ammoDiscargedEvent: {fileID: 11400000, guid: b94bf8185e5ec6948b0e7579ddc6d2a9, type: 2}
+  ammoPickupEvent: {fileID: 11400000, guid: 07350b6ea9dad774aa37f40c974871fb, type: 2}
   grenadesChangedEvent: {fileID: 11400000, guid: 1e71b758488a67747a6dddc232546679, type: 2}
   weaponReloadEvent: {fileID: 11400000, guid: c57aa1d76c8126941a3760c1ed6c8a3b, type: 2}
   healthChangedEvent: {fileID: 11400000, guid: 253e17d71a966904a8e01c7aaab73b3e, type: 2}

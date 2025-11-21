@@ -6,7 +6,16 @@ using GameTools;
 public struct PlayerData
 {
     public int money;
-    public int ammo;
+    //public int ammo;
+
+    public int rifleTotalAmmo;
+    public int pistolTotalAmmo;
+    public int shotgunTotalAmmo;
+
+    public int rifleInClipAmmo;
+    public int pistolInClipAmmo;
+    public int shotgunInClipAmmo;
+
     public int granades;
     public int health;
 
@@ -17,6 +26,7 @@ public struct PlayerData
     // rifleAmmoCurrentClip
     // pistolAmmoCurrentClip
     // shotgunAmmoCurrentClip
+    
 
     public int checkpointsReached;
     public int npcsKilled;
@@ -27,7 +37,13 @@ public struct PlayerData
     public PlayerData
         (
             int _money,
-            int _ammo,
+            //int _ammo,
+            int _rifleTotalAmmo,
+            int _pistolTotalAmmo,
+            int _shotgunTotalAmmo,
+            int _rifleInClipAmmo,
+            int _pistolInClipAmmo,
+            int _shotgunInClipAmmo,
             int _grenades,
             int _health,
             int _checkpointsReached,
@@ -38,7 +54,13 @@ public struct PlayerData
         )
     {
         money = _money;
-        ammo = _ammo;
+        //ammo = _ammo;
+        rifleTotalAmmo = _rifleTotalAmmo;
+        pistolTotalAmmo = _pistolTotalAmmo;
+        shotgunTotalAmmo = _shotgunTotalAmmo;
+        rifleInClipAmmo = _rifleInClipAmmo;
+        pistolInClipAmmo = _pistolInClipAmmo;
+        shotgunInClipAmmo = _shotgunInClipAmmo;
         granades = _grenades;
         health = _health;
         checkpointsReached = _checkpointsReached;
@@ -132,7 +154,16 @@ public class SaveManager : MonoBehaviour
         return new SaveData
         {
             health = player.health,
-            ammo = player.ammo,
+            //ammo = player.ammo,
+
+            rifleTotalAmmo = player.rifleTotalAmmo,
+            pistolTotalAmmo = player.pistolTotalAmmo,
+            shotgunTotalAmmo = player.shotgunTotalAmmo,
+
+            rifleInClipAmmo = player.rifleInClipAmmo,
+            pistolInClipAmmo = player.pistolInClipAmmo,
+            shotgunInClipAmmo = player.shotgunInClipAmmo,
+
             grenades = player.granades,
             money = player.money,
             npcsKilled = player.npcsKilled,
@@ -157,7 +188,15 @@ public class SaveManager : MonoBehaviour
     {
         return new PlayerData(
             data.money,
-            data.ammo,
+            //data.ammo,
+
+            data.rifleTotalAmmo,
+            data.pistolTotalAmmo,
+            data.shotgunTotalAmmo,
+            data.rifleInClipAmmo,
+            data.pistolInClipAmmo,
+            data.shotgunInClipAmmo,
+
             data.grenades,
             data.health,
             data.checkpointsReached,
