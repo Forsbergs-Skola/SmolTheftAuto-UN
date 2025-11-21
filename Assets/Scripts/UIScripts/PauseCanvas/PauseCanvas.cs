@@ -72,9 +72,16 @@ public class PauseCanvas : MonoBehaviour, ICanvasable
                 inventoryPanel.gameObject.SetActive(false);
                 switchViewButtonText.text = "View Inventory";
                 currentPanel = EnumPausePanel.QUESTS;
+
                 break;
             default: return;
         }
+
+        // what even is this shit?
+        //RectTransform iRT = inventoryPanel.gameObject.GetComponent<RectTransform>();
+        //RectTransform qRT = questPanel.gameObject.GetComponent<RectTransform>();
+        //LayoutRebuilder.ForceRebuildLayoutImmediate(iRT);
+        //LayoutRebuilder.ForceRebuildLayoutImmediate(qRT);
     }
 
     public void HandleOnSwitchViewButtonPressed()
@@ -93,7 +100,18 @@ public class PauseCanvas : MonoBehaviour, ICanvasable
 
     private void HandleVisiblityChanged()
     {
+
+        //if (isVisible)
+        //{
+        //    RectTransform rt = GetComponent<RectTransform>();
+        //    LayoutRebuilder.ForceRebuildLayoutImmediate(rt);
+        //}
+
+
         DisplayPanel(EnumPausePanel.QUESTS);
+
+
+
     }
 
 }

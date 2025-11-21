@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using GameTools;
 using Events;
 
@@ -9,6 +10,13 @@ public enum EnumQuest
     SUNGLASSES,
     MATCHES,
     FINAL
+}
+
+public enum EnumWeapon
+{
+    PISTOL,
+    RIFLE,
+    SHOTGUN
 }
 
 public class GameManagerSingleton : MonoBehaviour
@@ -22,6 +30,11 @@ public class GameManagerSingleton : MonoBehaviour
     [SerializeField] private int maxAmmo = 100;
     [SerializeField] private int maxMoney = 1000000;
     [SerializeField] private int maxGrenades = 20;
+
+    [Header("Clip Capacities")]
+    [SerializeField] private int shotgunClipCapacity = 5;
+    [SerializeField] private int pistolClipCapacity = 10;
+    [SerializeField] private int rifleClipCapacity = 20;
     
     [Header("For Testing -- Remove later")]
     [SerializeField] private TestScene testScene;
@@ -34,6 +47,8 @@ public class GameManagerSingleton : MonoBehaviour
     [SerializeField] private IntPayloadEvent moneyChangedEvent;
     [SerializeField] private IntPayloadEvent ammoChangedEvent;
     [SerializeField] private IntPayloadEvent grenadesChangedEvent;
+    [SerializeField] private EnumWeaponPayloadEvent weaponReloadEvent;
+
     [SerializeField] private IntPayloadEvent healthChangedEvent;
     [SerializeField] private EmptyPayloadEvent npcKilledEvent;
     [SerializeField] private EmptyPayloadEvent checkpointReachedEvent;
@@ -48,7 +63,6 @@ public class GameManagerSingleton : MonoBehaviour
     [SerializeField] private EmptyPayloadEvent saveGameRequestedEvent;
     [SerializeField] private EmptyPayloadEvent clearSaveRequestedEvent;
     [SerializeField] private BoolPayloadEvent saveExistsChangedEvent;
-
 
 
     private PlayerData currentPlayerData;
@@ -86,16 +100,7 @@ public class GameManagerSingleton : MonoBehaviour
         if (cm != null)
         {
             cm.questPanel.InitializeQuestUI(currentPlayerData, currentQuestStartedData);
-
-            // testing logic -- remove later
-
             cm.DisplayCanvas(EnumCanvasName.HUD);
-
-
-
-
-
-
 
             //testScene = null;
             if (testScene!= null) { testScene.FixButtons(currentPlayerData, currentQuestStartedData); }
@@ -127,6 +132,8 @@ public class GameManagerSingleton : MonoBehaviour
         grenadesChangedEvent.OnEventTriggered += HandleOnGrenadesChanged;
         healthChangedEvent.OnEventTriggered += HandleOnHealthChanged;
 
+        weaponReloadEvent.OnEventTriggered += HandleOnWeaponReloaded;
+
         saveGameRequestedEvent.OnEventTriggered += HandleOnSaveRequested;
         clearSaveRequestedEvent.OnEventTriggered += HandleOnClearSaveRequested;
 
@@ -145,6 +152,7 @@ public class GameManagerSingleton : MonoBehaviour
         ammoChangedEvent.OnEventTriggered -= HandleOnAmmoChanged;
         grenadesChangedEvent.OnEventTriggered -= HandleOnGrenadesChanged;
         healthChangedEvent.OnEventTriggered -= HandleOnHealthChanged;
+        weaponReloadEvent.OnEventTriggered -= HandleOnWeaponReloaded;
         saveGameRequestedEvent.OnEventTriggered -= HandleOnSaveRequested;
         clearSaveRequestedEvent.OnEventTriggered -= HandleOnClearSaveRequested;
         dialogueStartedEvent.OnEventTriggered -= HandleOnStartDialogue;
@@ -153,24 +161,22 @@ public class GameManagerSingleton : MonoBehaviour
         npcKilledEvent.OnEventTriggered -= HandleOnNpcKilled;
     }
 
-    /*
+    
     public bool GetIsQuestCriteriaMet(EnumQuest quest)
     {
         switch (quest)
         {
             case EnumQuest.GAS_CAN:
-                if (currentPlayerData.checkpointsReached)
-                return true; //
+                return currentPlayerData.checkpointsReached >= 3;
             case EnumQuest.MATCHES:
-                return true; //
+                return currentPlayerData.npcsKilled >= 5;
             case EnumQuest.SUNGLASSES:
-                return true; //
+                return currentPlayerData.money >= 100;
             default:
                 return false;
         }
-        return false;
     }
-    */
+    
 
     ////////////////////
     // Event Handlers //
@@ -178,7 +184,10 @@ public class GameManagerSingleton : MonoBehaviour
     
     private void HandleOnSaveRequested()
     {
-        sm.Save(currentPlayerData, currentQuestStartedData);
+
+        SceneAndPlayerPos sceneData = GetSceneAndPlayerPos();
+
+        sm.Save(currentPlayerData, currentQuestStartedData, sceneData);
         saveExistsChangedEvent.TriggerEvent(true);
     }
     private void HandleOnClearSaveRequested()
@@ -186,15 +195,16 @@ public class GameManagerSingleton : MonoBehaviour
         sm.Clear();
         currentPlayerData = ResetPlayerData();
         currentQuestStartedData = ResetQuestStaredData();
-        //currentQuestFinishedData = ResetQuestFinishedData();
         saveExistsChangedEvent.TriggerEvent(false);
 
         CanvasManager? cm = GetCanvasManager();
         if (cm != null) { cm.questPanel.ResetQuestUI(); }
 
-        // TEMP
+
+        ///////////////////////////////////
+        // TESTING LOGIC -- REMOVE LATER //
+        ///////////////////////////////////
         if (testScene != null) { testScene.FixButtons(currentPlayerData, currentQuestStartedData); }
-        
     }
     private void HandleOnGrenadesChanged(int grenades)
     {
@@ -215,13 +225,16 @@ public class GameManagerSingleton : MonoBehaviour
         if (currentPlayerData.money + moneyAdded < 0) { currentPlayerData.money = 0; return; }
         if (currentPlayerData.money + moneyAdded > maxMoney) { currentPlayerData.money = maxMoney; return; }
         currentPlayerData.money += moneyAdded;
+
+        Debug.Log($"GAME MANAGER says: Player current money = {currentPlayerData.money}");
+
     }
     private void HandleOnHealthChanged(int health)
     {
         if (currentPlayerData.health + health < 0)
         {
             currentPlayerData.health = 0;
-            // HANDLE PLAYER DIES
+            // TODO: HANDLE PLAYER DIES
             return;
         }
         currentPlayerData.health += health;
@@ -270,25 +283,16 @@ public class GameManagerSingleton : MonoBehaviour
         switch (completedQuest)
         {
             case EnumQuest.GAS_CAN:
-                // update player data
                 currentPlayerData.hasGasCan = true;
-                //currentQuestFinishedData.gasCan = true;
-
-                // update the inventory UI
+                // TODO: update the inventory UI
                 break;
             case EnumQuest.MATCHES:
-                // update player data
                 currentPlayerData.hasMatches = true;
-                //currentQuestFinishedData.matches = true;
-
-                // update the inventory UI
+                // TODO: update the inventory UI
                 break;
             case EnumQuest.SUNGLASSES:
-                // update player data
                 currentPlayerData.hasSunglasses = true;
-                //currentQuestFinishedData.sunglasses = true;
-
-                // update the inventory UI
+                // TODO: update the inventory UI
                 break;
             default:
                 return;
@@ -303,10 +307,6 @@ public class GameManagerSingleton : MonoBehaviour
             Debug.LogWarning("There is already an active dialogue");
             return;
         }
-
-        // check if conversationName triggers any "quest started" or "quest finished" events
-        // if so, trigger them
-        // Keep ^^that data in GameTools.Constants maybe
 
         ////////////////////
         // PAUSE gameplay //
@@ -344,7 +344,6 @@ public class GameManagerSingleton : MonoBehaviour
                 break;
             default:
                 break;
-
         }
     }
 
@@ -354,15 +353,37 @@ public class GameManagerSingleton : MonoBehaviour
     }
     private void HandleOnCheckpointReached()
     {
+        if (!currentQuestStartedData.gasCan)
+        {
+            Debug.Log("Gas can quest not started yet");
+            return;
+        }
+        if (currentPlayerData.hasGasCan)
+        {
+            Debug.Log("Gas can quest finished. No longer tracking checkpoints");
+            return;
+        }
+
         currentPlayerData.checkpointsReached += 1;
+        Debug.Log($"Checkpoints reached: {currentPlayerData.checkpointsReached}");
     }
 
+    private void HandleOnWeaponReloaded(EnumWeapon weapon)
+    {
+        // TODO
+    }
 
     // Helpers
 
+    private SceneAndPlayerPos GetSceneAndPlayerPos()
+    {
+        Vector3 playerPos = Vector3.zero; // TODO get the player position
+        string sceneName = ""; // TODO get the current scene name
+        return new SceneAndPlayerPos(playerPos, sceneName);
+    }
+
     private CanvasManager? GetCanvasManager()
     {
-
         return GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
     }
 }

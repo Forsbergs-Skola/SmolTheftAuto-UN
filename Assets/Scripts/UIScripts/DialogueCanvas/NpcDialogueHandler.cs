@@ -42,19 +42,32 @@ public class NpcDialogueHandler : MonoBehaviour
         }
     }
 
-    private bool GetMyQuestStarted()
+    public bool GetMyQuestStarted()
     {
         GameManagerSingleton gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
-
         switch (quest)
         {
-
+            case EnumQuest.GAS_CAN:
+                return gm.CurrentQuestStartedData.gasCan;
+            case EnumQuest.MATCHES:
+                return gm.CurrentQuestStartedData.matches;
+            case EnumQuest.SUNGLASSES:
+                return gm.CurrentQuestStartedData.sunglasses;
         }
-
         return false;
     }
-    private bool GetMyQuestFinished()
+    public bool GetMyQuestFinished()
     {
+        GameManagerSingleton gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
+        switch (quest)
+        {
+            case EnumQuest.GAS_CAN:
+                return gm.CurrentPlayerData.hasGasCan;
+            case EnumQuest.MATCHES:
+                return gm.CurrentPlayerData.hasMatches;
+            case EnumQuest.SUNGLASSES:
+                return gm.CurrentPlayerData.hasSunglasses;
+        }
         return false;
     }
 

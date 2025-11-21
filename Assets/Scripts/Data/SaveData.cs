@@ -24,4 +24,10 @@ public class SaveData
     public bool matchesQuestFinished;
     public bool gasCanQuestFinished;
     public bool finalQuestFinished;
+
+    public float playerPosX;
+    public float playerPosY;
+    public float playerposZ;
+    public string gameSceneName;
+
 }
