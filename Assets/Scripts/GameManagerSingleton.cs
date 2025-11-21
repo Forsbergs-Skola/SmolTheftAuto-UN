@@ -86,16 +86,7 @@ public class GameManagerSingleton : MonoBehaviour
         if (cm != null)
         {
             cm.questPanel.InitializeQuestUI(currentPlayerData, currentQuestStartedData);
-
-            // testing logic -- remove later
-
             cm.DisplayCanvas(EnumCanvasName.HUD);
-
-
-
-
-
-
 
             //testScene = null;
             if (testScene!= null) { testScene.FixButtons(currentPlayerData, currentQuestStartedData); }
@@ -151,24 +142,23 @@ public class GameManagerSingleton : MonoBehaviour
         npcKilledEvent.OnEventTriggered -= HandleOnNpcKilled;
     }
 
-    /*
+    
     public bool GetIsQuestCriteriaMet(EnumQuest quest)
     {
         switch (quest)
         {
             case EnumQuest.GAS_CAN:
-                if (currentPlayerData.checkpointsReached)
-                return true; //
+                return currentPlayerData.checkpointsReached >= 3;
             case EnumQuest.MATCHES:
-                return true; //
+                return currentPlayerData.npcsKilled >= 5;
             case EnumQuest.SUNGLASSES:
-                return true; //
+                return currentPlayerData.money >= 100;
             default:
                 return false;
         }
         return false;
     }
-    */
+    
 
     ////////////////////
     // Event Handlers //
@@ -351,12 +341,20 @@ public class GameManagerSingleton : MonoBehaviour
     }
     private void HandleOnCheckpointReached()
     {
+        if (!currentQuestStartedData.gasCan)
+        {
+            Debug.Log("Gas can quest not started yet");
+            return;
+        }
+        if (currentPlayerData.hasGasCan)
+        {
+            Debug.Log("Gas can quest finished. No longer tracking checkpoints");
+            return;
+        }
+
         currentPlayerData.checkpointsReached += 1;
+        Debug.Log($"Checkpoints reached: {currentPlayerData.checkpointsReached}");
     }
-
-
-    // Helpers
-
     private CanvasManager? GetCanvasManager()
     {
 

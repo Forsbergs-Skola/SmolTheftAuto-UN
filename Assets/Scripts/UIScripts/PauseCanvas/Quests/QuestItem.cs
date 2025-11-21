@@ -17,4 +17,10 @@ public class QuestItem : MonoBehaviour
         descriptionText.color = Color.grey;
     }
 
+    public void TestButton()
+    {
+        Debug.Log("FOOO");
+    }
+
+
 }

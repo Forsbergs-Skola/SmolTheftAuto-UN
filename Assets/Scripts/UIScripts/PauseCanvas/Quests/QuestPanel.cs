@@ -28,25 +28,30 @@ public class QuestPanel : MonoBehaviour
         switch (quest)
         {
             case EnumQuest.SUNGLASSES:
-                questObj = Instantiate(sunglassesPrefab);
+                questObj = Instantiate(sunglassesPrefab, transform);
                 break;
             case EnumQuest.MATCHES:
-                questObj = Instantiate(matchesPrefab);
+                questObj = Instantiate(matchesPrefab, transform);
                 break;
             case EnumQuest.GAS_CAN:
-                questObj = Instantiate(gasCanPrefab);
+                questObj = Instantiate(gasCanPrefab, transform);
                 break;
             case EnumQuest.FINAL:
-                questObj = Instantiate(finalPrefab);
+                questObj = Instantiate(finalPrefab, transform);
                 break;
             default:
                 return;
         }
-        questObj.transform.SetParent(transform);
+
+        //questObj.transform.SetParent(transform);
+
         RectTransform rectXForm = questObj.GetComponent<RectTransform>();
         int order = activeQuests.Count;
         PositionRectTransform(rectXForm, order);
         QuestItem questItem = questObj.GetComponent<QuestItem>();
+
+        //LayoutRebuilder.ForceRebuildLayoutImmediate(rectXForm);
+
         activeQuests.Add(questItem);
     }
 

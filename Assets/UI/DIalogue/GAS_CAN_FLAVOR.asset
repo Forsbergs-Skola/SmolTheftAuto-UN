@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bcdae15120d964a9e49dd513d4b7c7, type: 3}
   m_Name: GAS_CAN_FLAVOR
   m_EditorClassIdentifier: Assembly-CSharp::Conversation
-  conversationName: 
+  conversationName: GAS_CAN_FLAVOR
   lines:
   - speakerName: Mechanic Elf
     dialogueLine: "HEY! Careful with the paint! That car is\u2026"

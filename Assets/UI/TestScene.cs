@@ -20,6 +20,9 @@ public class TestScene : MonoBehaviour
     [SerializeField] private Button finishMatchesButton;
     [SerializeField] private Button finishGasCanButton;
 
+
+    [SerializeField] private EmptyPayloadEvent checkpointClearedEvent;
+
     [SerializeField] private Button clearSaveButton;
     
 
@@ -30,9 +33,6 @@ public class TestScene : MonoBehaviour
     {
         cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
         cm.ClearCanvases();
-
-        TestDisplayPause();
-
     }
 
     public void FixButtons(PlayerData p, QuestStartedData q)
@@ -153,6 +153,11 @@ public class TestScene : MonoBehaviour
         cm.DisplayCanvas(EnumCanvasName.LOADING, false);
     }
 
+    public void ClearCheckpoint()
+    {
+        checkpointClearedEvent.TriggerEvent();
+    }
+
     public void SaveGame()
     {
         saveGameEvent.TriggerEvent();
@@ -160,6 +165,18 @@ public class TestScene : MonoBehaviour
     public void ClearSave()
     {
         clearSaveEvent.TriggerEvent();
+    }
+
+
+    public void ResetEverything()
+    {
+        RectTransform[] xForms = GameObject.FindObjectsOfType<RectTransform>();
+        foreach(RectTransform xForm in xForms)
+        {
+            Debug.Log(xForm.gameObject.name);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(xForm);
+        }
+        Canvas.ForceUpdateCanvases();
     }
 
     private void HandleSaveExistsChanged(bool exists)

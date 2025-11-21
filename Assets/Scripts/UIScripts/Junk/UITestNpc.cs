@@ -7,6 +7,7 @@ public class UITestNpc : MonoBehaviour
 
     [SerializeField] private StringPayloadEvent dialogueStartEvent;
     [SerializeField] private StringPayloadEvent dialogueFinishedEvent;
+    [SerializeField] private EnumQuestPayloadEvent startQuestEvent;
 
     //[SerializeField] private string testDialogueName;
 
@@ -43,6 +44,21 @@ public class UITestNpc : MonoBehaviour
             // else...
             //     if the quest completion criteria not met, serve up the flavor dialogue
             //     else serve up the quest finished dialogue, and destroy the dialogue handler.
+
+            if (!dialogueHandler.GetMyQuestStarted())
+            {
+                dialogueStartEvent.TriggerEvent(dialogueHandler.QuestStartConvoName);
+                startQuestEvent.TriggerEvent(dialogueHandler.Quest);
+            }
+            else if (!gm.GetIsQuestCriteriaMet(dialogueHandler.Quest))
+            {
+                dialogueStartEvent.TriggerEvent(dialogueHandler.QuestFlavorConvoName);
+            }
+            else
+            {
+                dialogueStartEvent.TriggerEvent(dialogueHandler.QuestFinishConvoName);
+                Destroy(dialogueHandler);
+            }
 
 
 

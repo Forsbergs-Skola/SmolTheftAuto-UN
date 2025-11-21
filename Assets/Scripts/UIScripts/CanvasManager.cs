@@ -97,9 +97,11 @@ public class CanvasManager : MonoBehaviour
                 // set the sorting order to 10, so it is on top
                 canvas.GetCanvasObject().GetComponent<Canvas>().sortingOrder = 10;
                 currentActiveCanvas = canvas.CanvasName();
+                //Canvas.ForceUpdateCanvases();
                 return;
             }
         }
+
         Debug.LogError($"Invalid canvas name: {canvasName}");
         return;
     }
