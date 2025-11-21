@@ -59,7 +59,7 @@ namespace SmolTheftAuto.NPCs.Behavior
 
             DropMoney();
             npcDestroyedEvent?.TriggerEvent();
-            npcDestroyedGameObjectEvent?.TriggerEvent(gameObject);
+            //npcDestroyedGameObjectEvent?.TriggerEvent(gameObject);
 
             if (shouldRespawn)
             {
@@ -82,7 +82,7 @@ namespace SmolTheftAuto.NPCs.Behavior
                 var moneyPickupScript = moneyPickup.GetComponent<MoneyPickup>();
                 if (moneyPickupScript != null)
                 {
-                    moneyPickupScript.SetMoneyAmount(moneyAmount);
+                    //moneyPickupScript.SetMoneyAmount(moneyAmount);
                 }
             }
 

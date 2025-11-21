@@ -4,7 +4,16 @@ using UnityEngine;
 public class SaveData
 {
     public int health;
-    public int ammo;
+    //public int ammo;
+
+    public int rifleTotalAmmo;
+    public int pistolTotalAmmo;
+    public int shotgunTotalAmmo;
+
+    public int rifleInClipAmmo;
+    public int pistolInClipAmmo;
+    public int shotgunInClipAmmo;
+
     public int grenades;
     public int money;
 
@@ -28,6 +37,7 @@ public class SaveData
     public float playerPosX;
     public float playerPosY;
     public float playerposZ;
-    public string gameSceneName;
+
+    public string equippedWeapon;
 
 }

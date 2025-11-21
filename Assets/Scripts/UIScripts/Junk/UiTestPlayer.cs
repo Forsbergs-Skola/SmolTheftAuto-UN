@@ -50,7 +50,7 @@ public class UiTestPlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<TestMoney>() != null)
+        if (other.gameObject.GetComponent<TestMoney>() != null) // if it is a money
         {
             TestMoney theMoney = other.gameObject.GetComponent<TestMoney>();
             if (!theMoney.collectible) return;
@@ -59,7 +59,10 @@ public class UiTestPlayer : MonoBehaviour
             theMoney.collectible = false;
 
             int moneyAmount = theMoney.amount;
+
+
             theMoney.DoPickupStuff();
+
             moneyEvent.TriggerEvent(moneyAmount);
         }
     }
