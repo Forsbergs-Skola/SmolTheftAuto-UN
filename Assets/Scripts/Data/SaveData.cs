@@ -37,6 +37,7 @@ public class SaveData
     public float playerPosX;
     public float playerPosY;
     public float playerposZ;
-    public string gameSceneName;
+
+    public string equippedWeapon;
 
 }

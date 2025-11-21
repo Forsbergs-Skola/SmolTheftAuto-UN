@@ -19,21 +19,15 @@ public struct PlayerData
     public int granades;
     public int health;
 
-    // rifle ammo
-    // pistol ammo
-    // shotgun ammo
-
-    // rifleAmmoCurrentClip
-    // pistolAmmoCurrentClip
-    // shotgunAmmoCurrentClip
-    
-
     public int checkpointsReached;
     public int npcsKilled;
 
     public bool hasGasCan;
     public bool hasMatches;
     public bool hasSunglasses;
+
+    public EnumWeapon equippedWeapon;
+
     public PlayerData
         (
             int _money,
@@ -50,7 +44,8 @@ public struct PlayerData
             int _npcsKilled,
             bool _hasGasCan,
             bool _hasMatches,
-            bool _hasSunglasses
+            bool _hasSunglasses,
+            EnumWeapon _equippedWeapon
         )
     {
         money = _money;
@@ -68,6 +63,7 @@ public struct PlayerData
         hasGasCan = _hasGasCan;
         hasMatches = _hasMatches;
         hasSunglasses = _hasSunglasses;
+        equippedWeapon = _equippedWeapon;
     }
 }
 public struct QuestStartedData
@@ -92,22 +88,6 @@ public struct QuestStartedData
     }
 }
 
-public struct SceneAndPlayerPos
-{
-    public Vector3 playerPos;
-    public string sceneName;
-
-    public SceneAndPlayerPos
-        (
-            Vector3 _playerPos,
-            string _sceneName
-        )
-    {
-        playerPos = _playerPos;
-        sceneName = _sceneName;
-    }
-}
-
 public class SaveManager : MonoBehaviour
 {
 
@@ -121,9 +101,9 @@ public class SaveManager : MonoBehaviour
     {
         return File.Exists(SaveFilePath);
     }
-    public void Save(PlayerData player, QuestStartedData questStarted, SceneAndPlayerPos sceneData)
+    public void Save(PlayerData player, QuestStartedData questStarted)
     {
-        SaveData data = ConvertToSaveData(player, questStarted, sceneData);
+        SaveData data = ConvertToSaveData(player, questStarted);
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(SaveFilePath, json);
     }
@@ -149,8 +129,25 @@ public class SaveManager : MonoBehaviour
     // Conversion Helpers //
     ////////////////////////
 
-    private SaveData ConvertToSaveData(PlayerData player, QuestStartedData questStarted, SceneAndPlayerPos sceneData)
+    private SaveData ConvertToSaveData(PlayerData player, QuestStartedData questStarted)
     {
+        string weaponString = "";
+        switch (player.equippedWeapon)
+        {
+            case EnumWeapon.RIFLE:
+                weaponString = "RIFLE";
+                break;
+            case EnumWeapon.PISTOL:
+                weaponString = "PISTOL";
+                break;
+            case EnumWeapon.SHOTGUN:
+                weaponString = "SHOTGUN";
+                break;
+            case EnumWeapon.NONE:
+                weaponString = "NONE";
+                break;
+        }
+
         return new SaveData
         {
             health = player.health,
@@ -177,19 +174,36 @@ public class SaveManager : MonoBehaviour
             sunglassesQuestStarted = questStarted.sunglasses,
             finalQuestStarted = questStarted.final,
 
-            playerPosX = sceneData.playerPos.x,
-            playerPosY = sceneData.playerPos.y,
-            playerposZ = sceneData.playerPos.z,
-            gameSceneName = sceneData.sceneName
+            //playerPosX = sceneData.playerPos.x,
+            //playerPosY = sceneData.playerPos.y,
+            //playerposZ = sceneData.playerPos.z,
+            //gameSceneName = sceneData.sceneName
+            equippedWeapon = weaponString
 
         };
     }
     public PlayerData ConvertPlayer(SaveData data)
     {
+        EnumWeapon weapon;
+
+        switch (data.equippedWeapon)
+        {
+            case "RIFLE":
+                weapon = EnumWeapon.RIFLE;
+                break;
+            case "PISTOL":
+                weapon = EnumWeapon.PISTOL;
+                break;
+            case "SHOTGUN":
+                weapon = EnumWeapon.SHOTGUN;
+                break;
+            default:
+                weapon = EnumWeapon.NONE;
+                break;
+        }
+
         return new PlayerData(
             data.money,
-            //data.ammo,
-
             data.rifleTotalAmmo,
             data.pistolTotalAmmo,
             data.shotgunTotalAmmo,
@@ -203,16 +217,19 @@ public class SaveManager : MonoBehaviour
             data.npcsKilled,
             data.hasGasCan,
             data.hasMatches,
-            data.hasSunglasses
+            data.hasSunglasses,
+            weapon
         );
     }
 
+    /*
     public SceneAndPlayerPos ConvertSceneData(SaveData data)
     {
         Vector3 playerPos = new Vector3(data.playerPosX, data.playerPosY, data.playerposZ);
         string sceneName = data.gameSceneName;
         return new SceneAndPlayerPos(playerPos, sceneName);
     }
+    */
     public QuestStartedData ConvertQuestStarted(SaveData data)
     {
         return new QuestStartedData(

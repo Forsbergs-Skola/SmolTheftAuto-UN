@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3646945249769040437
+--- !u!1 &844270104311548845
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5931480369581446338}
-  - component: {fileID: 1421921995997361989}
+  - component: {fileID: 6885309325815976662}
+  - component: {fileID: 2732617675216926719}
   m_Layer: 0
   m_Name: GameManagerSingleton
   m_TagString: Untagged
@@ -17,55 +17,63 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5931480369581446338
+--- !u!4 &6885309325815976662
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3646945249769040437}
+  m_GameObject: {fileID: 844270104311548845}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 960, y: 540, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 349314240378018354}
+  - {fileID: 6691611155374233935}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1421921995997361989
+--- !u!114 &2732617675216926719
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3646945249769040437}
+  m_GameObject: {fileID: 844270104311548845}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9425321da85fd894e9e39fc3a5594fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManagerSingleton
-  sm: {fileID: 909964685894845371}
+  sm: {fileID: 819742083406059230}
   maxHealth: 100
-  maxAmmo: 100
   maxMoney: 1000000
   maxGrenades: 20
+  rifleClipCapacity: 20
+  pistolClipCapacity: 10
+  shotgunClipCapacity: 5
+  riflePickup: 20
+  pistolPickup: 10
+  shotgunPickup: 5
   testScene: {fileID: 0}
   questCompletedEvent: {fileID: 11400000, guid: a3511ab8191f3c643a7158abebea45e6, type: 2}
   questStartedEvent: {fileID: 11400000, guid: 334c3444b58e2564a81fd03cf8666f18, type: 2}
   moneyChangedEvent: {fileID: 11400000, guid: ac49038f3051f634d86cf7e241e32a79, type: 2}
-  ammoChangedEvent: {fileID: 11400000, guid: aa9803c1e0d111743bb07b3a2781551a, type: 2}
+  ammoDiscargedEvent: {fileID: 11400000, guid: b94bf8185e5ec6948b0e7579ddc6d2a9, type: 2}
+  ammoPickupEvent: {fileID: 11400000, guid: 07350b6ea9dad774aa37f40c974871fb, type: 2}
   grenadesChangedEvent: {fileID: 11400000, guid: 1e71b758488a67747a6dddc232546679, type: 2}
+  weaponReloadEvent: {fileID: 11400000, guid: c57aa1d76c8126941a3760c1ed6c8a3b, type: 2}
   healthChangedEvent: {fileID: 11400000, guid: 253e17d71a966904a8e01c7aaab73b3e, type: 2}
   npcKilledEvent: {fileID: 11400000, guid: 2020a57a7160c7f489e4db9f8f8fad0c, type: 2}
   checkpointReachedEvent: {fileID: 11400000, guid: e5b85c627d945bf41b7f51f25a378e21, type: 2}
+  weaponEquippedEvent: {fileID: 11400000, guid: 88bbb1d50ea90554296e4377b409ab1d, type: 2}
   dialogueStartedEvent: {fileID: 11400000, guid: db6cea8352e37324da875bd219ce1560, type: 2}
   dialogueEndedEvent: {fileID: 11400000, guid: a27f60acfe311394d8162c5889142054, type: 2}
   dialogueAdvancedEvent: {fileID: 11400000, guid: 571069f879906bb45963653e51079261, type: 2}
   saveGameRequestedEvent: {fileID: 11400000, guid: 71f58ab77d3e68b4bb09b13327d4ea03, type: 2}
   clearSaveRequestedEvent: {fileID: 11400000, guid: 7dee3557d98eaf74882d511b57cfc2d8, type: 2}
   saveExistsChangedEvent: {fileID: 11400000, guid: c4849ca801de5c44d8190b9763ead495, type: 2}
---- !u!1 &6482685458002760491
+--- !u!1 &2107303323125117158
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,8 +81,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 349314240378018354}
-  - component: {fileID: 909964685894845371}
+  - component: {fileID: 6691611155374233935}
+  - component: {fileID: 819742083406059230}
   m_Layer: 0
   m_Name: SaveManager
   m_TagString: Untagged
@@ -82,28 +90,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &349314240378018354
+--- !u!4 &6691611155374233935
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6482685458002760491}
+  m_GameObject: {fileID: 2107303323125117158}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 7.236328, y: -5.0908203, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5931480369581446338}
+  m_Father: {fileID: 6885309325815976662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &909964685894845371
+--- !u!114 &819742083406059230
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6482685458002760491}
+  m_GameObject: {fileID: 2107303323125117158}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe115928aef3cae469a17bb87d29ad56, type: 3}
