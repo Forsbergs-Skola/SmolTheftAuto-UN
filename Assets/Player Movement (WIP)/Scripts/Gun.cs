@@ -36,7 +36,8 @@ public class Gun : MonoBehaviour
 
     private void Fire()
     {
-        bool hasAmmo = gm.CurrentPlayerData.ammo > 0;
+        //bool hasAmmo = gm.CurrentPlayerData.ammo > 0;
+        bool hasAmmo = true;
 
         if (hasAmmo)
         {
