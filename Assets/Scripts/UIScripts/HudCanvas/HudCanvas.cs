@@ -48,6 +48,8 @@ public class HudCanvas : MonoBehaviour, ICanvasable
         GameManagerSingleton gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
         PlayerData data = gm.CurrentPlayerData;
 
+        Debug.Log("HUD says: PlayerData updated -- TODO: update the HUD indicators");
+
         // TODO: update the hud from data
     }
 
