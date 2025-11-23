@@ -7542,6 +7542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HudCanvas
   missionPassedObject: {fileID: 7345795994651258243}
   missionPassedText: {fileID: 5281467329030893425}
+  playerDataUpdatedEvent: {fileID: 11400000, guid: d1afcc1ffdd608943bde2d7bbc4b8b01, type: 2}
 --- !u!224 &4478680484372302525
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11726,6 +11727,10 @@ PrefabInstance:
       propertyPath: continuePressedEvent
       value: 
       objectReference: {fileID: 11400000, guid: f83e23a5ae2d190439f0013b9bf8b760, type: 2}
+    - target: {fileID: 2732617675216926719, guid: 0732205d2452899429d81f2ffcd160eb, type: 3}
+      propertyPath: playerDataUpdatedEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: d1afcc1ffdd608943bde2d7bbc4b8b01, type: 2}
     - target: {fileID: 6885309325815976662, guid: 0732205d2452899429d81f2ffcd160eb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 960

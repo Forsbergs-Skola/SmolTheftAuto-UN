@@ -152,7 +152,6 @@ public class CanvasManager : MonoBehaviour
         PlayerData playerData = gm.CurrentPlayerData;
         ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
         HudCanvas hud = hudIC.GetCanvasObject().GetComponent<HudCanvas>();
-        hud.SyncIndicatorsWithPlayerData(playerData);
         DisplayCanvas(EnumCanvasName.HUD);
     }
 

@@ -1,12 +1,15 @@
 using UnityEngine;
 using TMPro;
+using GameTools;
 using Tweens;
+using Events;
 
 public class HudCanvas : MonoBehaviour, ICanvasable
 {
 
     [SerializeField] private GameObject missionPassedObject;
     [SerializeField] private TMP_Text missionPassedText;
+    [SerializeField] private EmptyPayloadEvent playerDataUpdatedEvent;
 
     private bool _isVisible = false;
     private bool isVisible
@@ -31,9 +34,21 @@ public class HudCanvas : MonoBehaviour, ICanvasable
         missionPassedObject.SetActive(false);
     }
 
-    public void SyncIndicatorsWithPlayerData(PlayerData data)
+    private void OnEnable()
     {
-        //
+        playerDataUpdatedEvent.OnEventTriggered += HandleOnPlayerDataUpdated;
+    }
+    private void OnDisable()
+    {
+        playerDataUpdatedEvent.OnEventTriggered -= HandleOnPlayerDataUpdated;
+    }
+
+    private void HandleOnPlayerDataUpdated()
+    {
+        GameManagerSingleton gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
+        PlayerData data = gm.CurrentPlayerData;
+
+        // TODO: update the hud from data
     }
 
 
