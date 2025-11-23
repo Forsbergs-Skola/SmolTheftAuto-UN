@@ -31,6 +31,11 @@ public class HudCanvas : MonoBehaviour, ICanvasable
         missionPassedObject.SetActive(false);
     }
 
+    public void SyncIndicatorsWithPlayerData(PlayerData data)
+    {
+        //
+    }
+
 
     public void ActivateMissionPassedEffect()
     {

@@ -22,6 +22,8 @@ public enum EnumWeapon
 
 public class GameManagerSingleton : MonoBehaviour
 {
+    [SerializeField] private string gameplaySceneName = "GameplayScene";
+
     public const int MAX_HEALTH = 100;
 
     [SerializeField] private SaveManager sm;
@@ -48,6 +50,12 @@ public class GameManagerSingleton : MonoBehaviour
     [Header("Quest Event Channels")]
     [SerializeField] private EnumQuestPayloadEvent questCompletedEvent;
     [SerializeField] private EnumQuestPayloadEvent questStartedEvent;
+
+    [Header("Menu Events")]
+    [SerializeField] private EmptyPayloadEvent newGamePressedEvent;
+    [SerializeField] private EmptyPayloadEvent continuePressedEvent;
+    //[SerializeField] private EmptyPayloadEvent aboutPressedEvent;
+    //[SerializeField] private EmptyPayloadEvent quitPressedEvent;
 
     [Header("Gameplay Events")]
     [SerializeField] private IntPayloadEvent moneyChangedEvent;
@@ -100,14 +108,16 @@ public class GameManagerSingleton : MonoBehaviour
             saveExistsChangedEvent.TriggerEvent(false);
         }
         CanvasManager? cm = GetCanvasManager();
+
+
         if (cm != null)
         {
             cm.questPanel.InitializeQuestUI(currentPlayerData, currentQuestStartedData);
-            cm.DisplayCanvas(EnumCanvasName.HUD);
+            cm.DisplayCanvas(EnumCanvasName.MAIN);
 
 
 
-            testScene = null;
+            //testScene = null;
             if (testScene!= null) { testScene.FixButtons(currentPlayerData, currentQuestStartedData); }
 
             //currentPlayerData.ammo = maxAmmo;
@@ -143,6 +153,9 @@ public class GameManagerSingleton : MonoBehaviour
         checkpointReachedEvent.OnEventTriggered += HandleOnCheckpointReached;
         npcKilledEvent.OnEventTriggered += HandleOnNpcKilled;
         weaponEquippedEvent.OnEventTriggered += HandleOnWeaponEquipped;
+
+        newGamePressedEvent.OnEventTriggered += HandleOnNewGamePressed;
+        continuePressedEvent.OnEventTriggered += HandleContinuePressed;
     }
     private void OnDisable()
     {
@@ -161,6 +174,9 @@ public class GameManagerSingleton : MonoBehaviour
         checkpointReachedEvent.OnEventTriggered -= HandleOnCheckpointReached;
         npcKilledEvent.OnEventTriggered -= HandleOnNpcKilled;
         weaponEquippedEvent.OnEventTriggered -= HandleOnWeaponEquipped;
+
+        newGamePressedEvent.OnEventTriggered -= HandleOnNewGamePressed;
+        continuePressedEvent.OnEventTriggered -= HandleContinuePressed;
     }
 
     
@@ -191,6 +207,9 @@ public class GameManagerSingleton : MonoBehaviour
 
         sm.Save(currentPlayerData, currentQuestStartedData);
         saveExistsChangedEvent.TriggerEvent(true);
+
+        // tell the main menu to enable the continue button
+
     }
     private void HandleOnClearSaveRequested()
     {
@@ -437,6 +456,41 @@ public class GameManagerSingleton : MonoBehaviour
     {
         if (currentPlayerData.equippedWeapon == weaponType) return; // no change
         currentPlayerData.equippedWeapon = weaponType;
+    }
+
+    private void HandleOnNewGamePressed()
+    {
+        if (sm.SaveExists())
+        {
+            // reset the player data and save file
+            HandleOnClearSaveRequested();
+            currentPlayerData = ResetPlayerData(); 
+            currentQuestStartedData = ResetQuestStaredData();
+            saveExistsChangedEvent.TriggerEvent(false);
+        }
+        LoadGameplayScene();
+    }
+    private void HandleContinuePressed()
+    {
+        if (!sm.SaveExists()) { Debug.LogError("This should not happen"); return; }
+        LoadGameplayScene();
+    }
+
+    /////////////
+    // HELPERS //
+    /////////////
+    
+    public bool SaveExists()
+    {
+        return sm.SaveExists();
+    }
+
+    private void LoadGameplayScene()
+    {
+        Debug.Log($"Loading scene: {gameplaySceneName}");
+        //SceneManager.LoadScene(gameplaySceneName);
+        CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
+        cm.ShowHUD(); // 
     }
 
     private CanvasManager? GetCanvasManager()
