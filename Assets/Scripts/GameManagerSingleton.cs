@@ -22,13 +22,14 @@ public enum EnumWeapon
 
 public class GameManagerSingleton : MonoBehaviour
 {
+    [SerializeField] private string gameplaySceneName = "GameplayScene";
+
     public const int MAX_HEALTH = 100;
 
     [SerializeField] private SaveManager sm;
 
     [Header("Max Resources")]
     [SerializeField] private int maxHealth = 100;
-    //[SerializeField] private int maxAmmo = 100;
     [SerializeField] private int maxMoney = 1000000;
     [SerializeField] private int maxGrenades = 20;
 
@@ -49,6 +50,10 @@ public class GameManagerSingleton : MonoBehaviour
     [SerializeField] private EnumQuestPayloadEvent questCompletedEvent;
     [SerializeField] private EnumQuestPayloadEvent questStartedEvent;
 
+    [Header("Menu Events")]
+    [SerializeField] private EmptyPayloadEvent newGamePressedEvent;
+    [SerializeField] private EmptyPayloadEvent continuePressedEvent;
+
     [Header("Gameplay Events")]
     [SerializeField] private IntPayloadEvent moneyChangedEvent;
     [SerializeField] private EnumWeaponPayloadEvent ammoDiscargedEvent;
@@ -59,6 +64,7 @@ public class GameManagerSingleton : MonoBehaviour
     [SerializeField] private EmptyPayloadEvent npcKilledEvent;
     [SerializeField] private EmptyPayloadEvent checkpointReachedEvent;
     [SerializeField] private EnumWeaponPayloadEvent weaponEquippedEvent;
+    [SerializeField] private EmptyPayloadEvent playerDataUpdatedEvent;
 
     [Header("Dialogue Events")]
     [SerializeField] private StringPayloadEvent dialogueStartedEvent;
@@ -103,22 +109,36 @@ public class GameManagerSingleton : MonoBehaviour
         if (cm != null)
         {
             cm.questPanel.InitializeQuestUI(currentPlayerData, currentQuestStartedData);
-            cm.DisplayCanvas(EnumCanvasName.HUD);
+            cm.DisplayCanvas(EnumCanvasName.MAIN);
 
 
 
-            testScene = null;
+            //testScene = null;
             if (testScene!= null) { testScene.FixButtons(currentPlayerData, currentQuestStartedData); }
-
-            //currentPlayerData.ammo = maxAmmo;
         }
+        playerDataUpdatedEvent.TriggerEvent();
+
     }
 
     private PlayerData ResetPlayerData()
     {
         return new PlayerData
             (
-                0,0,0,0,0,0,0,0,maxHealth,0,0,false,false,false,EnumWeapon.NONE
+                0,                      // money
+                rifleClipCapacity,      // total rifle ammo
+                pistolClipCapacity,     // total pistol ammo
+                shotgunClipCapacity,    // total shotgun ammo
+                0,                      // rifle in clip
+                0,                      // pistol in clip
+                0,                      // shotgun in clip
+                maxGrenades,            // grenades
+                maxHealth,              // player health
+                0,                      // checkpoints reached
+                0,                      // NPCs killed
+                false,                  // has gas can
+                false,                  // has matches
+                false,                  // has sunglasses
+                EnumWeapon.NONE         // equipped weapon
             );
     }
     private QuestStartedData ResetQuestStaredData()
@@ -143,6 +163,9 @@ public class GameManagerSingleton : MonoBehaviour
         checkpointReachedEvent.OnEventTriggered += HandleOnCheckpointReached;
         npcKilledEvent.OnEventTriggered += HandleOnNpcKilled;
         weaponEquippedEvent.OnEventTriggered += HandleOnWeaponEquipped;
+
+        newGamePressedEvent.OnEventTriggered += HandleOnNewGamePressed;
+        continuePressedEvent.OnEventTriggered += HandleContinuePressed;
     }
     private void OnDisable()
     {
@@ -161,6 +184,9 @@ public class GameManagerSingleton : MonoBehaviour
         checkpointReachedEvent.OnEventTriggered -= HandleOnCheckpointReached;
         npcKilledEvent.OnEventTriggered -= HandleOnNpcKilled;
         weaponEquippedEvent.OnEventTriggered -= HandleOnWeaponEquipped;
+
+        newGamePressedEvent.OnEventTriggered -= HandleOnNewGamePressed;
+        continuePressedEvent.OnEventTriggered -= HandleContinuePressed;
     }
 
     
@@ -186,9 +212,6 @@ public class GameManagerSingleton : MonoBehaviour
 
     private void HandleOnSaveRequested()
     {
-
-        //SceneAndPlayerPos sceneData = GetSceneAndPlayerPos();
-
         sm.Save(currentPlayerData, currentQuestStartedData);
         saveExistsChangedEvent.TriggerEvent(true);
     }
@@ -202,6 +225,8 @@ public class GameManagerSingleton : MonoBehaviour
         CanvasManager? cm = GetCanvasManager();
         if (cm != null) { cm.questPanel.ResetQuestUI(); }
 
+        playerDataUpdatedEvent.TriggerEvent();
+
 
         ///////////////////////////////////
         // TESTING LOGIC -- REMOVE LATER //
@@ -210,20 +235,21 @@ public class GameManagerSingleton : MonoBehaviour
     }
     private void HandleOnGrenadesChanged(int grenades)
     {
-        if (currentPlayerData.granades + grenades < 0) { currentPlayerData.granades = 0; return; }
-        if (currentPlayerData.granades + grenades > maxGrenades) { currentPlayerData.granades = maxGrenades; return; }
-        currentPlayerData.granades += grenades;
+        if (currentPlayerData.granades + grenades < 0)
+        {
+            currentPlayerData.granades = 0;
+        }
+        else if (currentPlayerData.granades + grenades > maxGrenades)
+        {
+            currentPlayerData.granades = maxGrenades;
+        }
+        else
+        {
+            currentPlayerData.granades += grenades;
+        }
+        playerDataUpdatedEvent.TriggerEvent();
     }
 
-    /*
-    private void HandleOnAmmoChanged(int ammo)
-    {
-        if (currentPlayerData.ammo + ammo < 0) { currentPlayerData.ammo = 0; Debug.Log("You got no ammo"); return; }
-        if (currentPlayerData.ammo + ammo > maxAmmo) { currentPlayerData.ammo = maxAmmo; return; }
-        currentPlayerData.ammo += ammo;
-        Debug.Log("Ammo: " + currentPlayerData.ammo);
-    }
-    */
     private void HandleOnMoneyChanged(int moneyAdded)
     {
         if (currentPlayerData.money + moneyAdded < 0)
@@ -231,8 +257,9 @@ public class GameManagerSingleton : MonoBehaviour
             Debug.Log("You don't have enough money!");
             return;
         }
-        if (currentPlayerData.money + moneyAdded > maxMoney) { currentPlayerData.money = maxMoney; return; }
-        currentPlayerData.money += moneyAdded;
+        if (currentPlayerData.money + moneyAdded > maxMoney) { currentPlayerData.money = maxMoney; }
+        else { currentPlayerData.money += moneyAdded; }
+        playerDataUpdatedEvent.TriggerEvent();
 
         Debug.Log($"GAME MANAGER says: Player current money = {currentPlayerData.money}");
 
@@ -246,6 +273,7 @@ public class GameManagerSingleton : MonoBehaviour
             return;
         }
         currentPlayerData.health += health;
+        playerDataUpdatedEvent.TriggerEvent();
     }
     
     
@@ -278,7 +306,6 @@ public class GameManagerSingleton : MonoBehaviour
         cm.questPanel.StartQuest(startedQuest);
     }
 
-
     
     private void HandleOnQuestCompleted(EnumQuest completedQuest)
     {
@@ -305,6 +332,7 @@ public class GameManagerSingleton : MonoBehaviour
             default:
                 return;
         }
+        playerDataUpdatedEvent.TriggerEvent();
     }
 
     private void HandleOnStartDialogue(string conversationName)
@@ -359,6 +387,7 @@ public class GameManagerSingleton : MonoBehaviour
     {
         // do screen shake stuff
         currentPlayerData.npcsKilled += 1;
+        playerDataUpdatedEvent.TriggerEvent();
     }
     private void HandleOnCheckpointReached()
     {
@@ -374,6 +403,7 @@ public class GameManagerSingleton : MonoBehaviour
         }
 
         currentPlayerData.checkpointsReached += 1;
+        playerDataUpdatedEvent.TriggerEvent();
         Debug.Log($"Checkpoints reached: {currentPlayerData.checkpointsReached}");
     }
 
@@ -402,6 +432,7 @@ public class GameManagerSingleton : MonoBehaviour
                 currentPlayerData.pistolInClipAmmo += reloadedAmount;
                 break;
         }
+        playerDataUpdatedEvent.TriggerEvent();
     }
     private void HandleAmmoPickup(EnumWeapon weaponType) // <-- this can come from an actual pickup, or a dialogue option in the store
     {
@@ -417,6 +448,7 @@ public class GameManagerSingleton : MonoBehaviour
                 currentPlayerData.shotgunTotalAmmo += shotgunPickup;
                 break;
         }
+        playerDataUpdatedEvent.TriggerEvent();
     }
     private void HandleOnAmmoDischarged(EnumWeapon weaponType)
     {
@@ -432,11 +464,50 @@ public class GameManagerSingleton : MonoBehaviour
                 currentPlayerData.shotgunInClipAmmo = Mathf.Max(0, currentPlayerData.shotgunInClipAmmo - 1);
                 break;
         }
+        playerDataUpdatedEvent.TriggerEvent();
     }
     private void HandleOnWeaponEquipped(EnumWeapon weaponType)
     {
         if (currentPlayerData.equippedWeapon == weaponType) return; // no change
         currentPlayerData.equippedWeapon = weaponType;
+        playerDataUpdatedEvent.TriggerEvent();
+    }
+
+    private void HandleOnNewGamePressed()
+    {
+        if (sm.SaveExists())
+        {
+            HandleOnClearSaveRequested();
+            currentPlayerData = ResetPlayerData(); 
+            currentQuestStartedData = ResetQuestStaredData();
+            saveExistsChangedEvent.TriggerEvent(false);
+
+            playerDataUpdatedEvent.TriggerEvent();
+
+        }
+        LoadGameplayScene();
+    }
+    private void HandleContinuePressed()
+    {
+        if (!sm.SaveExists()) { Debug.LogError("This should not happen"); return; }
+        LoadGameplayScene();
+    }
+
+    /////////////
+    // HELPERS //
+    /////////////
+    
+    public bool SaveExists()
+    {
+        return sm.SaveExists();
+    }
+
+    private void LoadGameplayScene()
+    {
+        Debug.Log($"Loading scene: {gameplaySceneName}");
+        //SceneManager.LoadScene(gameplaySceneName); // <-- insert with real scene later
+        CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
+        cm.ShowHUD(); // 
     }
 
     private CanvasManager? GetCanvasManager()

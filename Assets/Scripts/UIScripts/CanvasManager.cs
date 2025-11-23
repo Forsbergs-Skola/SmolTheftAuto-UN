@@ -68,11 +68,14 @@ public class CanvasManager : MonoBehaviour
                 canvases.Add(obj.GetComponent<ICanvasable>());
             }
         }
-        ClearCanvases();
+        //ClearCanvases();
     }
 
     public void DisplayCanvas(EnumCanvasName? canvasName, bool clearFirst = true)
     {
+
+        Debug.Log(canvasName);
+
         if (clearFirst)
         {
             ClearCanvases();
@@ -119,7 +122,6 @@ public class CanvasManager : MonoBehaviour
         {
             DisplayCanvas(EnumCanvasName.DIALOGUE);
             dc.StartCurrentConvo();
-
         }
         else
         {
@@ -142,6 +144,15 @@ public class CanvasManager : MonoBehaviour
         if (hudIC == null) { Debug.LogError("Can't get HUD canvas"); return; }
         HudCanvas hud = hudIC.GetCanvasObject().GetComponent<HudCanvas>();
         hud.ActivateMissionPassedEffect();
+    }
+
+    public void ShowHUD()
+    {
+        GameManagerSingleton gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
+        PlayerData playerData = gm.CurrentPlayerData;
+        ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
+        HudCanvas hud = hudIC.GetCanvasObject().GetComponent<HudCanvas>();
+        DisplayCanvas(EnumCanvasName.HUD);
     }
 
 

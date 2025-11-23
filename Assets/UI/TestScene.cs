@@ -32,7 +32,7 @@ public class TestScene : MonoBehaviour
     private void Start()
     {
         cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
-        cm.ClearCanvases();
+        //cm.ClearCanvases();
     }
 
     public void FixButtons(PlayerData p, QuestStartedData q)
