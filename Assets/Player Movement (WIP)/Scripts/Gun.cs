@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using GameTools;
 using Events;
+using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class Gun : MonoBehaviour
     private PlayerControls controls;
 
     private GameManagerSingleton gm;
-    [SerializeField] private IntPayloadEvent shootGunEvent;
+
+    [SerializeField] private EnumWeaponPayloadEvent fireEvent;
+    [SerializeField] private EnumWeaponPayloadEvent reloadEvent;
 
     private void Awake() => controls = new PlayerControls();
     private void OnEnable() => controls.Enable();
@@ -32,18 +35,96 @@ public class Gun : MonoBehaviour
             Fire();
         
         cooldown -= Time.deltaTime;
+        
+        if (controls.Player.Reload.triggered)
+            HandleReload();
     }
 
     private void Fire()
     {
-        //bool hasAmmo = gm.CurrentPlayerData.ammo > 0;
-        bool hasAmmo = true;
+        int ammo = -1;
+        EnumWeapon currentWeapon = gm.CurrentPlayerData.equippedWeapon;
 
-        if (hasAmmo)
+        switch (currentWeapon)
         {
-            shootGunEvent.TriggerEvent(-1);
-            OnFire.Invoke();
-            cooldown = gunCooldown;
+            case EnumWeapon.NONE:
+                Debug.Log("No Weapon");
+                return;
+            
+            case EnumWeapon.PISTOL:
+                ammo = gm.CurrentPlayerData.pistolInClipAmmo;
+                Debug.Log(ammo);
+                if (ammo > 0)
+                {
+                    fireEvent.TriggerEvent(EnumWeapon.PISTOL);
+                }
+                else
+                {
+                    Debug.Log("Click");
+                    return;
+                }
+                break;
+            
+            case EnumWeapon.RIFLE:
+                ammo = gm.CurrentPlayerData.rifleInClipAmmo;
+                Debug.Log(ammo);
+                if (ammo > 0)
+                {
+                    fireEvent.TriggerEvent(EnumWeapon.RIFLE);
+                }
+                else
+                {
+                    Debug.Log("Click");
+                    return;
+                }
+                break;
+            
+            case EnumWeapon.SHOTGUN:
+                ammo = gm.CurrentPlayerData.shotgunInClipAmmo;
+                Debug.Log(ammo);
+                if (ammo > 0)
+                {
+                    fireEvent.TriggerEvent(EnumWeapon.SHOTGUN);
+                }
+                else
+                {
+                    Debug.Log("Click");
+                    return;
+                }
+                break;
+            
+            default:
+                return;
         }
+        
+        OnFire.Invoke();
+        cooldown = gunCooldown;
+    }
+
+
+    void HandleReload()
+    {
+        EnumWeapon currentWeapon = gm.CurrentPlayerData.equippedWeapon;
+
+        switch (currentWeapon)
+        {
+            case EnumWeapon.NONE:
+                return;
+            case EnumWeapon.PISTOL:
+                reloadEvent.TriggerEvent(EnumWeapon.PISTOL);
+                break;
+            case EnumWeapon.RIFLE:
+                reloadEvent.TriggerEvent(EnumWeapon.RIFLE);
+                break;
+            case EnumWeapon.SHOTGUN:
+                reloadEvent.TriggerEvent(EnumWeapon.SHOTGUN);
+                break;
+            
+            default: 
+                return;
+        }
+        
+        Debug.Log("Reloading");
+        
     }
 }
