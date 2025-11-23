@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 using GameTools;
 using Events;
 
-
 public enum EnumQuest
 {
     GAS_CAN,
@@ -24,7 +23,7 @@ public class GameManagerSingleton : MonoBehaviour
 {
     [SerializeField] private string gameplaySceneName = "GameplayScene";
 
-    public const int MAX_HEALTH = 100;
+    //public const int MAX_HEALTH = 100;
 
     [SerializeField] private SaveManager sm;
 
@@ -82,6 +81,8 @@ public class GameManagerSingleton : MonoBehaviour
     public PlayerData CurrentPlayerData { get => currentPlayerData; }
     public QuestStartedData CurrentQuestStartedData { get => currentQuestStartedData; }
 
+    public int MaxHealth { get => maxHealth; }
+
     
 
     private void Awake()
@@ -128,9 +129,9 @@ public class GameManagerSingleton : MonoBehaviour
                 rifleClipCapacity,      // total rifle ammo
                 pistolClipCapacity,     // total pistol ammo
                 shotgunClipCapacity,    // total shotgun ammo
-                rifleClipCapacity,                      // rifle in clip
-                pistolClipCapacity,                      // pistol in clip
-                shotgunClipCapacity,                      // shotgun in clip
+                rifleClipCapacity -5,                      // rifle in clip
+                pistolClipCapacity -3,                      // pistol in clip
+                shotgunClipCapacity -2,                      // shotgun in clip
                 maxGrenades,            // grenades
                 maxHealth,              // player health
                 0,                      // checkpoints reached
@@ -428,8 +429,8 @@ public class GameManagerSingleton : MonoBehaviour
             case EnumWeapon.SHOTGUN:
                 toReplinish = shotgunClipCapacity - currentPlayerData.shotgunInClipAmmo;
                 reloadedAmount = Mathf.Min(currentPlayerData.shotgunTotalAmmo, toReplinish);
-                currentPlayerData.pistolTotalAmmo -= reloadedAmount;
-                currentPlayerData.pistolInClipAmmo += reloadedAmount;
+                currentPlayerData.shotgunTotalAmmo -= reloadedAmount;
+                currentPlayerData.shotgunInClipAmmo += reloadedAmount;
                 break;
         }
         playerDataUpdatedEvent.TriggerEvent();
@@ -513,5 +514,32 @@ public class GameManagerSingleton : MonoBehaviour
     private CanvasManager? GetCanvasManager()
     {
         return GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
+    }
+
+    public int GetInClipAmmo(EnumWeapon weapon)
+    {
+        switch (weapon)
+        {
+            case EnumWeapon.PISTOL:
+                return currentPlayerData.pistolInClipAmmo;
+            case EnumWeapon.RIFLE:
+                return currentPlayerData.rifleInClipAmmo;
+            case EnumWeapon.SHOTGUN:
+                return currentPlayerData.shotgunInClipAmmo;
+            default: return 0;
+        }
+    }
+    public int GetTotalAmmo(EnumWeapon weapon)
+    {
+        switch (weapon)
+        {
+            case EnumWeapon.PISTOL:
+                return currentPlayerData.pistolTotalAmmo;
+            case EnumWeapon.RIFLE:
+                return currentPlayerData.rifleTotalAmmo;
+            case EnumWeapon.SHOTGUN:
+                return currentPlayerData.shotgunTotalAmmo;
+            default: return 0;
+        }
     }
 }
