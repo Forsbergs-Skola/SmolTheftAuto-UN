@@ -109,7 +109,7 @@ public class GameManagerSingleton : MonoBehaviour
         if (cm != null)
         {
             cm.questPanel.InitializeQuestUI(currentPlayerData, currentQuestStartedData);
-            cm.DisplayCanvas(EnumCanvasName.MAIN);
+            cm.DisplayCanvas(EnumCanvasName.HUD);
 
 
 
@@ -128,9 +128,9 @@ public class GameManagerSingleton : MonoBehaviour
                 rifleClipCapacity,      // total rifle ammo
                 pistolClipCapacity,     // total pistol ammo
                 shotgunClipCapacity,    // total shotgun ammo
-                0,                      // rifle in clip
-                0,                      // pistol in clip
-                0,                      // shotgun in clip
+                rifleClipCapacity,                      // rifle in clip
+                pistolClipCapacity,                      // pistol in clip
+                shotgunClipCapacity,                      // shotgun in clip
                 maxGrenades,            // grenades
                 maxHealth,              // player health
                 0,                      // checkpoints reached
@@ -421,13 +421,13 @@ public class GameManagerSingleton : MonoBehaviour
                 break;
             case EnumWeapon.PISTOL:
                 toReplinish = pistolClipCapacity - currentPlayerData.pistolInClipAmmo;
-                reloadedAmount = Mathf.Max(currentPlayerData.pistolTotalAmmo, toReplinish);
+                reloadedAmount = Mathf.Min(currentPlayerData.pistolTotalAmmo, toReplinish);
                 currentPlayerData.pistolTotalAmmo -= reloadedAmount;
                 currentPlayerData.pistolInClipAmmo += reloadedAmount;
                 break;
             case EnumWeapon.SHOTGUN:
                 toReplinish = shotgunClipCapacity - currentPlayerData.shotgunInClipAmmo;
-                reloadedAmount = Mathf.Max(currentPlayerData.shotgunTotalAmmo, toReplinish);
+                reloadedAmount = Mathf.Min(currentPlayerData.shotgunTotalAmmo, toReplinish);
                 currentPlayerData.pistolTotalAmmo -= reloadedAmount;
                 currentPlayerData.pistolInClipAmmo += reloadedAmount;
                 break;
