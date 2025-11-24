@@ -6,6 +6,8 @@ public class VehicleSeatInteraction : MonoBehaviour
 {
     [field: SerializeField] public VehicleMover Vehicle { get; private set; }
     [field: SerializeField] public Transform SeatTransform { get; private set; }
+//unuking for help to steph
+
 
     private void Reset()
     {
