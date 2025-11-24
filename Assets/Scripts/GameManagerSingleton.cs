@@ -267,10 +267,22 @@ public class GameManagerSingleton : MonoBehaviour
     }
     private void HandleOnHealthChanged(int health)
     {
-        if (currentPlayerData.health + health < 0)
+        if (currentPlayerData.health <= 0) return;
+
+        if (currentPlayerData.health + health > maxHealth)
+        {
+            currentPlayerData.health = maxHealth;
+            Debug.Log("Already at max health");
+            playerDataUpdatedEvent.TriggerEvent();
+            return;
+        }
+
+        if (currentPlayerData.health + health <= 0)
         {
             currentPlayerData.health = 0;
+            Debug.Log("YOU DEAD!!!!");
             // TODO: HANDLE PLAYER DIES
+            playerDataUpdatedEvent.TriggerEvent(); // Hud update
             return;
         }
         currentPlayerData.health += health;
@@ -305,6 +317,7 @@ public class GameManagerSingleton : MonoBehaviour
                 return;
         }
         cm.questPanel.StartQuest(startedQuest);
+        playerDataUpdatedEvent.TriggerEvent();
     }
 
     

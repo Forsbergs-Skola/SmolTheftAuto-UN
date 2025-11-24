@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 using GameTools;
 using Events;
 
@@ -7,9 +8,23 @@ public class HudTester : MonoBehaviour
     [SerializeField] private EnumWeaponPayloadEvent weaponEquippedEvent;
     [SerializeField] private EnumWeaponPayloadEvent ammoDischargedEvent;
     [SerializeField] private EnumWeaponPayloadEvent reloadEvent;
+    [SerializeField] private IntPayloadEvent healthEvent;
+
+    [SerializeField] private int damage = 10;
+    [SerializeField] private int heal = 10;
+
+    [SerializeField] private TMP_Text dammageButtonText;
+    [SerializeField] private TMP_Text healButtonText;
     
     private GameManagerSingleton gm;
     private int swapIdx = 0;
+
+
+    private void Awake()
+    {
+        dammageButtonText.text = $"Take Damage:\n{damage}";
+        healButtonText.text = $"Heal:\n{heal}";
+    }
 
     private void Start()
     {
@@ -66,4 +81,14 @@ public class HudTester : MonoBehaviour
         EnumWeapon weapon = gm.CurrentPlayerData.equippedWeapon;
         reloadEvent.TriggerEvent(weapon);
     }
+
+    public void TakeDamage()
+    {
+        healthEvent.TriggerEvent(-damage); // <-- negative value means damage
+    }
+    public void Heal()
+    {
+        healthEvent.TriggerEvent(heal); // <-- positive value means heal
+    }
+
 }

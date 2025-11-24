@@ -22,6 +22,7 @@ public class TestScene : MonoBehaviour
 
 
     [SerializeField] private EmptyPayloadEvent checkpointClearedEvent;
+    [SerializeField] private EmptyPayloadEvent killNpcEvent;
 
     [SerializeField] private Button clearSaveButton;
     
@@ -156,6 +157,11 @@ public class TestScene : MonoBehaviour
     public void ClearCheckpoint()
     {
         checkpointClearedEvent.TriggerEvent();
+    }
+
+    public void KillNpc()
+    {
+        killNpcEvent.TriggerEvent();
     }
 
     public void SaveGame()

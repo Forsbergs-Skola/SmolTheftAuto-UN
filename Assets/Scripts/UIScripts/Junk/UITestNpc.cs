@@ -9,6 +9,8 @@ public class UITestNpc : MonoBehaviour
     [SerializeField] private StringPayloadEvent dialogueFinishedEvent;
     [SerializeField] private EnumQuestPayloadEvent startQuestEvent;
 
+    [SerializeField] private bool scootLeft = true;
+
     //[SerializeField] private string testDialogueName;
 
     private bool isEnabled = true;
@@ -38,7 +40,10 @@ public class UITestNpc : MonoBehaviour
         if (other.gameObject.GetComponent<UiTestPlayer>())
         {
             isEnabled = false;
-            other.gameObject.transform.position -= Vector3.right * 1.5f;
+            Vector3 scootVector = Vector3.right * 1.5f;
+            if (scootLeft) { scootVector *= -1; }
+
+            other.gameObject.transform.position -= scootVector;
 
             // if my quest is not started, serve up the quest started dialogue
             // else...
