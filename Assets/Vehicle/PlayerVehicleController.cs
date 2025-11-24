@@ -43,14 +43,10 @@ public class PlayerVehicleController : MonoBehaviour
     private bool isDriving = false;
     private VehicleMover currentVehicle; // the vehicle the player is currently driving
     private Transform currentSeat;       // where the player sits in the car
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 
     private void Awake()
     {
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
         if (characterController == null)
             characterController = GetComponent<CharacterController>();
@@ -81,24 +77,6 @@ public class PlayerVehicleController : MonoBehaviour
         }
     }
 
-=======
-        if (animator == null) animator = GetComponent<Animator>();
-        if (characterController == null) characterController = GetComponent<CharacterController>();
-        if (playerController == null) playerController = GetComponent<PlayerController>();
-
-        controls = new PlayerControls();
-
-        // Se o state machine estiver setado, assina o evento de debug
-        if (playerStateMachine != null)
-        {
-            foreach (StateSO state in playerStateMachine.GetStates())
-            {
-                state.OnStateEntered += HandleOnStateEntered;
-            }
-        }
-    }
-
->>>>>>> Stashed changes
     private void HandleOnStateEntered(StateData data)
     {
         Debug.Log("Entered State: " + data.StateName);
@@ -160,9 +138,6 @@ public class PlayerVehicleController : MonoBehaviour
 =======
             drivingState.OnStateEntered -= OnDrivingEntered;
             drivingState.OnStateExited -= OnDrivingExited;
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
         }
         else
@@ -172,13 +147,10 @@ public class PlayerVehicleController : MonoBehaviour
     }
 
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
     private void TryEnterNearestVehicle()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, interactionRadius);
 =======
-=======
->>>>>>> Stashed changes
     private void Update() // push input to vehicle each frame
     {
         if (!isDriving || currentVehicle == null) return;
@@ -265,7 +237,6 @@ public class PlayerVehicleController : MonoBehaviour
     }
 
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
     
 }
 
@@ -311,8 +282,6 @@ public class PlayerVehicleController : MonoBehaviour
 
 
 =======
-=======
->>>>>>> Stashed changes
     private void OnDrivingEntered(StateData data) // called when player enters driving state
     {
         isDriving = true;
