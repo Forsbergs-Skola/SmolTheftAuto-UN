@@ -113,7 +113,7 @@ public class PlayerVehicleController : MonoBehaviour
         transform.localRotation = Quaternion.identity;
     }
 
-    // Reset anim
+    // Reset animetor parameters                    
     if (animator != null)
     {
         animator.SetFloat("Speed", 0f);
