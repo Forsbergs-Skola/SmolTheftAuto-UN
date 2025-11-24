@@ -257,7 +257,7 @@ public class PlayerVehicleController : MonoBehaviour
 >>>>>>> Stashed changes
     }
 
-    // Reset anim
+    // Reset animetor parameters                    
     if (animator != null)
     {
         animator.SetFloat("Speed", 0f);
