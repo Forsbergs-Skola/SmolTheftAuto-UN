@@ -49,11 +49,13 @@ public class HudCanvas : MonoBehaviour, ICanvasable
     {
         missionPassedObject.SetActive(false);
         gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
+        HandleOnPlayerDataUpdated();
     }
 
     private void OnEnable()
     {
         playerDataUpdatedEvent.OnEventTriggered += HandleOnPlayerDataUpdated;
+        HandleOnPlayerDataUpdated();
     }
     private void OnDisable()
     {
@@ -62,11 +64,9 @@ public class HudCanvas : MonoBehaviour, ICanvasable
 
     private void HandleOnPlayerDataUpdated()
     {
+        if (gm == null) return;
+
         PlayerData data = gm.CurrentPlayerData;
-
-        //Debug.Log("HUD says: PlayerData updated -- TODO: update the HUD indicators");
-
-        // TODO: update the hud from data
         healthSlider.value = data.health;
         FixWeaponText(data.equippedWeapon);
         FixAmmoText(data.equippedWeapon);
@@ -74,14 +74,14 @@ public class HudCanvas : MonoBehaviour, ICanvasable
 
         if (gm.CurrentQuestStartedData.gasCan && !data.hasGasCan)
         {
+            string cpString = $"{CHECKPOINTS_PREFIX} {data.checkpointsReached}";
+            checkpointsText.text = cpString;
+        } else { checkpointsText.text = string.Empty; }
+        if (gm.CurrentQuestStartedData.matches && !data.hasMatches)
+        {
             string killsString = $"{KILLS_PREFIX} {data.npcsKilled}";
             killsText.text = killsString;
         } else { killsText.text = string.Empty; }
-        if (gm.CurrentQuestStartedData.matches && !data.hasMatches)
-        {
-            string checkpointsString = $"{CHECKPOINTS_PREFIX} {data.checkpointsReached}";
-            checkpointsText.text = checkpointsString;
-        } else { checkpointsText.text = string.Empty; }
 
     }
 
