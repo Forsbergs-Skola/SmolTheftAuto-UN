@@ -125,5 +125,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VehicleCheckpoint
   checkpointReachedEvent: {fileID: 11400000, guid: e5b85c627d945bf41b7f51f25a378e21, type: 2}
-  questStartedEvent: {fileID: 0}
-  questFinishedEvent: {fileID: 0}
+  questStartedEvent: {fileID: 11400000, guid: 334c3444b58e2564a81fd03cf8666f18, type: 2}
+  questFinishedEvent: {fileID: 11400000, guid: a3511ab8191f3c643a7158abebea45e6, type: 2}
