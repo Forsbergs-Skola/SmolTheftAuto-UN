@@ -12,5 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bcdae15120d964a9e49dd513d4b7c7, type: 3}
   m_Name: MATCHES_FINISH
   m_EditorClassIdentifier: Assembly-CSharp::Conversation
-  conversationName: 
-  lines: []
+  conversationName: MATCHES_FINISH
+  lines:
+  - speakerName: Fireworks Elf
+    dialogueLine: "You actually did it! Here \u2014 take these matches."
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Player
+    dialogueLine: "\u2026Are these even safe?"
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Fireworks Elf
+    dialogueLine: No.
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0

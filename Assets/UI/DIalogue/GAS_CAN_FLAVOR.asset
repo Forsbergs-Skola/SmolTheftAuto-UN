@@ -21,7 +21,7 @@ MonoBehaviour:
     subdueLeft: 1
     subdueRight: 0
   - speakerName: Mechanic Elf
-    dialogueLine: well, it was decent once!
+    dialogueLine: Well, it was decent once!
     leftTexturePath: DialoguePortraits/RightFacingElf
     rightTexturePath: DialoguePortraits/ExampleElf
     subdueLeft: 1

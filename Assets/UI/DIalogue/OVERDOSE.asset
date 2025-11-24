@@ -12,5 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bcdae15120d964a9e49dd513d4b7c7, type: 3}
   m_Name: OVERDOSE
   m_EditorClassIdentifier: Assembly-CSharp::Conversation
-  conversationName: 
-  lines: []
+  conversationName: OVERDOSE
+  lines:
+  - speakerName: Hyper Elf
+    dialogueLine: "I\u2019ve had\u2026 WAY too much sugar today."
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Player
+    dialogueLine: I can tell.
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Hyper Elf
+    dialogueLine: "Is it\u2026 is it hot in here or is it just my heartbeat??"
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0

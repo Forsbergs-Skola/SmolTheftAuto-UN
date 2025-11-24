@@ -12,5 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bcdae15120d964a9e49dd513d4b7c7, type: 3}
   m_Name: NERVOUS_GUARD
   m_EditorClassIdentifier: Assembly-CSharp::Conversation
-  conversationName: 
-  lines: []
+  conversationName: NERVOUS_GUARD
+  lines:
+  - speakerName: Nervous Guard
+    dialogueLine: "Did\u2026 did you hear something behind me? "
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Player
+    dialogueLine: "It\u2019s a snowflake. "
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Nervous Guard
+    dialogueLine: "\u2026Right. Totally normal. Snowflake. Sure. "
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0

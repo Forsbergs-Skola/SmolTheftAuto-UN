@@ -14,15 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Conversation
   conversationName: ETERNAL_BREAK
   lines:
-  - speakerName: Elf Citizen
-    dialogueLine: "If someone asks, I\u2019m on break. Forever."
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/ExampleElf
-    subdueLeft: 1
-    subdueRight: 0
-  - speakerName: PLAYER
-    dialogueLine: Mood.
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/ExampleElf
+  - speakerName: Lazy Elf
+    dialogueLine: "I\u2019ve been on break for\u2026 three hours. "
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 0
-    subdueRight: 1
+    subdueRight: 0
+  - speakerName: Player
+    dialogueLine: 'How are you not fired? '
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Lazy Elf
+    dialogueLine: "They can\u2019t fire me if they can\u2019t find me. "
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0

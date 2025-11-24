@@ -12,5 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bcdae15120d964a9e49dd513d4b7c7, type: 3}
   m_Name: SUNGLASSES_START
   m_EditorClassIdentifier: Assembly-CSharp::Conversation
-  conversationName: 
-  lines: []
+  conversationName: SUNGLASSES_START
+  lines:
+  - speakerName: Stylish Elf
+    dialogueLine: "Whoa, whoa \u2014 you can't just stand here without STYLE."
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Player
+    dialogueLine: "I\u2019m\u2026 working on it?"
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Stylish Elf
+    dialogueLine: "Prove it. Go collect 100 money around the plaza. Then maybe I\u2019ll
+      share my sunglasses."
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Player
+    dialogueLine: "\u2026Seriously?"
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Stylish Elf
+    dialogueLine: Fashion is serious.
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0

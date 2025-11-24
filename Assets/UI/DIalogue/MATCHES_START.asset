@@ -12,5 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bcdae15120d964a9e49dd513d4b7c7, type: 3}
   m_Name: MATCHES_START
   m_EditorClassIdentifier: Assembly-CSharp::Conversation
-  conversationName: 
-  lines: []
+  conversationName: MATCHES_START
+  lines:
+  - speakerName: Fireworks Elf
+    dialogueLine: "Psst! You! Yes you \u2014 the tired-looking one."
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Player
+    dialogueLine: "\u2026That\u2019s all of us."
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Player
+    dialogueLine: "\u2026This feels illegal."
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Fireworks Elf
+    dialogueLine: Only if you get caught.
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0

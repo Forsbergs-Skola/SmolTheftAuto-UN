@@ -12,5 +12,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bcdae15120d964a9e49dd513d4b7c7, type: 3}
   m_Name: TUTORIAL_SCENE
   m_EditorClassIdentifier: Assembly-CSharp::Conversation
-  conversationName: 
-  lines: []
+  conversationName: TUTORIAL_SCENE
+  lines:
+  - speakerName: Elf Trainer
+    dialogueLine: "Hey you! New guy! You didn\u2019t forget how to walk, did you?"
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Player
+    dialogueLine: "\u2026Considering the overtime, maybe."
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Elf Trainer
+    dialogueLine: Use W, A, S, D to move. Basic elf locomotion.
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Player
+    dialogueLine: Yeah, yeah. I got legs.
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Player
+    dialogueLine: No promises.
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
+  - speakerName: Elf Trainer
+    dialogueLine: Now walk to the marker and press E to interact. Try not to break
+      anything this time.
+    leftTexturePath: 
+    rightTexturePath: 
+    subdueLeft: 0
+    subdueRight: 0
