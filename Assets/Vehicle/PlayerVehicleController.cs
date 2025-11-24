@@ -87,11 +87,19 @@ public class PlayerVehicleController : MonoBehaviour
         Debug.Log("No vehicle nearby to enter.");
     }
 
-   private void StartDriving(VehicleMover vehicle, Transform seat)
+  private void StartDriving(VehicleMover vehicle, Transform seat)
 {
     currentVehicle = vehicle;
     currentSeat = seat;
     isDriving = true;
+
+    // If this car has an AI controller, disable it
+    var ai = vehicle.GetComponent<AIVehicleController>();
+    if (ai != null)
+    {
+        ai.SetAIEnabled(false);
+        ai.enabled = false;
+    }
 
     // Disable on-foot movement first
     if (characterController != null) characterController.enabled = false;
@@ -112,11 +120,12 @@ public class PlayerVehicleController : MonoBehaviour
         animator.SetBool("Sprinting", false);
     }
 
-    // Camera: do nothing same Cinemachine vcam follows the player, but may be need to adjust later
+    
 }
 
 
-   private void ExitVehicle()
+
+  private void ExitVehicle()
 {
     if (!isDriving)
         return;
@@ -137,9 +146,22 @@ public class PlayerVehicleController : MonoBehaviour
     if (characterController != null) characterController.enabled = true;
     if (playerController != null)    playerController.enabled    = true;
 
-    currentVehicle?.SetInput(0f, 0f, false);
+    // Re-enable AI, if any
+    if (currentVehicle != null)
+    {
+        var ai = currentVehicle.GetComponent<AIVehicleController>();
+        if (ai != null)
+        {
+            ai.enabled = true;
+            ai.SetAIEnabled(true);
+        }
+
+        currentVehicle.SetInput(0f, 0f, false);
+    }
+
     currentVehicle = null;
     currentSeat = null;
 }
+
 
 }
