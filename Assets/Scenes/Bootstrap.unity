@@ -3300,6 +3300,10 @@ PrefabInstance:
       propertyPath: testScene
       value: 
       objectReference: {fileID: 1889629162}
+    - target: {fileID: 812985699945934826, guid: 0732205d2452899429d81f2ffcd160eb, type: 3}
+      propertyPath: gameplaySceneName
+      value: STC_Map
+      objectReference: {fileID: 0}
     - target: {fileID: 4701482752102461500, guid: 0732205d2452899429d81f2ffcd160eb, type: 3}
       propertyPath: m_Name
       value: GameManagerSingleton
