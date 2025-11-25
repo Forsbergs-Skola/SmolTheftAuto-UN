@@ -1,3 +1,4 @@
+using SmolTheftAuto.NPCs.Behavior;
 using UnityEngine;
 
 public class HitscanDamage : MonoBehaviour
@@ -11,7 +12,7 @@ public class HitscanDamage : MonoBehaviour
         Ray gunRaycast = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         
         if (Physics.Raycast(gunRaycast, out RaycastHit hitInfo, gunRange))
-            if (hitInfo.collider.gameObject.TryGetComponent(out Enemy enemy))
+            if (hitInfo.collider.gameObject.TryGetComponent(out NPCHealth enemy))
                 enemy.Health -= damage;
     }
 }

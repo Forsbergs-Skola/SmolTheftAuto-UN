@@ -1,3 +1,4 @@
+using SmolTheftAuto.NPCs.Behavior;
 using UnityEngine;
 
 public class ShotgunDamage : MonoBehaviour
@@ -21,7 +22,7 @@ public class ShotgunDamage : MonoBehaviour
             Ray pelletRaycast = new Ray(cam.transform.position, direction);
 
             if (Physics.Raycast(pelletRaycast, out RaycastHit hit, gunRange))
-                if (hit.collider.TryGetComponent(out Enemy enemy))
+                if (hit.collider.TryGetComponent(out NPCHealth enemy))
                     enemy.Health -= damage;
         }
     }
