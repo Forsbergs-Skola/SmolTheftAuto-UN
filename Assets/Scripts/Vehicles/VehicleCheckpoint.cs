@@ -42,6 +42,7 @@ public class VehicleCheckpoint : MonoBehaviour
         if (!triggerable) return;
         enableCheckpoint(false);
         checkpointReachedEvent.TriggerEvent();
+
     }
 
     private void IngestQuestStarted(EnumQuest quest)

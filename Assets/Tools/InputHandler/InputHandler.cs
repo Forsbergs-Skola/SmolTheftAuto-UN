@@ -14,6 +14,7 @@ namespace GameTools
         [SerializeField] private EmptyPayloadEvent gamePausedPressedEvent;
         
 
+
         private Vector2 _moveInput = Vector2.zero;
         private Vector2 moveInput
         {
@@ -28,6 +29,7 @@ namespace GameTools
                 }
             }
         }
+        /*
         private bool _sprintIsPressed = false;
         private bool sprintIsPressed
         {
@@ -42,6 +44,7 @@ namespace GameTools
                 }
             }
         }
+        */
         private bool pressedInputDampened = false;
         private bool gamepadIsDetected = false;
 
@@ -71,11 +74,12 @@ namespace GameTools
             moveInput = gp.leftStick.ReadValue().normalized;
 
             // GP sprint input
-            sprintIsPressed = gp.leftShoulder.isPressed;
+            //sprintIsPressed = gp.leftShoulder.isPressed;
 
             // GP fire input
             if (!pressedInputDampened)
             {
+                /*
                 if (gp.rightTrigger.wasPressedThisFrame)
                 {
                     if (fireInputEvent != null)
@@ -84,6 +88,7 @@ namespace GameTools
                         StartCoroutine(DampenPressedInput());
                     }
                 }
+                */
                 if (gp.startButton.wasPressedThisFrame)
                 {
                     if (gamePausedPressedEvent != null)
@@ -109,11 +114,12 @@ namespace GameTools
             moveInput = new Vector2(moveX, moveY).normalized;
 
             // KB sprint input
-            sprintIsPressed = kb.leftShiftKey.isPressed;
+            //sprintIsPressed = kb.leftShiftKey.isPressed;
 
             // KB fire input
             if (!pressedInputDampened)
             {
+                /*
                 if (kb.spaceKey.wasPressedThisFrame)
                 {
                     if (fireInputEvent != null)
@@ -122,6 +128,7 @@ namespace GameTools
                         StartCoroutine(DampenPressedInput());
                     }
                 }
+                */
 
                 if (kb.escapeKey.wasPressedThisFrame)
                 {
