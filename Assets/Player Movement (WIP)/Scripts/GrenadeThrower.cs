@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class GrenadeThrower : MonoBehaviour
 {
-    public float forwardForce = 10f;
-    public float upwardForce = 5f;
-    public GameObject grenadePrefab;
-    public Transform cam;
+    [SerializeField] private float forwardForce = 10f;
+    [SerializeField] private float upwardForce = 5f;
+    [SerializeField] private GameObject grenadePrefab;
+    [SerializeField] private Transform cam;
     
     private PlayerControls controls;
 

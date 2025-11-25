@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MuzzleFlash : MonoBehaviour
 {
-    public ParticleSystem muzzleFlash;
+    [SerializeField] private ParticleSystem muzzleFlash;
     public void PlayFlash() => muzzleFlash.Play();
+    
 }

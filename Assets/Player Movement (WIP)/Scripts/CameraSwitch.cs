@@ -8,7 +8,7 @@ public class CameraSwitch : MonoBehaviour
     [SerializeField] private CinemachineCamera aimCam;
     [SerializeField] private CinemachineInputAxisController axisController;
     [SerializeField] private Camera cam;
-    [SerializeField] private PlayerController player;
+    public PlayerController player;
     [SerializeField] private GameObject crosshairUI;
     [SerializeField] private PlayerControls input;
 
@@ -17,7 +17,6 @@ public class CameraSwitch : MonoBehaviour
     private Transform yawTarget;
     private Transform pitchTarget;
     private AimCameraController aimCameraController;
-    
     
     void Start()
     {
@@ -29,21 +28,16 @@ public class CameraSwitch : MonoBehaviour
         input.Enable();
         aim = input.Player.Aim;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         bool aimPressed = aim.IsPressed();
         player.isAiming = aimPressed;
 
         if (aimPressed && !isAiming)
-        {
             EnterAiming();
-        }
         else if (!aimPressed && isAiming)
-        {
             ExitAiming();
-        }
     }
 
     private void ExitAiming()
@@ -62,15 +56,13 @@ public class CameraSwitch : MonoBehaviour
     {
         CinemachineOrbitalFollow orbitalFollow = mainCam.GetComponent<CinemachineOrbitalFollow>();
         Vector3 forward = aimCam.transform.forward;
-        float angle = Mathf.Atan2(forward.x, forward.z) * Mathf.Rad2Deg;
-        
-        orbitalFollow.HorizontalAxis.Value = angle;
+        Quaternion yawOnly = Quaternion.Euler(0f, aimCam.transform.eulerAngles.y, 0f);
+        float targetYaw = yawOnly.eulerAngles.y;
+
+        orbitalFollow.HorizontalAxis.Value = targetYaw;
     }
 
-    private void SnapAimForward()
-    {
-        aimCameraController.SetYawPitchFromCameraFoward(mainCam.transform);
-    }
+    private void SnapAimForward() => aimCameraController.SetYawPitchFromCameraFoward(cam.transform);
 
     private void EnterAiming()
     {

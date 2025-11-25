@@ -3,28 +3,29 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public CharacterController characterController;
+    [SerializeField] private CharacterController characterController;
     private Animator animator;
     private PlayerControls controls;
-    public Transform cam;
+    [SerializeField] private Transform cam;
 
     [SerializeField] private Transform yawTarget;
     
     [Header("Movement")]
-    public float walkSpeed = 6f;
-    public float rotateSpeed = 10f;
-    public float sprintSpeed = 12f;
+    [SerializeField] private float walkSpeed = 6f;
+    [SerializeField] private float rotateSpeed = 10f;
+    [SerializeField] private float sprintSpeed = 12f;
     
     [Header("Jump")]
-    public float jumpForce = 6f;
-    public float gravity = -9.81f;
+    [SerializeField] private float jumpForce = 6f;
+    [SerializeField] private float gravity = -9.81f;
     
     private Vector3 velocity;
-    public float rotationDeadzone = 0.15f;
+    [SerializeField] private float rotationDeadzone = 0.15f;
     
     [Header("Ground Check")]
-    public float groundCheckDistance = 0.3f;
-    public LayerMask groundLayer;
+    [SerializeField] private float groundCheckDistance = 0.3f;
+    [SerializeField] private LayerMask groundLayer;
+    
     public bool isAiming;
 
     private Vector3 moveDirection;
@@ -142,9 +143,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
         }
-        
         animator.SetBool("Sprinting", sprintHeld);
-        
     }
     
 }
