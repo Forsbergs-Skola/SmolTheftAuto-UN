@@ -22,6 +22,7 @@
 
 using UnityEngine;
 using GameTools;
+using Tweens;
 using System.Collections.Generic;
 
 public interface ICanvasable
@@ -52,6 +53,9 @@ public class CanvasManager : MonoBehaviour
     public EnumCanvasName? CurrentActiveCanvas { get => currentActiveCanvas; }
     public EnumCanvasName? PreviousActiveCanvas { get => previousActiveCanvas; }
 
+    [SerializeField] private Canvas testButtons;
+    [SerializeField] private bool testMode = false;
+
 
     private void Awake()
     {
@@ -68,6 +72,8 @@ public class CanvasManager : MonoBehaviour
                 canvases.Add(obj.GetComponent<ICanvasable>());
             }
         }
+
+        testButtons.enabled = testMode;
         //ClearCanvases();
     }
 
@@ -153,6 +159,27 @@ public class CanvasManager : MonoBehaviour
         ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
         HudCanvas hud = hudIC.GetCanvasObject().GetComponent<HudCanvas>();
         DisplayCanvas(EnumCanvasName.HUD);
+    }
+
+    public void ShowAndFadeLoadingScreen()
+    {
+        StartCoroutine(WaitThenFade(0.5f));
+    }
+    private System.Collections.IEnumerator WaitThenFade(float wait)
+    {
+        DisplayCanvas(EnumCanvasName.LOADING, false);
+        yield return new WaitForSeconds(wait);
+        ICanvasable loadingCanvas = GetCanvasWithName(EnumCanvasName.LOADING);
+        Tween fadeTween = TweenService.GetFloatTween(gameObject, 1.0f, 0.0f, 4.0f,EnumTweenEase.QUAD,EnumTweenDirection.IN);
+        fadeTween.StartTween();
+        fadeTween.OnValueUpdated += (value) =>
+        {
+            loadingCanvas.GetCanvasObject().GetComponent<LoadcingCanvas>().SetBlackingPanelAlpha(value.x);
+        };
+        fadeTween.OnFinished += () =>
+        {
+            DisplayCanvas(EnumCanvasName.HUD);
+        };
     }
 
 
