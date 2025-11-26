@@ -111,7 +111,7 @@ MonoBehaviour:
   grenadesChangedEvent: {fileID: 11400000, guid: 1e71b758488a67747a6dddc232546679, type: 2}
   weaponReloadEvent: {fileID: 11400000, guid: c57aa1d76c8126941a3760c1ed6c8a3b, type: 2}
   healthChangedEvent: {fileID: 11400000, guid: 253e17d71a966904a8e01c7aaab73b3e, type: 2}
-  npcKilledEvent: {fileID: 11400000, guid: 2020a57a7160c7f489e4db9f8f8fad0c, type: 2}
+  npcKilledEvent: {fileID: 11400000, guid: 67d5d28baafd598418d643ad4a74def6, type: 2}
   checkpointReachedEvent: {fileID: 11400000, guid: e5b85c627d945bf41b7f51f25a378e21, type: 2}
   weaponEquippedEvent: {fileID: 11400000, guid: 88bbb1d50ea90554296e4377b409ab1d, type: 2}
   playerDataUpdatedEvent: {fileID: 11400000, guid: d1afcc1ffdd608943bde2d7bbc4b8b01, type: 2}
