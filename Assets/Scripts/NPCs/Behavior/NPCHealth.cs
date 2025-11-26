@@ -45,14 +45,24 @@ namespace SmolTheftAuto.NPCs.Behavior
             currentHealth = maxHealth;
         }
 
+<<<<<<< HEAD
         // Apply damage to the NPC (from IDamageable interface)
         public void TakeDamage(float damage)
         {
             if (isDestroyed) return;
+=======
+        // Apply damage to the NPC
+       // public void TakeDamage(float damage)
+       // {
+       //     if (isDestroyed) return;
+//
+       //     currentHealth -= damage;
+       //     currentHealth = Mathf.Max(0, currentHealth);
+>>>>>>> main
 
-            currentHealth -= damage;
-            currentHealth = Mathf.Max(0, currentHealth);
+       //     healthChangedEvent?.TriggerEvent(payload: new Vector2(currentHealth, maxHealth));
 
+<<<<<<< HEAD
             healthChangedEvent?.TriggerEvent(new Vector2(currentHealth, maxHealth));
 
             if (currentHealth <= 0)
@@ -60,6 +70,13 @@ namespace SmolTheftAuto.NPCs.Behavior
                 DestroyNPC();
             }
         }
+=======
+        //    if (currentHealth <= 0)
+      //      {
+       //         DestroyNPC();
+       //     }
+     //   }
+>>>>>>> main
 
         // Destroy the NPC and trigger events
         private void DestroyNPC()
@@ -75,7 +92,7 @@ namespace SmolTheftAuto.NPCs.Behavior
 
             // Trigger events for quest system and other listeners
             npcDestroyedEvent?.TriggerEvent();
-            npcDestroyedGameObjectEvent?.TriggerEvent(gameObject);
+            //npcDestroyedGameObjectEvent?.TriggerEvent(gameObject);
 
             // Notify NPCManager
             OnNPCDestroyed?.Invoke(gameObject);
@@ -104,7 +121,7 @@ namespace SmolTheftAuto.NPCs.Behavior
                 var moneyPickupScript = moneyPickup.GetComponent<MoneyPickup>();
                 if (moneyPickupScript != null)
                 {
-                    moneyPickupScript.SetMoneyAmount(moneyAmount);
+                    //moneyPickupScript.SetMoneyAmount(moneyAmount);
                 }
             }
 
@@ -135,6 +152,26 @@ namespace SmolTheftAuto.NPCs.Behavior
             isDestroyed = false;
             healthChangedEvent?.TriggerEvent(new Vector2(currentHealth, maxHealth));
         }
+        
+        public float Health
+        {
+            get => currentHealth;
+            set
+            {
+                if (isDestroyed) 
+                    return;
+
+                currentHealth = Mathf.Max(0, value);
+                healthChangedEvent?.TriggerEvent(new Vector2(currentHealth, maxHealth));
+
+                Debug.Log("Health: " + currentHealth);
+                
+                if (currentHealth <= 0)
+                    DestroyNPC();
+            }
+        }
+        
+        
 
         // Getter methods
         public float GetCurrentHealth() => currentHealth;

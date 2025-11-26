@@ -139,7 +139,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 853edfaf0b537c945b59cf627ee51572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.Behavior.NPCHealth
+<<<<<<< HEAD
   maxHealth: 100
+=======
+  maxHealth: 10
+  minMoneyDrop: 10
+  maxMoneyDrop: 50
+  moneyPickupPrefab: {fileID: 7206965480839513763, guid: 8945d29fc06b05b45b79b337a48f037c, type: 3}
+  shouldRespawn: 1
+  respawnDelay: 5
+>>>>>>> main
   healthChangedEvent: {fileID: 11400000, guid: 97ea49e138e7a01498444ae678eb2efe, type: 2}
   npcDestroyedEvent: {fileID: 11400000, guid: 67d5d28baafd598418d643ad4a74def6, type: 2}
   npcDestroyedGameObjectEvent: {fileID: 11400000, guid: 74b900efdcb46a249b1c735f682712b0, type: 2}

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1867374ec7f521d44b3359cebb78b913, type: 3}
+  m_Name: ToWalking
+  m_EditorClassIdentifier: Assembly-CSharp::StateMachine.StateTransitionSO
+  toState: {fileID: 11400000, guid: 41a2a0b594072fe4cb5de523f0375d3a, type: 2}
+  transitionName: TO_WALKING
+  eventString: TO_WALKING
+  transitionID: dbfc18ff-e911-4de9-9e60-f23ba1d34ed5

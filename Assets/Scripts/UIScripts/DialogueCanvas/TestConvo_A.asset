@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53bcdae15120d964a9e49dd513d4b7c7, type: 3}
+  m_Name: TestConvo_A
+  m_EditorClassIdentifier: Assembly-CSharp::Conversation
+  conversationName: COOL_ELF_CONVO_1
+  lines:
+  - speakerName: Elf Guard
+    dialogueLine: Halt! This area is for authorized elves only.
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/ExampleElf
+    subdueLeft: 1
+    subdueRight: 0
+  - speakerName: Player Elf
+    dialogueLine: Relax, I'm just delivering some Christmac cheer...I think.
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/ExampleElf
+    subdueLeft: 0
+    subdueRight: 1
+  - speakerName: ElfGuard
+    dialogueLine: Fine. But stay out of trouble. The snaowmen are watching you.
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/ExampleElf
+    subdueLeft: 1
+    subdueRight: 0

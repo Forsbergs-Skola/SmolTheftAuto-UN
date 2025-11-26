@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
+<<<<<<< HEAD
   tags: []
+=======
+  tags:
+  - INPUT_HANDLER
+  - BULLET
+  - UI_EVENT_SYSTEM
+  - CANVAS_MANAGER
+  - GAME_MANAGER
+  - SAVE_MANAGER
+>>>>>>> main
   layers:
   - Default
   - TransparentFX
@@ -11,7 +21,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Ground
   - 
   - 
   - 

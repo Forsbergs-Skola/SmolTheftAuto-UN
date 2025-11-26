@@ -37,6 +37,7 @@ namespace SmolTheftAuto.Data
             transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
             transform.position = startPosition + Vector3.up * Mathf.Sin(Time.time * floatSpeed) * floatAmount;
 
+            /*
             if (PlayerReference.PlayerTransform != null)
             {
                 float distance = Vector3.Distance(transform.position, PlayerReference.PlayerTransform.position);
@@ -45,8 +46,10 @@ namespace SmolTheftAuto.Data
                     PickupMoney();
                 }
             }
+            */
         }
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
         private void OnTriggerEnter(Collider other)
@@ -59,6 +62,15 @@ namespace SmolTheftAuto.Data
         }
 
 >>>>>>> Stashed changes
+=======
+        public void DoPickupStuff()
+        {
+
+        }
+
+        /*
+
+>>>>>>> main
         // Set the money amount for this pickup
         public void SetMoneyAmount(int amount)
         {
@@ -75,6 +87,7 @@ namespace SmolTheftAuto.Data
 
             Destroy(gameObject);
         }
+        */
 
         private void OnDrawGizmosSelected()
         {

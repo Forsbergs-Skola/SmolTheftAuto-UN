@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1084597318187911419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8956566520194136922}
+  - component: {fileID: 3902276616944370823}
+  m_Layer: 0
+  m_Name: SaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8956566520194136922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084597318187911419}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.236328, y: -5.0908203, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6324373554028542989}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3902276616944370823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084597318187911419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe115928aef3cae469a17bb87d29ad56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveManager
+--- !u!1 &1572565509290883528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6324373554028542989}
+  - component: {fileID: 5301017697326879041}
+  m_Layer: 0
+  m_Name: GameManagerSingleton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6324373554028542989
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572565509290883528}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8956566520194136922}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5301017697326879041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572565509290883528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9425321da85fd894e9e39fc3a5594fa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManagerSingleton
+  gameplaySceneName: STC_Map
+  sm: {fileID: 3902276616944370823}
+  maxHealth: 100
+  maxMoney: 1000000
+  maxGrenades: 20
+  rifleClipCapacity: 20
+  pistolClipCapacity: 10
+  shotgunClipCapacity: 5
+  riflePickup: 20
+  pistolPickup: 10
+  shotgunPickup: 5
+  testScene: {fileID: 0}
+  questCompletedEvent: {fileID: 11400000, guid: a3511ab8191f3c643a7158abebea45e6, type: 2}
+  questStartedEvent: {fileID: 11400000, guid: 334c3444b58e2564a81fd03cf8666f18, type: 2}
+  newGamePressedEvent: {fileID: 11400000, guid: b4c937bb595ebae499976ffed2698dc5, type: 2}
+  continuePressedEvent: {fileID: 11400000, guid: f83e23a5ae2d190439f0013b9bf8b760, type: 2}
+  moneyChangedEvent: {fileID: 11400000, guid: ac49038f3051f634d86cf7e241e32a79, type: 2}
+  ammoDiscargedEvent: {fileID: 11400000, guid: b94bf8185e5ec6948b0e7579ddc6d2a9, type: 2}
+  ammoPickupEvent: {fileID: 11400000, guid: 07350b6ea9dad774aa37f40c974871fb, type: 2}
+  grenadesChangedEvent: {fileID: 11400000, guid: 1e71b758488a67747a6dddc232546679, type: 2}
+  weaponReloadEvent: {fileID: 11400000, guid: c57aa1d76c8126941a3760c1ed6c8a3b, type: 2}
+  healthChangedEvent: {fileID: 11400000, guid: 253e17d71a966904a8e01c7aaab73b3e, type: 2}
+  npcKilledEvent: {fileID: 11400000, guid: 2020a57a7160c7f489e4db9f8f8fad0c, type: 2}
+  checkpointReachedEvent: {fileID: 11400000, guid: e5b85c627d945bf41b7f51f25a378e21, type: 2}
+  weaponEquippedEvent: {fileID: 11400000, guid: 88bbb1d50ea90554296e4377b409ab1d, type: 2}
+  playerDataUpdatedEvent: {fileID: 11400000, guid: d1afcc1ffdd608943bde2d7bbc4b8b01, type: 2}
+  pausedEvent: {fileID: 11400000, guid: 655d122db7dec524b8b19e29a5d21c92, type: 2}
+  dialogueStartedEvent: {fileID: 11400000, guid: db6cea8352e37324da875bd219ce1560, type: 2}
+  dialogueEndedEvent: {fileID: 11400000, guid: a27f60acfe311394d8162c5889142054, type: 2}
+  dialogueAdvancedEvent: {fileID: 11400000, guid: 571069f879906bb45963653e51079261, type: 2}
+  saveGameRequestedEvent: {fileID: 11400000, guid: 71f58ab77d3e68b4bb09b13327d4ea03, type: 2}
+  clearSaveRequestedEvent: {fileID: 11400000, guid: 7dee3557d98eaf74882d511b57cfc2d8, type: 2}
+  saveExistsChangedEvent: {fileID: 11400000, guid: c4849ca801de5c44d8190b9763ead495, type: 2}

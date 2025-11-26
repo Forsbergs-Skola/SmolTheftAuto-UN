@@ -11,7 +11,9 @@ namespace GameTools
         [SerializeField] private Vector2PayloadEvent moveInputEvent;
         [SerializeField] private EmptyPayloadEvent fireInputEvent;
         [SerializeField] private BoolPayloadEvent sprintInputEvent;
+        [SerializeField] private EmptyPayloadEvent gamePausedPressedEvent;
         
+
 
         private Vector2 _moveInput = Vector2.zero;
         private Vector2 moveInput
@@ -21,9 +23,13 @@ namespace GameTools
             {
                 if (value == _moveInput) { return; }
                 _moveInput = value;
-                moveInputEvent.TriggerEvent(_moveInput);
+                if (moveInputEvent != null)
+                {
+                    moveInputEvent.TriggerEvent(_moveInput);
+                }
             }
         }
+        /*
         private bool _sprintIsPressed = false;
         private bool sprintIsPressed
         {
@@ -32,9 +38,13 @@ namespace GameTools
             {
                 if (value == _sprintIsPressed) { return; }
                 _sprintIsPressed = value;
-                sprintInputEvent.TriggerEvent(_sprintIsPressed);
+                if (sprintInputEvent != null)
+                {
+                    sprintInputEvent.TriggerEvent(_sprintIsPressed);
+                }
             }
         }
+        */
         private bool pressedInputDampened = false;
         private bool gamepadIsDetected = false;
 
@@ -64,16 +74,31 @@ namespace GameTools
             moveInput = gp.leftStick.ReadValue().normalized;
 
             // GP sprint input
-            sprintIsPressed = gp.leftShoulder.isPressed;
+            //sprintIsPressed = gp.leftShoulder.isPressed;
 
             // GP fire input
             if (!pressedInputDampened)
             {
+                /*
                 if (gp.rightTrigger.wasPressedThisFrame)
                 {
-                    fireInputEvent.TriggerEvent();
-                    StartCoroutine(DampenPressedInput());
+                    if (fireInputEvent != null)
+                    {
+                        fireInputEvent.TriggerEvent();
+                        StartCoroutine(DampenPressedInput());
+                    }
                 }
+                */
+                if (gp.startButton.wasPressedThisFrame)
+                {
+                    if (gamePausedPressedEvent != null)
+                    {
+                        gamePausedPressedEvent.TriggerEvent();
+                        StartCoroutine(DampenPressedInput());
+                    }
+                }
+
+
             }
         }
 
@@ -89,15 +114,29 @@ namespace GameTools
             moveInput = new Vector2(moveX, moveY).normalized;
 
             // KB sprint input
-            sprintIsPressed = kb.leftShiftKey.isPressed;
+            //sprintIsPressed = kb.leftShiftKey.isPressed;
 
             // KB fire input
             if (!pressedInputDampened)
             {
+                /*
                 if (kb.spaceKey.wasPressedThisFrame)
                 {
-                    fireInputEvent.TriggerEvent();
-                    StartCoroutine(DampenPressedInput());
+                    if (fireInputEvent != null)
+                    {
+                        fireInputEvent.TriggerEvent();
+                        StartCoroutine(DampenPressedInput());
+                    }
+                }
+                */
+
+                if (kb.escapeKey.wasPressedThisFrame)
+                {
+                    if (gamePausedPressedEvent != null)
+                    {
+                        gamePausedPressedEvent.TriggerEvent();
+                        StartCoroutine(DampenPressedInput());
+                    }
                 }
             }
         }
