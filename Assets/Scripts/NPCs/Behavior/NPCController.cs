@@ -1,60 +1,50 @@
 using UnityEngine;
-using SmolTheftAuto.Core;
+using SmolTheftAuto.NPCs.Data;
 
 namespace SmolTheftAuto.NPCs.Behavior
 {
-    // Main controller for NPC behavior. Handles NPC state and basic interactions
+    // Main controller that coordinates all NPC components
+    // Acts as a coordinator rather than handling all logic itself
     [RequireComponent(typeof(NPCHealth))]
     public class NPCController : MonoBehaviour
     {
-        [Header("NPC Settings")]
-        [SerializeField] private float damageToPlayer = 10f;
-        [SerializeField] private float damageRange = 2f;
-        [SerializeField] private float damageCooldown = 1f;
+        [Header("NPC Data")]
+        [SerializeField] private NPCData npcData;
 
+        // Component references
         private NPCHealth npcHealth;
-        private float lastDamageTime = 0f;
+        private NPCCombat npcCombat;
+        private NPCMovement npcMovement;
+        private NPCLoot npcLoot;
 
         private void Awake()
         {
+            // Get all component references
             npcHealth = GetComponent<NPCHealth>();
+            npcCombat = GetComponent<NPCCombat>();
+            npcMovement = GetComponent<NPCMovement>();
+            npcLoot = GetComponent<NPCLoot>();
+
+            // Validate required components
             if (npcHealth == null)
             {
-                Debug.LogError($"{nameof(NPCController)} requires {nameof(NPCHealth)} on the same GameObject.", this);
+                Debug.LogError($"{nameof(NPCController)} requires {nameof(NPCHealth)} component!", this);
             }
         }
 
-        private void Update()
+        // Get the NPCData assigned to this NPC
+        public NPCData GetNPCData() => npcData;
+
+        // Set NPCData (useful for runtime configuration)
+        public void SetNPCData(NPCData data)
         {
-            if (PlayerReference.PlayerTransform != null && !npcHealth.IsDestroyed())
-            {
-                CheckPlayerDamage();
-            }
+            npcData = data;
         }
 
-        private void CheckPlayerDamage()
-        {
-            float distanceToPlayer = Vector3.Distance(transform.position, PlayerReference.PlayerTransform.position);
-
-            if (distanceToPlayer <= damageRange && Time.time >= lastDamageTime + damageCooldown)
-            {
-                DealDamageToPlayer();
-                lastDamageTime = Time.time;
-            }
-        }
-
-        private void DealDamageToPlayer()
-        {
-            IDamageable damageable = PlayerReference.GetPlayerComponent<IDamageable>();
-            damageable?.TakeDamage(damageToPlayer);
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, damageRange);
-        }
+        // Get component references (for external access if needed)
+        public NPCHealth GetNPCHealth() => npcHealth;
+        public NPCCombat GetNPCCombat() => npcCombat;
+        public NPCMovement GetNPCMovement() => npcMovement;
+        public NPCLoot GetNPCLoot() => npcLoot;
     }
 }
-
-

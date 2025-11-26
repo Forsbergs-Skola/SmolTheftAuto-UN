@@ -5,6 +5,7 @@ using UnityEngine;
 namespace SmolTheftAuto.Data
 {
     // Handles money pickup when player collects money dropped by NPCs
+    [RequireComponent(typeof(Collider))]
     public class MoneyPickup : MonoBehaviour
     {
         [Header("Pickup Settings")]
@@ -15,9 +16,19 @@ namespace SmolTheftAuto.Data
         [SerializeField] private float floatAmount = 0.5f;
 
         private Vector3 startPosition;
+        private Collider pickupCollider;
 
         private void Start()
         {
+            pickupCollider = GetComponent<Collider>();
+            if (pickupCollider != null)
+            {
+                pickupCollider.isTrigger = true;
+                if (pickupCollider is SphereCollider sphereCollider)
+                {
+                    sphereCollider.radius = pickupRange;
+                }
+            }
             startPosition = transform.position;
         }
 
@@ -36,10 +47,22 @@ namespace SmolTheftAuto.Data
             }
         }
 
+<<<<<<< Updated upstream
+=======
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject == PlayerReference.PlayerGameObject ||
+                other.CompareTag(GameConstants.Tags.PLAYER))
+            {
+                PickupMoney();
+            }
+        }
+
+>>>>>>> Stashed changes
         // Set the money amount for this pickup
         public void SetMoneyAmount(int amount)
         {
-            moneyAmount = amount;
+            moneyAmount = Mathf.Max(0, amount);
         }
 
         private void PickupMoney()

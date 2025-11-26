@@ -1,41 +1,51 @@
 using UnityEngine;
 using SmolTheftAuto.Core;
-using SmolTheftAuto.Data;
+using SmolTheftAuto.NPCs.Data;
 using Events;
 
 namespace SmolTheftAuto.NPCs.Behavior
 {
-    // Handles NPC health, damage, and destruction
-    // NPCs can be damaged and destroyed, and drop money when destroyed
-    public class NPCHealth : MonoBehaviour
+    // Component responsible for NPC health management
+    // Implements IDamageable for consistent damage handling across systems
+    public class NPCHealth : MonoBehaviour, IDamageable
     {
         [Header("Health Settings")]
         [SerializeField] private float maxHealth = 100f;
         private float currentHealth;
 
-        [Header("Money Drop Settings")]
-        [SerializeField] private int minMoneyDrop = 10;
-        [SerializeField] private int maxMoneyDrop = 50;
-        [SerializeField] private GameObject moneyPickupPrefab;
-
-        [Header("Respawn Settings")]
-        [SerializeField] private bool shouldRespawn = true;
-        [SerializeField] private float respawnDelay = 5f;
-
         [Header("Event Channels")]
         [SerializeField] private Vector2PayloadEvent healthChangedEvent;
         [SerializeField] private EmptyPayloadEvent npcDestroyedEvent;
         [SerializeField] private GameObjectPayloadEvent npcDestroyedGameObjectEvent;
-        [SerializeField] private IntPayloadEvent moneyDroppedEvent;
 
+        // Event for NPCManager to track destroyed NPCs
+        public System.Action<GameObject> OnNPCDestroyed;
+
+        private NPCData npcData;
+        private NPCLoot npcLoot;
         private bool isDestroyed = false;
 
         private void Awake()
         {
+            npcLoot = GetComponent<NPCLoot>();
+            
+            // Try to get NPCData from parent NPCController
+            var npcController = GetComponent<NPCController>();
+            if (npcController != null)
+            {
+                npcData = npcController.GetNPCData();
+            }
+
+            // Use NPCData maxHealth if available
+            if (npcData != null)
+            {
+                maxHealth = npcData.maxHealth;
+            }
+
             currentHealth = maxHealth;
         }
 
-        // Apply damage to the NPC
+        // Apply damage to the NPC (from IDamageable interface)
         public void TakeDamage(float damage)
         {
             if (isDestroyed) return;
@@ -43,7 +53,7 @@ namespace SmolTheftAuto.NPCs.Behavior
             currentHealth -= damage;
             currentHealth = Mathf.Max(0, currentHealth);
 
-            healthChangedEvent?.TriggerEvent(payload: new Vector2(currentHealth, maxHealth));
+            healthChangedEvent?.TriggerEvent(new Vector2(currentHealth, maxHealth));
 
             if (currentHealth <= 0)
             {
@@ -51,18 +61,30 @@ namespace SmolTheftAuto.NPCs.Behavior
             }
         }
 
-        // Destroy the NPC and handle money drop and respawn
+        // Destroy the NPC and trigger events
         private void DestroyNPC()
         {
             if (isDestroyed) return;
             isDestroyed = true;
 
-            DropMoney();
+            // Drop money through NPCLoot component
+            if (npcLoot != null)
+            {
+                npcLoot.DropMoney();
+            }
+
+            // Trigger events for quest system and other listeners
             npcDestroyedEvent?.TriggerEvent();
             npcDestroyedGameObjectEvent?.TriggerEvent(gameObject);
 
-            if (shouldRespawn)
+            // Notify NPCManager
+            OnNPCDestroyed?.Invoke(gameObject);
+
+            // Handle respawn through NPCManager
+            var spawner = ServiceLocator.Get<INPCSpawner>();
+            if (spawner != null && npcData != null && npcData.shouldRespawn)
             {
+<<<<<<< Updated upstream
                 HandleRespawn();
             }
             else
@@ -96,6 +118,9 @@ namespace SmolTheftAuto.NPCs.Behavior
             if (spawner != null)
             {
                 spawner.RespawnNPC(gameObject, respawnDelay);
+=======
+                spawner.RespawnNPC(gameObject, npcData.respawnDelay);
+>>>>>>> Stashed changes
             }
             else
             {
@@ -103,13 +128,15 @@ namespace SmolTheftAuto.NPCs.Behavior
             }
         }
 
+        // Reset health (useful for respawning)
         public void ResetHealth()
         {
             currentHealth = maxHealth;
             isDestroyed = false;
-            healthChangedEvent?.TriggerEvent(payload: new Vector2(currentHealth, maxHealth));
+            healthChangedEvent?.TriggerEvent(new Vector2(currentHealth, maxHealth));
         }
 
+        // Getter methods
         public float GetCurrentHealth() => currentHealth;
         public float GetMaxHealth() => maxHealth;
         public bool IsDestroyed() => isDestroyed;

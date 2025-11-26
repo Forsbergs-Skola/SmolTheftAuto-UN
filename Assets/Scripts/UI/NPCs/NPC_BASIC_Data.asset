@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272b46b3897943e40bcc4e1f6bdf5b16, type: 3}
+  m_Name: NPC_BASIC_Data
+  m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.Data.NPCData
+  maxHealth: 100
+  damageToPlayer: 10
+  damageRange: 2
+  damageCooldown: 1
+  movementSpeed: 3
+  wanderRadius: 10
+  wanderTimer: 5
+  minMoneyDrop: 10
+  maxMoneyDrop: 50
+  shouldRespawn: 1
+  respawnDelay: 5
