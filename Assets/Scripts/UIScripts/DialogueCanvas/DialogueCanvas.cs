@@ -70,9 +70,6 @@ public class DialogueCanvas : MonoBehaviour, ICanvasable
             currentLineIdx++;
             DialogueLine thisLine = currentConvo.GetLineAtIdx(currentLineIdx);
             speakerNameText.text = thisLine.speakerName;
-
-            //portraitImage.texture = Resources.Load<Texture>(thisLine.portraitTexturePath);
-
             
 
             leftPortraitImage.texture = Resources.Load<Texture>(thisLine.leftTexturePath);

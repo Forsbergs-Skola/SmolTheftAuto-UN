@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bcdae15120d964a9e49dd513d4b7c7, type: 3}
   m_Name: SUNGLASSES_MID
   m_EditorClassIdentifier: Assembly-CSharp::Conversation
-  conversationName: SUNGLASSE_MID
+  conversationName: SUNGLASSES_FLAVOR
   lines:
   - speakerName: Stylish Elf
     dialogueLine: Come on, darling! Go earn that sparkle!
-    leftTexturePath: 
-    rightTexturePath: 
-    subdueLeft: 0
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/AltExampleElf_02
+    subdueLeft: 1
     subdueRight: 0
