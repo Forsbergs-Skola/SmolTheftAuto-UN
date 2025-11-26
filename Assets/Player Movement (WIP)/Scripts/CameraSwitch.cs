@@ -1,5 +1,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using Events;
 using UnityEngine.InputSystem;
 
 public class CameraSwitch : MonoBehaviour
@@ -11,6 +12,9 @@ public class CameraSwitch : MonoBehaviour
     public PlayerController player;
     [SerializeField] private GameObject crosshairUI;
     [SerializeField] private PlayerControls input;
+
+    [SerializeField] private StringPayloadEvent dialogueStartedEvent;
+    [SerializeField] private StringPayloadEvent dialogueFinishedEvent;
 
     private InputAction aim;
     private bool isAiming;
@@ -28,7 +32,32 @@ public class CameraSwitch : MonoBehaviour
         input.Enable();
         aim = input.Player.Aim;
     }
-    
+
+    private void OnEnable()
+    {
+        dialogueStartedEvent.OnEventTriggered += HandleDialogueStarted;
+        dialogueFinishedEvent.OnEventTriggered += HandleDialogueFinished;
+    }
+    private void OnDisable()
+    {
+        dialogueStartedEvent.OnEventTriggered -= HandleDialogueStarted;
+        dialogueFinishedEvent.OnEventTriggered -= HandleDialogueFinished;
+    }
+
+    private void HandleDialogueStarted(string _unusedStr)
+    {
+        //Debug.Log("FOO");
+        axisController.enabled = false;
+        Cursor.visible = true;
+    }
+    private void HandleDialogueFinished(string _unusedStr)
+    {
+        //Debug.Log("BAR");
+        axisController.enabled = true;
+        Cursor.visible = false;
+    }
+
+
     void Update()
     {
         bool aimPressed = aim.IsPressed();

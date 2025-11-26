@@ -1,8 +1,16 @@
 using Unity.Cinemachine;
+using GameTools;
+using Events;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
+    private const float HIT_COOLDOWN = 0.1f;
+
+
+    [Range(-100, 0)] [SerializeField] private int meleeDamage = -5;
+
     [SerializeField] private CharacterController characterController;
     private Animator animator;
     private PlayerControls controls;
@@ -25,16 +33,47 @@ public class PlayerController : MonoBehaviour
     [Header("Ground Check")]
     [SerializeField] private float groundCheckDistance = 0.3f;
     [SerializeField] private LayerMask groundLayer;
-    
+
+    [Header("Event Channels")]
+    [SerializeField] private StringPayloadEvent dialogueStartedEvent;
+    [SerializeField] private StringPayloadEvent dialogueEndedEvent;
+    [SerializeField] private IntPayloadEvent healthChangedEvent;
+    [SerializeField] private EmptyPayloadEvent playerDataChangedEvent;
+
+    //private bool dialogueIsActive = false;
+
     public bool isAiming;
+
+    private bool isHittable = true;
+
+    private GameManagerSingleton gm;
 
     private Vector3 moveDirection;
 
     void Awake() => controls = new PlayerControls();
-    void OnEnable() => controls.Enable();
-    void OnDisable() => controls.Disable();
-    void Start() => animator = GetComponent<Animator>();
-    
+    //void OnEnable() => controls.Enable();
+    private void OnEnable()
+    {
+        controls.Enable();
+        dialogueStartedEvent.OnEventTriggered += HandleDialogueStarted;
+        dialogueEndedEvent.OnEventTriggered += HandleDialogueFinished;
+        playerDataChangedEvent.OnEventTriggered += HandlePlayerDataChanged;
+    }
+    //void OnDisable() => controls.Disable();
+    private void OnDisable()
+    {
+        controls.Disable();
+        dialogueStartedEvent.OnEventTriggered -= HandleDialogueStarted;
+        dialogueEndedEvent.OnEventTriggered -= HandleDialogueFinished;
+        playerDataChangedEvent.OnEventTriggered -= HandlePlayerDataChanged;
+    }
+    //void Start() => animator = GetComponent<Animator>();
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+        gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
+    }
+
     void Update()
     {
         bool grounded = IsGrounded();
@@ -47,6 +86,9 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMovement(bool sprintHeld) //here I handle all the horizontal ground movement
     {
+
+       
+
         Vector2 moveInput = controls.Player.Move.ReadValue<Vector2>();
 
         if (isAiming)
@@ -107,6 +149,46 @@ public class PlayerController : MonoBehaviour
         float rayLength = groundCheckDistance + 0.1f;
         return Physics.Raycast(origin, Vector3.down, rayLength, groundLayer); //Fire straight down to detect ground
     }
+
+    private void HandleDialogueStarted(string _unusedStr)
+    {
+        controls.Disable();
+    }
+    private void HandleDialogueFinished(string _unusedStr)
+    {
+        controls.Enable();
+    }
+
+
+    private void HandlePlayerDataChanged()
+    {
+        if (gm == null) return;
+        int health = gm.CurrentPlayerData.health;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        // TODO...(die stuff)
+    }
+
+    public void TakeDamage()
+    {
+        if (!isHittable) return;
+        isHittable = false;
+        StartCoroutine(HitCooldown());
+        healthChangedEvent.TriggerEvent(meleeDamage);
+    }
+    System.Collections.IEnumerator HitCooldown()
+    {
+        yield return new WaitForSeconds(HIT_COOLDOWN);
+        isHittable = true;
+    }
+
+
 
     void JumpingAndGravityLogic(bool grounded)
     {
