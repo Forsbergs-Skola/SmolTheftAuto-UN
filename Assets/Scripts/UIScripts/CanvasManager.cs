@@ -170,7 +170,7 @@ public class CanvasManager : MonoBehaviour
         DisplayCanvas(EnumCanvasName.LOADING, false);
         yield return new WaitForSeconds(wait);
         ICanvasable loadingCanvas = GetCanvasWithName(EnumCanvasName.LOADING);
-        Tween fadeTween = TweenService.GetFloatTween(gameObject, 1.0f, 0.0f, 4.0f,EnumTweenEase.QUAD,EnumTweenDirection.IN);
+        Tween fadeTween = TweenService.GetFloatTween(gameObject, 1.0f, 0.0f, 0.5f,EnumTweenEase.QUART,EnumTweenDirection.IN);
         fadeTween.StartTween();
         fadeTween.OnValueUpdated += (value) =>
         {

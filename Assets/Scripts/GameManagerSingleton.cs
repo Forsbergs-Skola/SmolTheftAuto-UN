@@ -357,7 +357,7 @@ public class GameManagerSingleton : MonoBehaviour
         CanvasManager cm = GetCanvasManager();
         if (cm.CurrentActiveCanvas == EnumCanvasName.DIALOGUE)
         {
-            Debug.LogWarning("There is already an active dialogue");
+            Debug.LogWarning($"{conversationName} -- There is already an active dialogue");
             return;
         }
 
