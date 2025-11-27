@@ -106,7 +106,7 @@ public class DialogueCanvas : MonoBehaviour, ICanvasable
         foreach(char character in lineText)
         {
             dialogueLineText.text += character;
-            yield return new WaitForSeconds(textRevealInterval);
+            yield return new WaitForSecondsRealtime(textRevealInterval);
         }
         continueButton.gameObject.SetActive(true);
     }
