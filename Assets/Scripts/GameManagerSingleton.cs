@@ -361,6 +361,8 @@ public class GameManagerSingleton : MonoBehaviour
             return;
         }
 
+        Time.timeScale = 0f;
+
         ////////////////////
         // PAUSE gameplay //
         ////////////////////
@@ -377,6 +379,7 @@ public class GameManagerSingleton : MonoBehaviour
             return;
         }
 
+        Time.timeScale = 1f;
         ///////////////////////
         // Un-PAUSE gameplay //
         ///////////////////////
@@ -518,14 +521,14 @@ public class GameManagerSingleton : MonoBehaviour
         if (gameIsPaused)
         {
             cm.DisplayCanvas(EnumCanvasName.PAUSE);
-            //Time.timeScale = 0.0f;
+            Time.timeScale = 0.0f;
 
             // tell the player that he is paused
         }
         else
         {
             cm.DisplayCanvas(EnumCanvasName.HUD);
-            //Time.timeScale = 1.0f;
+            Time.timeScale = 1.0f;
 
             // tell the player that he is unpaused
         }

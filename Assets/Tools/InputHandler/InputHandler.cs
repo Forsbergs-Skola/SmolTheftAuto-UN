@@ -61,12 +61,9 @@ namespace GameTools
 
             if (Gamepad.current != null)
             {
-                IngestGamepadInput(Gamepad.current);
+                //IngestGamepadInput(Gamepad.current); return;
             }
-            else
-            {
-                IngestMouseKeyboardInput(Keyboard.current);
-            }
+            IngestMouseKeyboardInput(Keyboard.current);
         }
 
         private void IngestGamepadInput(Gamepad gp)
@@ -103,11 +100,16 @@ namespace GameTools
             {
                 if (kb.escapeKey.wasPressedThisFrame)
                 {
+                    Debug.Log("FOO");
+
                     if (gamePausedPressedEvent != null)
                     {
                         if (SceneManager.GetActiveScene().name == "Bootstrap") return;
                         gamePausedPressedEvent.TriggerEvent();
                         StartCoroutine(DampenPressedInput());
+
+                        
+
                     }
                 }
             }

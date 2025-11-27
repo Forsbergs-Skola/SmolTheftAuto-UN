@@ -56,7 +56,7 @@ namespace Tweens
             // TODO
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (owner == null) { Destroy(gameObject); return; }
             if (!running) { return; }
