@@ -33,6 +33,13 @@ public class CameraSwitch : MonoBehaviour
         aim = input.Player.Aim;
     }
 
+    private void OnDestroy()
+    {
+        Cursor.visible = true;
+        input.Player.Disable();
+        input.Camera.Disable();
+    }
+
     private void OnEnable()
     {
         dialogueStartedEvent.OnEventTriggered += HandleDialogueStarted;

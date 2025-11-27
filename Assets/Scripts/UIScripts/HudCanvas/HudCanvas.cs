@@ -18,7 +18,7 @@ public class HudCanvas : MonoBehaviour, ICanvasable
 
     [SerializeField] private GameObject missionPassedObject;
     [SerializeField] private TMP_Text missionPassedText;
-    [SerializeField] private EmptyPayloadEvent playerDataUpdatedEvent;
+    //[SerializeField] private EmptyPayloadEvent playerDataUpdatedEvent;
 
     [SerializeField] private TMP_Text weaponText;
     [SerializeField] private TMP_Text ammoText;
@@ -49,37 +49,37 @@ public class HudCanvas : MonoBehaviour, ICanvasable
     {
         missionPassedObject.SetActive(false);
         gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
-        HandleOnPlayerDataUpdated();
+        HandleOnPlayerDataUpdated(gm.CurrentPlayerData);
     }
 
-    private void OnEnable()
-    {
-        playerDataUpdatedEvent.OnEventTriggered += HandleOnPlayerDataUpdated;
-        HandleOnPlayerDataUpdated();
-    }
-    private void OnDisable()
-    {
-        playerDataUpdatedEvent.OnEventTriggered -= HandleOnPlayerDataUpdated;
-    }
+    //private void OnEnable()
+    //{
+    //    playerDataUpdatedEvent.OnEventTriggered += HandleOnPlayerDataUpdated;
+    //    HandleOnPlayerDataUpdated();
+    //}
+    //private void OnDisable()
+    //{
+    //    playerDataUpdatedEvent.OnEventTriggered -= HandleOnPlayerDataUpdated;
+    //}
 
-    private void HandleOnPlayerDataUpdated()
+    public void HandleOnPlayerDataUpdated(PlayerData _data)
     {
-        if (gm == null) return;
+        //if (gm == null) return;
 
-        PlayerData data = gm.CurrentPlayerData;
-        healthSlider.value = data.health;
-        FixWeaponText(data.equippedWeapon);
-        FixAmmoText(data.equippedWeapon);
-        FixMoneyText(data.money);
+        //PlayerData data = gm.CurrentPlayerData;
+        healthSlider.value = _data.health;
+        FixWeaponText(_data.equippedWeapon);
+        FixAmmoText(_data.equippedWeapon);
+        FixMoneyText(_data.money);
 
-        if (gm.CurrentQuestStartedData.gasCan && !data.hasGasCan)
+        if (gm.CurrentQuestStartedData.gasCan && !_data.hasGasCan)
         {
-            string cpString = $"{CHECKPOINTS_PREFIX} {data.checkpointsReached}";
+            string cpString = $"{CHECKPOINTS_PREFIX} {_data.checkpointsReached}";
             checkpointsText.text = cpString;
         } else { checkpointsText.text = string.Empty; }
-        if (gm.CurrentQuestStartedData.matches && !data.hasMatches)
+        if (gm.CurrentQuestStartedData.matches && !_data.hasMatches)
         {
-            string killsString = $"{KILLS_PREFIX} {data.npcsKilled}";
+            string killsString = $"{KILLS_PREFIX} {_data.npcsKilled}";
             killsText.text = killsString;
         } else { killsText.text = string.Empty; }
 

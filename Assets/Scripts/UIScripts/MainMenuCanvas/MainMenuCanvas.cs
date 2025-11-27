@@ -41,7 +41,9 @@ public class MainMenuCanvas : MonoBehaviour, ICanvasable
 
     private void OnEnable()
     {
+        GameManagerSingleton gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
         saveExistsChangedEvent.OnEventTriggered += HandleSaveExistsChanged;
+        continueButton.gameObject.SetActive(gm.SaveExists());
     }
     private void OnDisable()
     {

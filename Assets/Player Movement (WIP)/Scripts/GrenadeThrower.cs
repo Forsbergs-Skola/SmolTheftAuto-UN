@@ -19,6 +19,12 @@ public class GrenadeThrower : MonoBehaviour
             ThrowGrenade();
     }
 
+    private void OnDestroy()
+    {
+        controls.Player.Disable();
+        controls.Camera.Disable();
+    }
+
     void ThrowGrenade()
     {
         GameObject grenade = Instantiate(grenadePrefab, transform.position, cam.transform.rotation);
