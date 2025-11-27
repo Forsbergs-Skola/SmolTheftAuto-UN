@@ -1,4 +1,6 @@
 using UnityEngine;
+using Events;
+using GameTools;
 using TMPro;
 using UnityEngine.UI;
 
@@ -15,6 +17,14 @@ public class PauseCanvas : MonoBehaviour, ICanvasable
     [SerializeField] private TMP_Text switchViewButtonText;
     [SerializeField] private InventoryPanel inventoryPanel;
     [SerializeField] private QuestPanel questPanel;
+
+    [SerializeField] private GameObject gasCanImage;
+    [SerializeField] private GameObject matchesImage;
+    [SerializeField] private GameObject sunglassesImage;
+
+    //[SerializeField] private EmptyPayloadEvent playerDataUpdatedEvent;
+
+    private GameManagerSingleton gm;
 
     private EnumPausePanel currentPanel;
     private bool _isVisible = false;
@@ -38,7 +48,20 @@ public class PauseCanvas : MonoBehaviour, ICanvasable
     private void Start()
     {
         DisplayPanel(EnumPausePanel.QUESTS);
+        gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
+        FixInventoryImages(gm.CurrentPlayerData);
     }
+
+    /*
+    private void OnEnable()
+    {
+        playerDataUpdatedEvent.OnEventTriggered += HandleInventoryUpdate;
+    }
+    private void OnDisable()
+    {
+        playerDataUpdatedEvent.OnEventTriggered -= HandleInventoryUpdate;
+    }
+    */
 
     public EnumCanvasName CanvasName()
     {
@@ -55,6 +78,17 @@ public class PauseCanvas : MonoBehaviour, ICanvasable
     public void SetIsVisible(bool val)
     {
         isVisible = val;
+    }
+    public void HandleInventoryUpdate(PlayerData _data)
+    {
+        FixInventoryImages(_data);
+    }
+
+    private void FixInventoryImages(PlayerData _pData)
+    {
+        matchesImage.SetActive(_pData.hasMatches);
+        gasCanImage.SetActive(_pData.hasGasCan);
+        sunglassesImage.SetActive(_pData.hasSunglasses);
     }
 
     private void DisplayPanel(EnumPausePanel panel)
@@ -76,12 +110,6 @@ public class PauseCanvas : MonoBehaviour, ICanvasable
                 break;
             default: return;
         }
-
-        // what even is this shit?
-        //RectTransform iRT = inventoryPanel.gameObject.GetComponent<RectTransform>();
-        //RectTransform qRT = questPanel.gameObject.GetComponent<RectTransform>();
-        //LayoutRebuilder.ForceRebuildLayoutImmediate(iRT);
-        //LayoutRebuilder.ForceRebuildLayoutImmediate(qRT);
     }
 
     public void HandleOnSwitchViewButtonPressed()

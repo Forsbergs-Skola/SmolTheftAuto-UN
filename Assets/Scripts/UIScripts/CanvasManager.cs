@@ -22,6 +22,7 @@
 
 using UnityEngine;
 using GameTools;
+using Events;
 using Tweens;
 using System.Collections.Generic;
 
@@ -45,6 +46,7 @@ public enum EnumCanvasName
 public class CanvasManager : MonoBehaviour
 {
     [SerializeField] private QuestPanel _questPanel;
+    [SerializeField] private EmptyPayloadEvent playerUpdatedEvent;
     public QuestPanel questPanel { get => _questPanel; }
     private List<ICanvasable> canvases = new List<ICanvasable>();
 
@@ -56,6 +58,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private Canvas testButtons;
     [SerializeField] private bool testMode = false;
 
+   
 
     private void Awake()
     {
@@ -76,11 +79,28 @@ public class CanvasManager : MonoBehaviour
         testButtons.enabled = testMode;
         //ClearCanvases();
     }
+    private void OnEnable()
+    {
+        playerUpdatedEvent.OnEventTriggered += HandlePlayerDataUpdated;
+    }
+    private void OnDisable()
+    {
+        playerUpdatedEvent.OnEventTriggered -= HandlePlayerDataUpdated;
+    }
+
+    private void HandlePlayerDataUpdated()
+    {
+        GameManagerSingleton gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
+        ICanvasable pauseIC = GetCanvasWithName(EnumCanvasName.PAUSE);
+        ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
+        pauseIC.GetCanvasObject().GetComponent<PauseCanvas>().HandleInventoryUpdate(gm.CurrentPlayerData);
+        hudIC.GetCanvasObject().GetComponent<HudCanvas>().HandleOnPlayerDataUpdated(gm.CurrentPlayerData);
+    }
 
     public void DisplayCanvas(EnumCanvasName? canvasName, bool clearFirst = true)
     {
 
-        Debug.Log(canvasName);
+        //Debug.Log(canvasName);
 
         if (clearFirst)
         {
@@ -154,11 +174,17 @@ public class CanvasManager : MonoBehaviour
 
     public void ShowHUD()
     {
-        GameManagerSingleton gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
-        PlayerData playerData = gm.CurrentPlayerData;
-        ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
-        HudCanvas hud = hudIC.GetCanvasObject().GetComponent<HudCanvas>();
+        //GameManagerSingleton gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
+        //PlayerData playerData = gm.CurrentPlayerData;
+        //ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
+        //HudCanvas hud = hudIC.GetCanvasObject().GetComponent<HudCanvas>();
         DisplayCanvas(EnumCanvasName.HUD);
+    }
+
+    public void ShowMain()
+    {
+        //
+        DisplayCanvas(EnumCanvasName.MAIN);
     }
 
     public void ShowAndFadeLoadingScreen()
@@ -167,9 +193,10 @@ public class CanvasManager : MonoBehaviour
     }
     private System.Collections.IEnumerator WaitThenFade(float wait)
     {
-        DisplayCanvas(EnumCanvasName.LOADING, false);
-        yield return new WaitForSeconds(wait);
         ICanvasable loadingCanvas = GetCanvasWithName(EnumCanvasName.LOADING);
+        
+        DisplayCanvas(EnumCanvasName.LOADING,true);
+        yield return new WaitForSeconds(wait);
         Tween fadeTween = TweenService.GetFloatTween(gameObject, 1.0f, 0.0f, 0.5f,EnumTweenEase.QUART,EnumTweenDirection.IN);
         fadeTween.StartTween();
         fadeTween.OnValueUpdated += (value) =>
@@ -179,6 +206,7 @@ public class CanvasManager : MonoBehaviour
         fadeTween.OnFinished += () =>
         {
             DisplayCanvas(EnumCanvasName.HUD);
+            loadingCanvas.GetCanvasObject().GetComponent<LoadcingCanvas>().SetBlackingPanelAlpha(1.0f);
         };
     }
 
@@ -192,7 +220,7 @@ public class CanvasManager : MonoBehaviour
         return null;
     }
 
-
+  
     public void ClearCanvases()
     {
         foreach(ICanvasable canvas in canvases)

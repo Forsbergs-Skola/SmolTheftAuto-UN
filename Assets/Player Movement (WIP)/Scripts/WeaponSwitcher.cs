@@ -28,6 +28,13 @@ public class WeaponSwitcher : MonoBehaviour
     }
 
     private void OnDisable() => controls.Disable();
+
+    private void OnDestroy()
+    {
+        controls.Player.Disable();
+        controls.Camera.Disable();
+    }
+
     void Update()
     {
         float weaponNumber = controls.Player.WeaponSelect.ReadValue<float>();

@@ -28,6 +28,12 @@ public class Gun : MonoBehaviour
         gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
     }
 
+    private void OnDestroy()
+    {
+        controls.Player.Disable();
+        controls.Camera.Disable();
+    }
+
     private void Update()
     {
         bool shouldFire = isAutomatic ? controls.Player.Fire.IsPressed() : controls.Player.Fire.triggered;

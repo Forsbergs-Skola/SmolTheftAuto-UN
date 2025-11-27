@@ -39,12 +39,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private StringPayloadEvent dialogueEndedEvent;
     [SerializeField] private IntPayloadEvent healthChangedEvent;
     [SerializeField] private EmptyPayloadEvent playerDataChangedEvent;
+    [SerializeField] private EmptyPayloadEvent pauseToggledEvent;
 
     //private bool dialogueIsActive = false;
 
     public bool isAiming;
 
     private bool isHittable = true;
+
+    private bool gameIsPaused = false;
 
     private GameManagerSingleton gm;
 
@@ -58,6 +61,7 @@ public class PlayerController : MonoBehaviour
         dialogueStartedEvent.OnEventTriggered += HandleDialogueStarted;
         dialogueEndedEvent.OnEventTriggered += HandleDialogueFinished;
         playerDataChangedEvent.OnEventTriggered += HandlePlayerDataChanged;
+        pauseToggledEvent.OnEventTriggered += HandleOnPauseToggled;
     }
     //void OnDisable() => controls.Disable();
     private void OnDisable()
@@ -66,7 +70,16 @@ public class PlayerController : MonoBehaviour
         dialogueStartedEvent.OnEventTriggered -= HandleDialogueStarted;
         dialogueEndedEvent.OnEventTriggered -= HandleDialogueFinished;
         playerDataChangedEvent.OnEventTriggered -= HandlePlayerDataChanged;
+        pauseToggledEvent.OnEventTriggered -= HandleOnPauseToggled;
     }
+    
+
+    private void OnDestroy()
+    {
+        controls.Player.Disable();
+        controls.Camera.Disable();
+    }
+
     //void Start() => animator = GetComponent<Animator>();
     private void Start()
     {
@@ -83,6 +96,7 @@ public class PlayerController : MonoBehaviour
         JumpingAndGravityLogic(grounded);
         AnimationHandling(grounded, sprintHeld);
     }
+
 
     void PlayerMovement(bool sprintHeld) //here I handle all the horizontal ground movement
     {
@@ -168,6 +182,14 @@ public class PlayerController : MonoBehaviour
         {
             Die();
         }
+    }
+
+    private void HandleOnPauseToggled()
+    {
+        gameIsPaused = !gameIsPaused;
+        if (gameIsPaused) { controls.Disable(); }
+        else { controls.Enable(); }
+
     }
 
     private void Die()

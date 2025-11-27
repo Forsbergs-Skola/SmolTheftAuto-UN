@@ -113119,6 +113119,7 @@ MonoBehaviour:
   dialogueEndedEvent: {fileID: 11400000, guid: a27f60acfe311394d8162c5889142054, type: 2}
   healthChangedEvent: {fileID: 11400000, guid: 253e17d71a966904a8e01c7aaab73b3e, type: 2}
   playerDataChangedEvent: {fileID: 11400000, guid: d1afcc1ffdd608943bde2d7bbc4b8b01, type: 2}
+  pauseToggledEvent: {fileID: 11400000, guid: 655d122db7dec524b8b19e29a5d21c92, type: 2}
   isAiming: 0
 --- !u!199 &8694673843447905383
 ParticleSystemRenderer:

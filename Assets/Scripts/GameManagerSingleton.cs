@@ -518,18 +518,27 @@ public class GameManagerSingleton : MonoBehaviour
         if (gameIsPaused)
         {
             cm.DisplayCanvas(EnumCanvasName.PAUSE);
-            Time.timeScale = 0.0f;
+            //Time.timeScale = 0.0f;
 
             // tell the player that he is paused
         }
         else
         {
             cm.DisplayCanvas(EnumCanvasName.HUD);
-            Time.timeScale = 1.0f;
+            //Time.timeScale = 1.0f;
 
             // tell the player that he is unpaused
         }
 
+    }
+
+    public void SaveButtonPressed()
+    {
+        saveGameRequestedEvent.TriggerEvent();
+    }
+    public void OnMainButtonPressed()
+    {
+        LoadMain();
     }
 
     /////////////
@@ -545,9 +554,20 @@ public class GameManagerSingleton : MonoBehaviour
     {
         Debug.Log($"Loading scene: {gameplaySceneName}");
         CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
-        cm.ShowHUD(); // 
         cm.ShowAndFadeLoadingScreen();
-        SceneManager.LoadScene(gameplaySceneName); // <-- insert with real scene later
+        SceneManager.LoadScene(gameplaySceneName);
+    }
+
+    private void LoadMain()
+    {
+        Time.timeScale = 1.0f;
+        Debug.Log("Loading scene: Bootstrap");
+        CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
+        cm.ShowMain();
+        SceneManager.LoadScene("Bootstrap");
+
+
+        // fix buttons
     }
 
     private CanvasManager? GetCanvasManager()

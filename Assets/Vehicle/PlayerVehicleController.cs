@@ -42,6 +42,12 @@ public class PlayerVehicleController : MonoBehaviour
         controls.Disable();
     }
 
+    private void OnDestroy()
+    {
+        controls.Player.Disable();
+        controls.Camera.Disable();
+    }
+
     private void Update()
     {
         if (!isDriving || currentVehicle == null)
