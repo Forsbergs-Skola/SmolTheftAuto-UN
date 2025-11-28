@@ -21,6 +21,7 @@
 //      cm.ClearCanvases();
 
 using UnityEngine;
+using UnityEngine.InputSystem;
 using GameTools;
 using Events;
 using Tweens;
@@ -39,7 +40,8 @@ public enum EnumCanvasName
     MAIN,
     DIALOGUE,
     HUD,
-    LOADING
+    LOADING,
+    STORE
 }
 
 
@@ -103,6 +105,15 @@ public class CanvasManager : MonoBehaviour
 
     public void DisplayCanvas(EnumCanvasName? canvasName, bool clearFirst = true)
     {
+        // If the focused canvas is the HUD, hide the mouse cursor
+        // otherwise, show the mouse cursor
+        if (!GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>().LabMode)
+        {
+            if (canvasName == EnumCanvasName.HUD) { Cursor.visible = false; }
+            else { Cursor.visible = true; }
+        }
+        
+
 
         //Debug.Log(canvasName);
 
@@ -164,6 +175,7 @@ public class CanvasManager : MonoBehaviour
             Debug.LogError($"Invalid conversation name: {convoName}");
         }
     }
+
     public void FinishDialogue()
     {
         ICanvasable dialogueIC = GetCanvasWithName(EnumCanvasName.DIALOGUE);
@@ -172,6 +184,20 @@ public class CanvasManager : MonoBehaviour
         dc.CleanUp();
 
         DisplayCanvas(previousActiveCanvas);
+    }
+
+    public void StartStoreInteraction()
+    {
+        ICanvasable storeIC = GetCanvasWithName(EnumCanvasName.STORE);
+        StoreCanvas sc = storeIC.GetCanvasObject().GetComponent<StoreCanvas>();
+        DisplayCanvas(EnumCanvasName.STORE);
+        sc.StartStoreInteraction();
+    }
+    public void FinishStoreInteraction()
+    {
+        ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
+        HudCanvas hc = hudIC.GetCanvasObject().GetComponent<HudCanvas>();
+        DisplayCanvas(EnumCanvasName.HUD);
     }
 
     public void ActivateMissionPassed()
@@ -235,6 +261,9 @@ public class CanvasManager : MonoBehaviour
     {
         foreach(ICanvasable canvas in canvases)
         {
+
+            Debug.Log(canvas.GetCanvasObject().name);
+
             canvas.GetCanvasObject().GetComponent<Canvas>().sortingOrder = 0;
             canvas.SetIsVisible(false);
         }

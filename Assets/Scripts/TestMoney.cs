@@ -3,7 +3,7 @@ using UnityEngine;
 public class TestMoney : MonoBehaviour
 {
     public int amount = 10;
-    public bool collectible = true;
+    [HideInInspector]public bool collectible = true;
 
     public void DoPickupStuff()
     {
