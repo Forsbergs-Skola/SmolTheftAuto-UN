@@ -6,9 +6,9 @@ using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour
 {
-    public UnityEvent OnFire;
-    public float gunCooldown = 0.2f;
-    public bool isAutomatic;
+    [SerializeField] private UnityEvent OnFire;
+    [SerializeField] private float gunCooldown = 0.2f;
+    [SerializeField] private bool isAutomatic;
 
     private float cooldown;
     private PlayerControls controls;
@@ -26,6 +26,12 @@ public class Gun : MonoBehaviour
     {
         cooldown = 0f;
         gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
+    }
+
+    private void OnDestroy()
+    {
+        controls.Player.Disable();
+        controls.Camera.Disable();
     }
 
     private void Update()
@@ -123,8 +129,5 @@ public class Gun : MonoBehaviour
             default: 
                 return;
         }
-        
-        Debug.Log("Reloading");
-        
     }
 }

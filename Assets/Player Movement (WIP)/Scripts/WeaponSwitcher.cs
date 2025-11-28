@@ -28,27 +28,34 @@ public class WeaponSwitcher : MonoBehaviour
     }
 
     private void OnDisable() => controls.Disable();
+
+    private void OnDestroy()
+    {
+        controls.Player.Disable();
+        controls.Camera.Disable();
+    }
+
     void Update()
     {
         float weaponNumber = controls.Player.WeaponSelect.ReadValue<float>();
 
         if (weaponNumber > 0)
         {
-            int index = (int)weaponNumber - 1;   // convert 1 → 0, 2 → 1, etc.
-            SelectWeapon(index);
+            int weaponNumberFixed = (int)weaponNumber - 1;  //-1 as starts counting from 0
+            SelectWeapon(weaponNumberFixed);
         }
     }
 
-    private void SelectWeapon(int index) 
+    private void SelectWeapon(int weaponNumber) 
     {
-        //0 - none, 1 - pistol, 2 - rifle, 3 - shotgun
-        if (index < 0 || index >= weapons.Count)
-            return; // safety check
+        //0-none,1-pistol,2-rifle,3-shotgun
+        if (weaponNumber < 0 || weaponNumber >= weapons.Count)
+            return;
 
         for (int i = 0; i < weapons.Count; i++)
-            weapons[i].SetActive(i == index);
+            weapons[i].SetActive(i == weaponNumber);
 
-        switch (index)
+        switch (weaponNumber)
         {
             case 0:
                 swapWeaponEvent.TriggerEvent(EnumWeapon.NONE);

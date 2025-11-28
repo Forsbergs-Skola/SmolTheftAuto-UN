@@ -10,11 +10,10 @@ public class CrosshairController : MonoBehaviour
     
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         Vector3 screenCentre = new Vector3(Screen.width / 2, Screen.height / 2, 0);

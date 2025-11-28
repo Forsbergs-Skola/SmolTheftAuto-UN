@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 853edfaf0b537c945b59cf627ee51572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.Behavior.NPCHealth
-  maxHealth: 100
+  maxHealth: 10
   minMoneyDrop: 10
   maxMoneyDrop: 50
   moneyPickupPrefab: {fileID: 7206965480839513763, guid: 8945d29fc06b05b45b79b337a48f037c, type: 3}

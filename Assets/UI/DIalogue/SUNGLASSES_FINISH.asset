@@ -12,29 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bcdae15120d964a9e49dd513d4b7c7, type: 3}
   m_Name: SUNGLASSES_FINISH
   m_EditorClassIdentifier: Assembly-CSharp::Conversation
-  conversationName: SUNGLASSE_FINISH
+  conversationName: SUNGLASSES_FINISH
   lines:
   - speakerName: Stylish Elf
     dialogueLine: "Well well WELL\u2026 look who survived the Plaza chaos."
-    leftTexturePath: 
-    rightTexturePath: 
-    subdueLeft: 0
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/ExampleElf
+    subdueLeft: 1
     subdueRight: 0
   - speakerName: Player
     dialogueLine: "So\u2026 sunglasses?"
-    leftTexturePath: 
-    rightTexturePath: 
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/AltExampleElf_02
     subdueLeft: 0
-    subdueRight: 0
+    subdueRight: 1
   - speakerName: Stylish Elf
     dialogueLine: As promised. Try not to look too cool.
-    leftTexturePath: 
-    rightTexturePath: 
-    subdueLeft: 0
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/AltExampleElf_02
+    subdueLeft: 1
     subdueRight: 0
   - speakerName: Player
     dialogueLine: No promises.
-    leftTexturePath: 
-    rightTexturePath: 
+    leftTexturePath: DialoguePortraits/RightFacingElf
+    rightTexturePath: DialoguePortraits/AltExampleElf_02
     subdueLeft: 0
-    subdueRight: 0
+    subdueRight: 1

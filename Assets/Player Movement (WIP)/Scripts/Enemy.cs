@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float maxHealth;
+    [SerializeField] private float maxHealth;
     private float health;
 
     public float Health

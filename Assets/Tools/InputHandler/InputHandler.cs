@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using Events;
 namespace GameTools
 {
@@ -13,6 +14,7 @@ namespace GameTools
         [SerializeField] private BoolPayloadEvent sprintInputEvent;
         [SerializeField] private EmptyPayloadEvent gamePausedPressedEvent;
         
+
 
         private Vector2 _moveInput = Vector2.zero;
         private Vector2 moveInput
@@ -28,6 +30,7 @@ namespace GameTools
                 }
             }
         }
+        /*
         private bool _sprintIsPressed = false;
         private bool sprintIsPressed
         {
@@ -42,12 +45,13 @@ namespace GameTools
                 }
             }
         }
+        */
         private bool pressedInputDampened = false;
         private bool gamepadIsDetected = false;
 
         private void Awake()
         {
-            if (GameObject.FindGameObjectsWithTag(Constants.Tags.INPUT_HANDLER).Length > 1) { Destroy(gameObject); }
+            if (GameObject.FindGameObjectsWithTag(Constants.Tags.INPUT_HANDLER).Length > 0) { Destroy(gameObject); }
             tag = Constants.Tags.INPUT_HANDLER;
             DontDestroyOnLoad(gameObject);
         }
@@ -57,37 +61,23 @@ namespace GameTools
 
             if (Gamepad.current != null)
             {
-                IngestGamepadInput(Gamepad.current);
+                //IngestGamepadInput(Gamepad.current); return;
             }
-            else
-            {
-                IngestMouseKeyboardInput(Keyboard.current);
-            }
+            IngestMouseKeyboardInput(Keyboard.current);
         }
 
         private void IngestGamepadInput(Gamepad gp)
         {
-            // GP move input
             moveInput = gp.leftStick.ReadValue().normalized;
-
-            // GP sprint input
-            sprintIsPressed = gp.leftShoulder.isPressed;
-
-            // GP fire input
             if (!pressedInputDampened)
             {
-                if (gp.rightTrigger.wasPressedThisFrame)
-                {
-                    if (fireInputEvent != null)
-                    {
-                        fireInputEvent.TriggerEvent();
-                        StartCoroutine(DampenPressedInput());
-                    }
-                }
                 if (gp.startButton.wasPressedThisFrame)
                 {
                     if (gamePausedPressedEvent != null)
                     {
+
+                        if (SceneManager.GetActiveScene().name == "Bootstrap") return;
+
                         gamePausedPressedEvent.TriggerEvent();
                         StartCoroutine(DampenPressedInput());
                     }
@@ -99,7 +89,6 @@ namespace GameTools
 
         private void IngestMouseKeyboardInput(Keyboard kb)
         {
-            // KB move input
             float moveX = 0.0f;
             float moveY = 0.0f;
             if (kb.dKey.isPressed) { moveX += 1.0f; }
@@ -107,28 +96,20 @@ namespace GameTools
             if (kb.wKey.isPressed) { moveY += 1.0f; }
             if (kb.sKey.isPressed) { moveY -= 1.0f; }
             moveInput = new Vector2(moveX, moveY).normalized;
-
-            // KB sprint input
-            sprintIsPressed = kb.leftShiftKey.isPressed;
-
-            // KB fire input
             if (!pressedInputDampened)
             {
-                if (kb.spaceKey.wasPressedThisFrame)
-                {
-                    if (fireInputEvent != null)
-                    {
-                        fireInputEvent.TriggerEvent();
-                        StartCoroutine(DampenPressedInput());
-                    }
-                }
-
                 if (kb.escapeKey.wasPressedThisFrame)
                 {
+                    Debug.Log("FOO");
+
                     if (gamePausedPressedEvent != null)
                     {
+                        if (SceneManager.GetActiveScene().name == "Bootstrap") return;
                         gamePausedPressedEvent.TriggerEvent();
                         StartCoroutine(DampenPressedInput());
+
+                        
+
                     }
                 }
             }

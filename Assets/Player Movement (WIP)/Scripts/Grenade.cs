@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class Grenade : MonoBehaviour
 {
-    public float explosionDelay = 3f;
-    private float countdown;
-    public float explosionRadius = 50f;
-    public float explosionForce = 700f;
-    public float damage = 10f;
+    [SerializeField] private float explosionDelay = 3f;
+    [SerializeField] private float countdown;
+    [SerializeField] private float explosionRadius = 50f;
+    [SerializeField] private float explosionForce = 700f;
+    [SerializeField] private float damage = 10f;
 
-    public GameObject explosionEffect;
+    [SerializeField] private GameObject explosionEffect;
 
-    private bool hasExploded; 
+    [SerializeField] private bool hasExploded; 
     void Start() => countdown = explosionDelay;
     
     void Update()

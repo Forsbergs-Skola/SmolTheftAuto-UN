@@ -70,9 +70,6 @@ public class DialogueCanvas : MonoBehaviour, ICanvasable
             currentLineIdx++;
             DialogueLine thisLine = currentConvo.GetLineAtIdx(currentLineIdx);
             speakerNameText.text = thisLine.speakerName;
-
-            //portraitImage.texture = Resources.Load<Texture>(thisLine.portraitTexturePath);
-
             
 
             leftPortraitImage.texture = Resources.Load<Texture>(thisLine.leftTexturePath);
@@ -109,7 +106,7 @@ public class DialogueCanvas : MonoBehaviour, ICanvasable
         foreach(char character in lineText)
         {
             dialogueLineText.text += character;
-            yield return new WaitForSeconds(textRevealInterval);
+            yield return new WaitForSecondsRealtime(textRevealInterval);
         }
         continueButton.gameObject.SetActive(true);
     }

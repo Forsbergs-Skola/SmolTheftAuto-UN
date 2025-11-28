@@ -72,17 +72,21 @@ public class AimCameraController : MonoBehaviour
         aimCamera.CameraSide = Mathf.Lerp(aimCamera.CameraSide, targetCameraSide, Time.deltaTime * shoulderSwapSpeed);
     }
 
-    public void SetYawPitchFromCameraFoward(Transform camTransform)
+    public void SetYawPitchFromCameraFoward(Transform camTransform) //Align the cameras so there isn't any weird snapping or misalignment
     {
-        Vector3 flatForward = camTransform.forward;
-        flatForward.y = 0f;
-
-        if (flatForward.sqrMagnitude < 0.001f)
-            return;
+        Vector3 forward = camTransform.forward;
+        Vector3 forwardHorizontal = new Vector3(forward.x, 0f, forward.z); //remove vertical so its just hori for yaw
+    
+        if (forwardHorizontal.sqrMagnitude > 0.001f) //Only updating if camera isn't looking straight up or down
+            yaw = Quaternion.LookRotation(forwardHorizontal).eulerAngles.y;
         
-        yaw = Quaternion.LookRotation(flatForward).eulerAngles.y;
+        pitch = camTransform.eulerAngles.x;
         
+        if (pitch > 180f)
+            pitch -= 360f;
+        
+        pitch = Mathf.Clamp(pitch, pitchMin, pitchMax);
         yawTarget.rotation = Quaternion.Euler(0f, yaw, 0f);
-        pitchTarget.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        pitchTarget.localRotation = Quaternion.Euler(pitch, 0f, 0f);
     }
 }

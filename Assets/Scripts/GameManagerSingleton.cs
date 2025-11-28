@@ -64,6 +64,7 @@ public class GameManagerSingleton : MonoBehaviour
     [SerializeField] private EmptyPayloadEvent checkpointReachedEvent;
     [SerializeField] private EnumWeaponPayloadEvent weaponEquippedEvent;
     [SerializeField] private EmptyPayloadEvent playerDataUpdatedEvent;
+    [SerializeField] private EmptyPayloadEvent pausedEvent;
 
     [Header("Dialogue Events")]
     [SerializeField] private StringPayloadEvent dialogueStartedEvent;
@@ -77,6 +78,8 @@ public class GameManagerSingleton : MonoBehaviour
 
     private PlayerData currentPlayerData;
     private QuestStartedData currentQuestStartedData;
+
+    private bool gameIsPaused = false;
 
     public PlayerData CurrentPlayerData { get => currentPlayerData; }
     public QuestStartedData CurrentQuestStartedData { get => currentQuestStartedData; }
@@ -110,11 +113,11 @@ public class GameManagerSingleton : MonoBehaviour
         if (cm != null)
         {
             cm.questPanel.InitializeQuestUI(currentPlayerData, currentQuestStartedData);
-            cm.DisplayCanvas(EnumCanvasName.HUD);
 
 
+            cm.DisplayCanvas(EnumCanvasName.MAIN);
+            //cm.DisplayCanvas(EnumCanvasName.HUD); // when testing
 
-            //testScene = null;
             if (testScene!= null) { testScene.FixButtons(currentPlayerData, currentQuestStartedData); }
         }
         playerDataUpdatedEvent.TriggerEvent();
@@ -164,9 +167,9 @@ public class GameManagerSingleton : MonoBehaviour
         checkpointReachedEvent.OnEventTriggered += HandleOnCheckpointReached;
         npcKilledEvent.OnEventTriggered += HandleOnNpcKilled;
         weaponEquippedEvent.OnEventTriggered += HandleOnWeaponEquipped;
-
         newGamePressedEvent.OnEventTriggered += HandleOnNewGamePressed;
         continuePressedEvent.OnEventTriggered += HandleContinuePressed;
+        pausedEvent.OnEventTriggered += HandleOnGamePausedToggled;
     }
     private void OnDisable()
     {
@@ -185,9 +188,9 @@ public class GameManagerSingleton : MonoBehaviour
         checkpointReachedEvent.OnEventTriggered -= HandleOnCheckpointReached;
         npcKilledEvent.OnEventTriggered -= HandleOnNpcKilled;
         weaponEquippedEvent.OnEventTriggered -= HandleOnWeaponEquipped;
-
         newGamePressedEvent.OnEventTriggered -= HandleOnNewGamePressed;
         continuePressedEvent.OnEventTriggered -= HandleContinuePressed;
+        pausedEvent.OnEventTriggered += HandleOnGamePausedToggled;
     }
 
     
@@ -354,9 +357,11 @@ public class GameManagerSingleton : MonoBehaviour
         CanvasManager cm = GetCanvasManager();
         if (cm.CurrentActiveCanvas == EnumCanvasName.DIALOGUE)
         {
-            Debug.LogWarning("There is already an active dialogue");
+            Debug.LogWarning($"{conversationName} -- There is already an active dialogue");
             return;
         }
+
+        Time.timeScale = 0f;
 
         ////////////////////
         // PAUSE gameplay //
@@ -374,6 +379,7 @@ public class GameManagerSingleton : MonoBehaviour
             return;
         }
 
+        Time.timeScale = 1f;
         ///////////////////////
         // Un-PAUSE gameplay //
         ///////////////////////
@@ -507,6 +513,37 @@ public class GameManagerSingleton : MonoBehaviour
         LoadGameplayScene();
     }
 
+    private void HandleOnGamePausedToggled()
+    {
+        CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
+        gameIsPaused = !gameIsPaused;
+
+        if (gameIsPaused)
+        {
+            cm.DisplayCanvas(EnumCanvasName.PAUSE);
+            Time.timeScale = 0.0f;
+
+            // tell the player that he is paused
+        }
+        else
+        {
+            cm.DisplayCanvas(EnumCanvasName.HUD);
+            Time.timeScale = 1.0f;
+
+            // tell the player that he is unpaused
+        }
+
+    }
+
+    public void SaveButtonPressed()
+    {
+        saveGameRequestedEvent.TriggerEvent();
+    }
+    public void OnMainButtonPressed()
+    {
+        LoadMain();
+    }
+
     /////////////
     // HELPERS //
     /////////////
@@ -519,9 +556,21 @@ public class GameManagerSingleton : MonoBehaviour
     private void LoadGameplayScene()
     {
         Debug.Log($"Loading scene: {gameplaySceneName}");
-        //SceneManager.LoadScene(gameplaySceneName); // <-- insert with real scene later
         CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
-        cm.ShowHUD(); // 
+        cm.ShowAndFadeLoadingScreen();
+        SceneManager.LoadScene(gameplaySceneName);
+    }
+
+    private void LoadMain()
+    {
+        Time.timeScale = 1.0f;
+        Debug.Log("Loading scene: Bootstrap");
+        CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
+        cm.ShowMain();
+        SceneManager.LoadScene("Bootstrap");
+
+
+        // fix buttons
     }
 
     private CanvasManager? GetCanvasManager()

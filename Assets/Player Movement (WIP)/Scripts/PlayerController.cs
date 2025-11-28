@@ -1,39 +1,92 @@
 using Unity.Cinemachine;
+using GameTools;
+using Events;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public CharacterController characterController;
+
+    private const float HIT_COOLDOWN = 0.1f;
+
+
+    [Range(-100, 0)] [SerializeField] private int meleeDamage = -5;
+
+    [SerializeField] private CharacterController characterController;
     private Animator animator;
     private PlayerControls controls;
-    public Transform cam;
+    [SerializeField] private Transform cam;
 
     [SerializeField] private Transform yawTarget;
     
     [Header("Movement")]
-    public float walkSpeed = 6f;
-    public float rotateSpeed = 10f;
-    public float sprintSpeed = 12f;
+    [SerializeField] private float walkSpeed = 6f;
+    [SerializeField] private float rotateSpeed = 10f;
+    [SerializeField] private float sprintSpeed = 12f;
     
     [Header("Jump")]
-    public float jumpForce = 6f;
-    public float gravity = -9.81f;
+    [SerializeField] private float jumpForce = 6f;
+    [SerializeField] private float gravity = -9.81f;
     
     private Vector3 velocity;
-    public float rotationDeadzone = 0.15f;
+    [SerializeField] private float rotationDeadzone = 0.15f;
     
     [Header("Ground Check")]
-    public float groundCheckDistance = 0.3f;
-    public LayerMask groundLayer;
+    [SerializeField] private float groundCheckDistance = 0.3f;
+    [SerializeField] private LayerMask groundLayer;
+
+    [Header("Event Channels")]
+    [SerializeField] private StringPayloadEvent dialogueStartedEvent;
+    [SerializeField] private StringPayloadEvent dialogueEndedEvent;
+    [SerializeField] private IntPayloadEvent healthChangedEvent;
+    [SerializeField] private EmptyPayloadEvent playerDataChangedEvent;
+    [SerializeField] private EmptyPayloadEvent pauseToggledEvent;
+
+    //private bool dialogueIsActive = false;
+
     public bool isAiming;
+
+    private bool isHittable = true;
+
+    private bool gameIsPaused = false;
+
+    private GameManagerSingleton gm;
 
     private Vector3 moveDirection;
 
     void Awake() => controls = new PlayerControls();
-    void OnEnable() => controls.Enable();
-    void OnDisable() => controls.Disable();
-    void Start() => animator = GetComponent<Animator>();
+    //void OnEnable() => controls.Enable();
+    private void OnEnable()
+    {
+        controls.Enable();
+        dialogueStartedEvent.OnEventTriggered += HandleDialogueStarted;
+        dialogueEndedEvent.OnEventTriggered += HandleDialogueFinished;
+        playerDataChangedEvent.OnEventTriggered += HandlePlayerDataChanged;
+        pauseToggledEvent.OnEventTriggered += HandleOnPauseToggled;
+    }
+    //void OnDisable() => controls.Disable();
+    private void OnDisable()
+    {
+        controls.Disable();
+        dialogueStartedEvent.OnEventTriggered -= HandleDialogueStarted;
+        dialogueEndedEvent.OnEventTriggered -= HandleDialogueFinished;
+        playerDataChangedEvent.OnEventTriggered -= HandlePlayerDataChanged;
+        pauseToggledEvent.OnEventTriggered -= HandleOnPauseToggled;
+    }
     
+
+    private void OnDestroy()
+    {
+        controls.Player.Disable();
+        controls.Camera.Disable();
+    }
+
+    //void Start() => animator = GetComponent<Animator>();
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+        gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
+    }
+
     void Update()
     {
         bool grounded = IsGrounded();
@@ -44,8 +97,12 @@ public class PlayerController : MonoBehaviour
         AnimationHandling(grounded, sprintHeld);
     }
 
+
     void PlayerMovement(bool sprintHeld) //here I handle all the horizontal ground movement
     {
+
+       
+
         Vector2 moveInput = controls.Player.Move.ReadValue<Vector2>();
 
         if (isAiming)
@@ -107,6 +164,54 @@ public class PlayerController : MonoBehaviour
         return Physics.Raycast(origin, Vector3.down, rayLength, groundLayer); //Fire straight down to detect ground
     }
 
+    private void HandleDialogueStarted(string _unusedStr)
+    {
+        controls.Disable();
+    }
+    private void HandleDialogueFinished(string _unusedStr)
+    {
+        controls.Enable();
+    }
+
+
+    private void HandlePlayerDataChanged()
+    {
+        if (gm == null) return;
+        int health = gm.CurrentPlayerData.health;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void HandleOnPauseToggled()
+    {
+        gameIsPaused = !gameIsPaused;
+        if (gameIsPaused) { controls.Disable(); }
+        else { controls.Enable(); }
+
+    }
+
+    private void Die()
+    {
+        // TODO...(die stuff)
+    }
+
+    public void TakeDamage()
+    {
+        if (!isHittable) return;
+        isHittable = false;
+        StartCoroutine(HitCooldown());
+        healthChangedEvent.TriggerEvent(meleeDamage);
+    }
+    System.Collections.IEnumerator HitCooldown()
+    {
+        yield return new WaitForSeconds(HIT_COOLDOWN);
+        isHittable = true;
+    }
+
+
+
     void JumpingAndGravityLogic(bool grounded)
     {
         bool jumpPressed = controls.Player.Jump.triggered;
@@ -142,9 +247,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
         }
-        
         animator.SetBool("Sprinting", sprintHeld);
-        
     }
     
 }

@@ -1,24 +1,61 @@
 using UnityEngine;
+using Events;
 using GameTools;
 
 public class NpcDialogueHandler : MonoBehaviour
 {
 
     [SerializeField] private EnumQuest quest;
+    [SerializeField] private StringPayloadEvent dialogueStartEvent;
+    [SerializeField] private StringPayloadEvent dialogueFinishEvent;
+    [SerializeField] private EnumQuestPayloadEvent startQuestEvent;
+
     private string questStartConvoName;
     private string questFlavorConvoName;
     private string questFinishConvoName;
     private bool myQuestStarted;
     private bool myQuestFinished;
 
+    [SerializeField] private bool testMode = false;
+
+    private GameManagerSingleton gm;
+    private Collider myCollider;
 
     public EnumQuest Quest { get => quest; }
     public string QuestStartConvoName { get => questStartConvoName; }
     public string QuestFlavorConvoName { get => questFlavorConvoName; }
     public string QuestFinishConvoName { get => questFinishConvoName; }
 
+    private void Awake()
+    {
+        if (testMode)
+        {
+            GetComponent<Collider>().enabled = false;
+        }
+        myCollider = GetComponent<Collider>();
+    }
+
+    
+    private void OnEnable()
+    {
+        dialogueFinishEvent.OnEventTriggered += HandleDialogueFinished;
+    }
+    private void OnDisable()
+    {
+        dialogueFinishEvent.OnEventTriggered -= HandleDialogueFinished;
+    }
+    
+
+
     private void Start()
     {
+        if (GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER) == null)
+        {
+            GetComponent<Collider>().enabled = false;
+            return;
+        }
+        gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
+
         switch (quest)
         {
             case EnumQuest.GAS_CAN:
@@ -42,9 +79,39 @@ public class NpcDialogueHandler : MonoBehaviour
         }
     }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!GetIsPlayer(other)) return;
+        myCollider.enabled = false;
+
+        if (!GetMyQuestStarted())
+        {
+            dialogueStartEvent.TriggerEvent(questStartConvoName);
+            startQuestEvent.TriggerEvent(quest);
+        }
+        else if (!gm.GetIsQuestCriteriaMet(quest))
+        {
+            dialogueStartEvent.TriggerEvent(questFlavorConvoName);
+        }
+        else
+        {
+            dialogueStartEvent.TriggerEvent(questFinishConvoName);
+            Destroy(gameObject);
+        }
+    }
+
+    private bool GetIsPlayer(Collider _coll)
+    {
+        //if (_coll.gameObject.GetComponent<UiTestPlayer>() != null) return true;
+        //if (_coll.gameObject.GetComponent<PlayerController>() != null) return true;
+        if (_coll.gameObject.CompareTag("Player")) return true;
+        return false;
+    }
+
+
     public bool GetMyQuestStarted()
     {
-        GameManagerSingleton gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
         switch (quest)
         {
             case EnumQuest.GAS_CAN:
@@ -58,7 +125,6 @@ public class NpcDialogueHandler : MonoBehaviour
     }
     public bool GetMyQuestFinished()
     {
-        GameManagerSingleton gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
         switch (quest)
         {
             case EnumQuest.GAS_CAN:
@@ -72,5 +138,14 @@ public class NpcDialogueHandler : MonoBehaviour
     }
 
     
+    private void HandleDialogueFinished(string _str)
+    {
+        StartCoroutine(WaitThenReenable());
+    }
+    private System.Collections.IEnumerator WaitThenReenable()
+    {
+        yield return new WaitForSeconds(5.0f);
+        myCollider.enabled = true;
+    }
 
 }
