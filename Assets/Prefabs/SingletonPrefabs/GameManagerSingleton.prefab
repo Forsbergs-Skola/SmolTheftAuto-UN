@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9425321da85fd894e9e39fc3a5594fa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManagerSingleton
+  labMode: 0
   gameplaySceneName: STC_Map
   sm: {fileID: 3902276616944370823}
   maxHealth: 100
@@ -119,6 +120,8 @@ MonoBehaviour:
   dialogueStartedEvent: {fileID: 11400000, guid: db6cea8352e37324da875bd219ce1560, type: 2}
   dialogueEndedEvent: {fileID: 11400000, guid: a27f60acfe311394d8162c5889142054, type: 2}
   dialogueAdvancedEvent: {fileID: 11400000, guid: 571069f879906bb45963653e51079261, type: 2}
+  storeInteractionStartedEvent: {fileID: 11400000, guid: faa5ac79c4b780d4489e8ca7e3d74285, type: 2}
+  storeInteractionFinishedEvent: {fileID: 11400000, guid: fad8d9e487e48e342b78c72548bb7233, type: 2}
   saveGameRequestedEvent: {fileID: 11400000, guid: 71f58ab77d3e68b4bb09b13327d4ea03, type: 2}
   clearSaveRequestedEvent: {fileID: 11400000, guid: 7dee3557d98eaf74882d511b57cfc2d8, type: 2}
   saveExistsChangedEvent: {fileID: 11400000, guid: c4849ca801de5c44d8190b9763ead495, type: 2}

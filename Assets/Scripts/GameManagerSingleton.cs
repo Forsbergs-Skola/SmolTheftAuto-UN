@@ -16,6 +16,7 @@ public enum EnumWeapon
     PISTOL,
     RIFLE,
     SHOTGUN,
+    GRENADE,
     NONE
 }
 
@@ -40,10 +41,16 @@ public class GameManagerSingleton : MonoBehaviour
     [SerializeField] private int pistolClipCapacity = 10;
     [SerializeField] private int shotgunClipCapacity = 5;
 
+    [Header("Store values")]
+    [SerializeField] private int ammoRefilCost = 100;
+    [SerializeField] private int grenadeRefill = 3;
+    
+
     [Header("Ammo pickup values")]
     [SerializeField] private int riflePickup = 20;
     [SerializeField] private int pistolPickup = 10;
     [SerializeField] private int shotgunPickup = 5;
+    [SerializeField] private int grenadePickup = 3;
     
     [Header("For Testing -- Remove later")]
     [SerializeField] private TestScene testScene;
@@ -74,6 +81,10 @@ public class GameManagerSingleton : MonoBehaviour
     [SerializeField] private StringPayloadEvent dialogueEndedEvent;
     [SerializeField] private EmptyPayloadEvent dialogueAdvancedEvent;
 
+    [Header("Store Events")]
+    [SerializeField] private EmptyPayloadEvent storeInteractionStartedEvent;
+    [SerializeField] private EmptyPayloadEvent storeInteractionFinishedEvent;
+
     [Header("Save Game Events")]
     [SerializeField] private EmptyPayloadEvent saveGameRequestedEvent;
     [SerializeField] private EmptyPayloadEvent clearSaveRequestedEvent;
@@ -89,7 +100,11 @@ public class GameManagerSingleton : MonoBehaviour
 
     public int MaxHealth { get => maxHealth; }
 
-    
+    public int AmmoRefilCost { get => ammoRefilCost; }
+    public int GrenadeRefil { get => grenadeRefill; }
+    public bool LabMode { get => labMode; }
+
+
 
     private void Awake()
     {
@@ -110,15 +125,9 @@ public class GameManagerSingleton : MonoBehaviour
         }
         else
         {
-
-            Debug.Log("BAR");
-
             currentPlayerData = ResetPlayerData();
             currentQuestStartedData = ResetQuestStaredData();
             saveExistsChangedEvent.TriggerEvent(false);
-
-            Debug.Log(currentPlayerData.hasGasCan);
-
         }
         CanvasManager? cm = GetCanvasManager();
         if (cm != null)
@@ -148,7 +157,7 @@ public class GameManagerSingleton : MonoBehaviour
                 rifleClipCapacity -5,                      // rifle in clip
                 pistolClipCapacity -3,                      // pistol in clip
                 shotgunClipCapacity -2,                      // shotgun in clip
-                maxGrenades,            // grenades
+                3,            // grenades
                 maxHealth,              // player health
                 0,                      // checkpoints reached
                 0,                      // NPCs killed
@@ -183,6 +192,9 @@ public class GameManagerSingleton : MonoBehaviour
         newGamePressedEvent.OnEventTriggered += HandleOnNewGamePressed;
         continuePressedEvent.OnEventTriggered += HandleContinuePressed;
         pausedEvent.OnEventTriggered += HandleOnGamePausedToggled;
+
+        storeInteractionStartedEvent.OnEventTriggered += HandleOnStoreInteractionStarted;
+        storeInteractionFinishedEvent.OnEventTriggered += HandleOnStoreInteractionFinished;
     }
     private void OnDisable()
     {
@@ -204,6 +216,9 @@ public class GameManagerSingleton : MonoBehaviour
         newGamePressedEvent.OnEventTriggered -= HandleOnNewGamePressed;
         continuePressedEvent.OnEventTriggered -= HandleContinuePressed;
         pausedEvent.OnEventTriggered -= HandleOnGamePausedToggled;
+
+        storeInteractionStartedEvent.OnEventTriggered -= HandleOnStoreInteractionStarted;
+        storeInteractionFinishedEvent.OnEventTriggered -= HandleOnStoreInteractionFinished;
     }
 
     
@@ -353,15 +368,13 @@ public class GameManagerSingleton : MonoBehaviour
         {
             case EnumQuest.GAS_CAN:
                 currentPlayerData.hasGasCan = true;
-                // TODO: update the inventory UI
                 break;
             case EnumQuest.MATCHES:
                 currentPlayerData.hasMatches = true;
-                // TODO: update the inventory UI
                 break;
             case EnumQuest.SUNGLASSES:
                 currentPlayerData.hasSunglasses = true;
-                // TODO: update the inventory UI
+                currentPlayerData.money = Mathf.Max(0, currentPlayerData.money - 100); // pay for the glasses
                 break;
             default:
                 return;
@@ -475,6 +488,9 @@ public class GameManagerSingleton : MonoBehaviour
             case EnumWeapon.SHOTGUN:
                 currentPlayerData.shotgunTotalAmmo += shotgunPickup;
                 break;
+            case EnumWeapon.GRENADE:
+                currentPlayerData.granades += grenadePickup;
+                break;
         }
         playerDataUpdatedEvent.TriggerEvent();
     }
@@ -530,17 +546,33 @@ public class GameManagerSingleton : MonoBehaviour
         {
             cm.DisplayCanvas(EnumCanvasName.PAUSE);
             Time.timeScale = 0.0f;
-
-            // tell the player that he is paused
         }
         else
         {
             cm.DisplayCanvas(EnumCanvasName.HUD);
             Time.timeScale = 1.0f;
-
-            // tell the player that he is unpaused
         }
+    }
 
+    private void HandleOnStoreInteractionStarted()
+    {
+        CanvasManager cm = GetCanvasManager();
+        if (cm.CurrentActiveCanvas == EnumCanvasName.STORE)
+        {
+            Debug.LogWarning("Store interaction UI is already up");
+            return;
+        }
+        cm.StartStoreInteraction();
+        Time.timeScale = 0.0f;
+        
+    }
+    private void HandleOnStoreInteractionFinished()
+    {
+        CanvasManager cm = GetCanvasManager();
+        if (cm.CurrentActiveCanvas != EnumCanvasName.STORE) { Debug.LogError("Something weird happended"); return; }
+        Time.timeScale = 1.0f;
+        cm.FinishStoreInteraction();
+        playerDataUpdatedEvent.TriggerEvent();
     }
 
     public void SaveButtonPressed()

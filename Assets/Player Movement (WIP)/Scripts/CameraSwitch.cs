@@ -35,7 +35,7 @@ public class CameraSwitch : MonoBehaviour
 
     private void OnDestroy()
     {
-        Cursor.visible = true;
+        //Cursor.visible = true;
         input.Player.Disable();
         input.Camera.Disable();
     }
@@ -55,13 +55,13 @@ public class CameraSwitch : MonoBehaviour
     {
         //Debug.Log("FOO");
         axisController.enabled = false;
-        Cursor.visible = true;
+        //Cursor.visible = true;
     }
     private void HandleDialogueFinished(string _unusedStr)
     {
         //Debug.Log("BAR");
         axisController.enabled = true;
-        Cursor.visible = false;
+        //Cursor.visible = false;
     }
 
 

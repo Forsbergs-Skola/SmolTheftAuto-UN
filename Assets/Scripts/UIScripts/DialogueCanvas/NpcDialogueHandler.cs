@@ -144,7 +144,7 @@ public class NpcDialogueHandler : MonoBehaviour
     }
     private System.Collections.IEnumerator WaitThenReenable()
     {
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(8.0f);
         myCollider.enabled = true;
     }
 
