@@ -1,5 +1,6 @@
 using SmolTheftAuto.Managers;
 using SmolTheftAuto.Core;
+using Events;
 using UnityEngine;
 
 namespace SmolTheftAuto.Data
@@ -13,6 +14,10 @@ namespace SmolTheftAuto.Data
         [SerializeField] private float rotationSpeed = 90f;
         [SerializeField] private float floatSpeed = 1f;
         [SerializeField] private float floatAmount = 0.5f;
+
+        [SerializeField] private IntPayloadEvent moneyEvent;
+
+        private bool collectible = true;
 
         private Vector3 startPosition;
 
@@ -36,6 +41,21 @@ namespace SmolTheftAuto.Data
                 }
             }
             */
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                if (!collectible) return;
+                collectible = false;
+
+                Debug.Log("MONEY PICKUP HAS BEEN TRIGGERED");
+
+                moneyEvent.TriggerEvent(moneyAmount);
+                Destroy(gameObject);
+
+            }
         }
 
         public void DoPickupStuff()
