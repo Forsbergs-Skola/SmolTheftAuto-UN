@@ -49,7 +49,7 @@ public class HudCanvas : MonoBehaviour, ICanvasable
     {
         missionPassedObject.SetActive(false);
         gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
-        HandleOnPlayerDataUpdated(gm.CurrentPlayerData);
+        //HandleOnPlayerDataUpdated(gm.CurrentPlayerData);
     }
 
     //private void OnEnable()
@@ -64,9 +64,7 @@ public class HudCanvas : MonoBehaviour, ICanvasable
 
     public void HandleOnPlayerDataUpdated(PlayerData _data)
     {
-        //if (gm == null) return;
 
-        //PlayerData data = gm.CurrentPlayerData;
         healthSlider.value = _data.health;
         FixWeaponText(_data.equippedWeapon);
         FixAmmoText(_data.equippedWeapon);

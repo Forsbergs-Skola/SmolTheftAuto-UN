@@ -1,4 +1,5 @@
 using UnityEngine;
+using Tweens;
 using Events;
 using GameTools;
 using TMPro;
@@ -22,6 +23,8 @@ public class PauseCanvas : MonoBehaviour, ICanvasable
     [SerializeField] private GameObject matchesImage;
     [SerializeField] private GameObject sunglassesImage;
 
+    [SerializeField] private TMP_Text gameSavedFeedbackText;
+
     //[SerializeField] private EmptyPayloadEvent playerDataUpdatedEvent;
 
     private GameManagerSingleton gm;
@@ -44,6 +47,7 @@ public class PauseCanvas : MonoBehaviour, ICanvasable
     private void Awake()
     {
         isVisible = gameObject.activeInHierarchy;
+        gameSavedFeedbackText.enabled = false;
     }
     private void Start()
     {
@@ -124,6 +128,25 @@ public class PauseCanvas : MonoBehaviour, ICanvasable
                 break;
             default: return;
         }
+    }
+
+    public void GameSavedFeedback()
+    {
+        Tween fadeTween = TweenService.GetFloatTween(gameObject, 1.0f, 0.0f, 1.0f, EnumTweenEase.QUAD, EnumTweenDirection.IN);
+        gameSavedFeedbackText.enabled = true;
+        fadeTween.StartTween();
+        fadeTween.OnValueUpdated += (_val) =>
+        {
+
+            Debug.Log("FOO");
+
+            gameSavedFeedbackText.color = new Color(0f, 1f, 1f, _val.x);
+        };
+        fadeTween.OnFinished += () =>
+        {
+            gameSavedFeedbackText.enabled = false;
+            gameSavedFeedbackText.color = new Color(0f, 1f, 1f, 1f);
+        };
     }
 
     private void HandleVisiblityChanged()

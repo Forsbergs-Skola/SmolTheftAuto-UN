@@ -21,6 +21,9 @@ public enum EnumWeapon
 
 public class GameManagerSingleton : MonoBehaviour
 {
+
+    [SerializeField] bool labMode = false;
+
     [SerializeField] private string gameplaySceneName = "GameplayScene";
 
     //public const int MAX_HEALTH = 100;
@@ -98,6 +101,8 @@ public class GameManagerSingleton : MonoBehaviour
     {
         if (sm.SaveExists())
         {
+            Debug.Log("FOO");
+
             SaveData data = sm.Load();
             currentPlayerData = sm.ConvertPlayer(data);
             currentQuestStartedData = sm.ConvertQuestStarted(data);
@@ -105,22 +110,30 @@ public class GameManagerSingleton : MonoBehaviour
         }
         else
         {
+
+            Debug.Log("BAR");
+
             currentPlayerData = ResetPlayerData();
             currentQuestStartedData = ResetQuestStaredData();
             saveExistsChangedEvent.TriggerEvent(false);
+
+            Debug.Log(currentPlayerData.hasGasCan);
+
         }
         CanvasManager? cm = GetCanvasManager();
         if (cm != null)
         {
             cm.questPanel.InitializeQuestUI(currentPlayerData, currentQuestStartedData);
 
-
-            cm.DisplayCanvas(EnumCanvasName.MAIN);
-            //cm.DisplayCanvas(EnumCanvasName.HUD); // when testing
+            if (labMode) { cm.DisplayCanvas(EnumCanvasName.HUD); }
+            else { cm.DisplayCanvas(EnumCanvasName.MAIN); }
 
             if (testScene!= null) { testScene.FixButtons(currentPlayerData, currentQuestStartedData); }
         }
         playerDataUpdatedEvent.TriggerEvent();
+
+
+        //cm.Ha
 
     }
 
@@ -190,7 +203,7 @@ public class GameManagerSingleton : MonoBehaviour
         weaponEquippedEvent.OnEventTriggered -= HandleOnWeaponEquipped;
         newGamePressedEvent.OnEventTriggered -= HandleOnNewGamePressed;
         continuePressedEvent.OnEventTriggered -= HandleContinuePressed;
-        pausedEvent.OnEventTriggered += HandleOnGamePausedToggled;
+        pausedEvent.OnEventTriggered -= HandleOnGamePausedToggled;
     }
 
     
@@ -218,6 +231,10 @@ public class GameManagerSingleton : MonoBehaviour
     {
         sm.Save(currentPlayerData, currentQuestStartedData);
         saveExistsChangedEvent.TriggerEvent(true);
+
+        //CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
+        //cm.GameSavedFeedback();
+
     }
     private void HandleOnClearSaveRequested()
     {
@@ -363,11 +380,6 @@ public class GameManagerSingleton : MonoBehaviour
 
         Time.timeScale = 0f;
 
-        ////////////////////
-        // PAUSE gameplay //
-        ////////////////////
-        // ...TODO
-
         cm.StartDialogue(conversationName);
     }
     private void HandleOnFinishDialogue(string convoName)
@@ -380,10 +392,6 @@ public class GameManagerSingleton : MonoBehaviour
         }
 
         Time.timeScale = 1f;
-        ///////////////////////
-        // Un-PAUSE gameplay //
-        ///////////////////////
-        // ...TODO
 
         cm.FinishDialogue();
         

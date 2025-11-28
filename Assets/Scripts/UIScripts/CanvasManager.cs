@@ -91,8 +91,12 @@ public class CanvasManager : MonoBehaviour
     private void HandlePlayerDataUpdated()
     {
         GameManagerSingleton gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
+
+        //Debug.Log(gm.CurrentPlayerData.pistolInClipAmmo);
+        
         ICanvasable pauseIC = GetCanvasWithName(EnumCanvasName.PAUSE);
         ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
+
         pauseIC.GetCanvasObject().GetComponent<PauseCanvas>().HandleInventoryUpdate(gm.CurrentPlayerData);
         hudIC.GetCanvasObject().GetComponent<HudCanvas>().HandleOnPlayerDataUpdated(gm.CurrentPlayerData);
     }
@@ -135,6 +139,12 @@ public class CanvasManager : MonoBehaviour
         return;
     }
 
+    public void GameSavedFeedback()
+    {
+        ICanvasable pauseIC = GetCanvasWithName(EnumCanvasName.PAUSE);
+        PauseCanvas pc = pauseIC.GetCanvasObject().GetComponent<PauseCanvas>();
+        pc.GameSavedFeedback();
+    }
 
     public void StartDialogue(string convoName)
     {

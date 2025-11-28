@@ -68,7 +68,8 @@ public class MainMenuCanvas : MonoBehaviour, ICanvasable
     }
     public void QuitPressed()
     {
-
+        UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 
 
