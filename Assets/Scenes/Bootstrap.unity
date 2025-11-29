@@ -5729,7 +5729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5301017697326879041, guid: 0732205d2452899429d81f2ffcd160eb, type: 3}
       propertyPath: labMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5301017697326879041, guid: 0732205d2452899429d81f2ffcd160eb, type: 3}
       propertyPath: m_Enabled
