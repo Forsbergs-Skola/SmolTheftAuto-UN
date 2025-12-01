@@ -17,9 +17,8 @@ public class HudCanvas : MonoBehaviour, ICanvasable
     private const string CHECKPOINTS_PREFIX = "Checkpoints Reached: ";
 
     [SerializeField] private GameObject missionPassedObject;
-    [SerializeField] private GameObject youDiedObject;
     [SerializeField] private TMP_Text missionPassedText;
-    [SerializeField] private TMP_Text youDiedText;
+    //[SerializeField] private EmptyPayloadEvent playerDataUpdatedEvent;
 
     [SerializeField] private TMP_Text weaponText;
     [SerializeField] private TMP_Text ammoText;
@@ -27,7 +26,6 @@ public class HudCanvas : MonoBehaviour, ICanvasable
     [SerializeField] private TMP_Text killsText;
     [SerializeField] private TMP_Text checkpointsText;
     [SerializeField] private Slider healthSlider;
-    [SerializeField] private Button mainMenuButton;
 
     private bool _isVisible = false;
     private bool isVisible
@@ -45,14 +43,24 @@ public class HudCanvas : MonoBehaviour, ICanvasable
     private void Awake()
     {
         isVisible = gameObject.activeInHierarchy;
-        mainMenuButton.gameObject.SetActive(false);
     }
 
     private void Start()
     {
         missionPassedObject.SetActive(false);
         gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
+        //HandleOnPlayerDataUpdated(gm.CurrentPlayerData);
     }
+
+    //private void OnEnable()
+    //{
+    //    playerDataUpdatedEvent.OnEventTriggered += HandleOnPlayerDataUpdated;
+    //    HandleOnPlayerDataUpdated();
+    //}
+    //private void OnDisable()
+    //{
+    //    playerDataUpdatedEvent.OnEventTriggered -= HandleOnPlayerDataUpdated;
+    //}
 
     public void HandleOnPlayerDataUpdated(PlayerData _data)
     {
@@ -100,7 +108,7 @@ public class HudCanvas : MonoBehaviour, ICanvasable
     public void ActivateMissionPassedEffect()
     {
         missionPassedText.color = new Color(1f, 1f, 0f, 1f);
-        missionPassedObject.transform.localScale = Vector3.one;
+        missionPassedObject.transform.localScale = new Vector3(1f, 1f, 1f);
         Tween scaleTween = TweenService.GetFloatTween(gameObject, 10f, 1f, 0.2f, EnumTweenEase.QUART, EnumTweenDirection.IN);
         scaleTween.StartTween();
         missionPassedObject.SetActive(true);
@@ -113,39 +121,6 @@ public class HudCanvas : MonoBehaviour, ICanvasable
         {
             StartCoroutine(WaitThenFade(0.75f));
         };
-    }
-
-    public void ActivateYouDiedEffect()
-    {
-        youDiedObject.transform.localScale = Vector3.one;
-        Tween scaleTween = TweenService.GetFloatTween(gameObject, 10f, 1f, 0.2f, EnumTweenEase.QUART, EnumTweenDirection.IN);
-        scaleTween.StartTween();
-        youDiedObject.SetActive(true);
-        scaleTween.OnValueUpdated += (value) =>
-        {
-
-            Debug.Log("FOO");
-
-            Vector3 newScale = new Vector3(value.x, value.x, value.x);
-            youDiedObject.transform.localScale = newScale;
-        };
-        scaleTween.OnFinished += () =>
-        {
-            StartCoroutine(WaitThenShowMainMenuButton(0.75f));
-        };
-    }
-
-    public void MainMenuPressed()
-    {
-        mainMenuButton.gameObject.SetActive(false);
-        youDiedObject.SetActive(false );
-        // signal the GM to load the bootstrap scene
-    }
-
-    private System.Collections.IEnumerator WaitThenShowMainMenuButton(float wait)
-    {
-        yield return new WaitForSeconds(wait);
-        mainMenuButton.gameObject.SetActive(true);
     }
 
     private System.Collections.IEnumerator WaitThenFade(float wait)

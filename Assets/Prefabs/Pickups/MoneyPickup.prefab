@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 7206965480839513763}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 3.09}
-  m_LocalScale: {x: 0.18, y: 0.18, z: 0.18}
+  m_LocalPosition: {x: 0, y: 0, z: 3.09}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.Data.MoneyPickup
   moneyAmount: 10
   pickupRange: 2
-  rotationSpeed: 160
-  floatSpeed: 4
-  floatAmount: 0.1
+  rotationSpeed: 90
+  floatSpeed: 1
+  floatAmount: 0.3
   moneyEvent: {fileID: 11400000, guid: ac49038f3051f634d86cf7e241e32a79, type: 2}
