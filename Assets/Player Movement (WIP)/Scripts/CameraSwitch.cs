@@ -12,6 +12,7 @@ public class CameraSwitch : MonoBehaviour
     public PlayerController player;
     [SerializeField] private GameObject crosshairUI;
     [SerializeField] private PlayerControls input;
+    [SerializeField] private GameObject crosshair;
 
     [SerializeField] private StringPayloadEvent dialogueStartedEvent;
     [SerializeField] private StringPayloadEvent dialogueFinishedEvent;
@@ -79,6 +80,7 @@ public class CameraSwitch : MonoBehaviour
     private void ExitAiming()
     {
         isAiming = false;
+        crosshair.SetActive(false);
 
         SnapMainCamBehind();
         
@@ -103,6 +105,7 @@ public class CameraSwitch : MonoBehaviour
     private void EnterAiming()
     {
         isAiming = true;
+        crosshair.SetActive(true);
         
         SnapAimForward();
         
