@@ -13,6 +13,9 @@ A Christmas-themed Small Theft Auto game built in Unity with C#.
 
 See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for detailed folder organization.
 
+## Individual Contributions
+- Brad: Architecture, backend systems, UI -- [BRAD_CONTRIBUTIONS.md](BRAD_CONTRIBUTIONS)
+
 
 ## Features
 

@@ -315,8 +315,12 @@ public class GameManagerSingleton : MonoBehaviour
         if (currentPlayerData.health + health <= 0)
         {
             currentPlayerData.health = 0;
-            Debug.Log("YOU DEAD!!!!");
-            // TODO: HANDLE PLAYER DIES
+
+            CanvasManager cm = GetCanvasManager();
+            cm.ActivatePlayerDied();
+
+            //Time.timeScale = 0.5f; 
+
             playerDataUpdatedEvent.TriggerEvent(); // Hud update
             return;
         }
