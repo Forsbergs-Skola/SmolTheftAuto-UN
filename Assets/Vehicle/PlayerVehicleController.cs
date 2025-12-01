@@ -13,7 +13,7 @@ public class PlayerVehicleController : MonoBehaviour
     [SerializeField] private float interactionRadius = 2f;
 
     private PlayerControls controls;
-    private VehicleHealth currentVehicleHealth;
+
     private bool isDriving = false;
     private VehicleMover currentVehicle;
     private Transform currentSeat;
@@ -94,70 +94,80 @@ public class PlayerVehicleController : MonoBehaviour
     }
 
   private void StartDriving(VehicleMover vehicle, Transform seat)
+{
+    currentVehicle = vehicle;
+    currentSeat = seat;
+    isDriving = true;
+
+    // If this car has an AI controller, disable it
+    var ai = vehicle.GetComponent<AIVehicleController>();
+    if (ai != null)
     {
-        currentVehicle = vehicle;
-        currentSeat    = seat;
-        isDriving      = true;
-
-        // cache health and flag player as driver
-        currentVehicleHealth = currentVehicle.GetComponent<VehicleHealth>();
-        if (currentVehicleHealth != null)
-        {
-            currentVehicleHealth.SetPlayerDriver(true);
-        }
-
-        // Disable on-foot movement
-        if (characterController != null) characterController.enabled = false;
-        if (playerController != null)    playerController.enabled    = false;
-
-        // Snap player to seat and parent to it so he moves with the car
-        if (currentSeat != null)
-        {
-            transform.SetParent(currentSeat, worldPositionStays: false);
-            transform.localPosition = Vector3.zero;
-            transform.localRotation = Quaternion.identity;
-        }
-
-        // Reset anim
-        if (animator != null)
-        {
-            animator.SetFloat("Speed", 0f);
-            animator.SetBool("Sprinting", false);
-        }
+        ai.SetAIEnabled(false);
+        ai.enabled = false;
     }
+
+    // Disable on-foot movement first
+    if (characterController != null) characterController.enabled = false;
+    if (playerController != null)    playerController.enabled    = false;
+
+    // Snap player to seat and parent to it so he moves with the car
+    if (currentSeat != null)
+    {
+        transform.SetParent(currentSeat, worldPositionStays: false);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+    }
+
+    // Reset animetor parameters                    
+    if (animator != null)
+    {
+        animator.SetFloat("Speed", 0f);
+        animator.SetBool("Sprinting", false);
+    }
+
+    
+}
 
 
 
   private void ExitVehicle()
+{
+    if (!isDriving)
+        return;
+
+    isDriving = false;
+
+    // Detach from car
+    transform.SetParent(null, worldPositionStays: true);
+
+    // Put player just to the left of the seat
+    if (currentSeat != null)
     {
-        if (!isDriving)
-            return;
-
-        isDriving = false;
-
-        // NEW: clear driver flag
-        if (currentVehicleHealth != null)
-        {
-            currentVehicleHealth.SetPlayerDriver(false);
-        }
-
-        // Detach from car
-        transform.SetParent(null, worldPositionStays: true);
-
-        // Put player just to the left of the seat
-        if (currentSeat != null)
-        {
-            Vector3 exitPos = currentSeat.position + currentSeat.right * -1f;
-            transform.position = exitPos;
-            transform.rotation = currentSeat.rotation;
-        }
-
-        if (characterController != null) characterController.enabled = true;
-        if (playerController != null)    playerController.enabled    = true;
-
-        currentVehicle?.SetInput(0f, 0f, false);
-        currentVehicle = null;
-        currentSeat    = null;
-        currentVehicleHealth = null;
+        Vector3 exitPos = currentSeat.position + currentSeat.right * -1f;
+        transform.position = exitPos;
+        transform.rotation = currentSeat.rotation;
     }
+
+    if (characterController != null) characterController.enabled = true;
+    if (playerController != null)    playerController.enabled    = true;
+
+    // Re-enable AI, if any
+    if (currentVehicle != null)
+    {
+        var ai = currentVehicle.GetComponent<AIVehicleController>();
+        if (ai != null)
+        {
+            ai.enabled = true;
+            ai.SetAIEnabled(true);
+        }
+
+        currentVehicle.SetInput(0f, 0f, false);
+    }
+
+    currentVehicle = null;
+    currentSeat = null;
+}
+
+
 }

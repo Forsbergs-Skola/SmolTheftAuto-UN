@@ -315,12 +315,8 @@ public class GameManagerSingleton : MonoBehaviour
         if (currentPlayerData.health + health <= 0)
         {
             currentPlayerData.health = 0;
-
-            CanvasManager cm = GetCanvasManager();
-            cm.ActivatePlayerDied();
-
-            Time.timeScale = 0.5f; 
-
+            Debug.Log("YOU DEAD!!!!");
+            // TODO: HANDLE PLAYER DIES
             playerDataUpdatedEvent.TriggerEvent(); // Hud update
             return;
         }
@@ -612,6 +608,9 @@ public class GameManagerSingleton : MonoBehaviour
         CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
         cm.ShowMain();
         SceneManager.LoadScene("Bootstrap");
+
+
+        // fix buttons
     }
 
     private CanvasManager? GetCanvasManager()
