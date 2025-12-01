@@ -17,25 +17,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform cam;
 
     [SerializeField] private Transform yawTarget;
-    
-    [Header("Movement")]
-    [SerializeField] private float walkSpeed = 6f;
+
+    [Header("Movement")] [SerializeField] private float walkSpeed = 6f;
     [SerializeField] private float rotateSpeed = 10f;
     [SerializeField] private float sprintSpeed = 12f;
-    
-    [Header("Jump")]
-    [SerializeField] private float jumpForce = 6f;
+
+    [Header("Jump")] [SerializeField] private float jumpForce = 6f;
     [SerializeField] private float gravity = -9.81f;
-    
+
     private Vector3 velocity;
     [SerializeField] private float rotationDeadzone = 0.15f;
-    
-    [Header("Ground Check")]
-    [SerializeField] private float groundCheckDistance = 0.3f;
+
+    [Header("Ground Check")] [SerializeField]
+    private float groundCheckDistance = 0.3f;
+
     [SerializeField] private LayerMask groundLayer;
 
-    [Header("Event Channels")]
-    [SerializeField] private StringPayloadEvent dialogueStartedEvent;
+    [Header("Event Channels")] [SerializeField]
+    private StringPayloadEvent dialogueStartedEvent;
+
     [SerializeField] private StringPayloadEvent dialogueEndedEvent;
     [SerializeField] private IntPayloadEvent healthChangedEvent;
     [SerializeField] private EmptyPayloadEvent playerDataChangedEvent;
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDirection;
 
     void Awake() => controls = new PlayerControls();
-    //void OnEnable() => controls.Enable();
+
     private void OnEnable()
     {
         controls.Enable();
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
         playerDataChangedEvent.OnEventTriggered += HandlePlayerDataChanged;
         pauseToggledEvent.OnEventTriggered += HandleOnPauseToggled;
     }
-    //void OnDisable() => controls.Disable();
+
     private void OnDisable()
     {
         controls.Disable();
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
         playerDataChangedEvent.OnEventTriggered -= HandlePlayerDataChanged;
         pauseToggledEvent.OnEventTriggered -= HandleOnPauseToggled;
     }
-    
+
 
     private void OnDestroy()
     {
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
     {
         bool grounded = IsGrounded();
         bool sprintHeld = controls.Player.Sprint.IsPressed();
-        
+
         PlayerMovement(sprintHeld);
         JumpingAndGravityLogic(grounded);
         AnimationHandling(grounded, sprintHeld);
@@ -100,28 +100,25 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMovement(bool sprintHeld) //here I handle all the horizontal ground movement
     {
-
-       
-
         Vector2 moveInput = controls.Player.Move.ReadValue<Vector2>();
 
         if (isAiming)
         {
             Vector3 forward = transform.forward;
             Vector3 right = transform.right;
-        
+
             forward.y = 0f;
             right.y = 0f;
             forward.Normalize();
             right.Normalize();
-           
+
             moveDirection = forward * moveInput.y + right * moveInput.x; //move where cam is looking
         }
         else
         {
             Vector3 camForward = cam.forward;
             Vector3 camRight = cam.right;
-        
+
             camForward.y = 0f;
             camRight.y = 0f;
             camForward.Normalize();
@@ -148,18 +145,21 @@ public class PlayerController : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
             }
         }
-        
-        float speed = sprintHeld ? sprintSpeed : walkSpeed; //Sets the speed based on if the sprint button (shift currently) is down
-        
+
+        float
+            speed = sprintHeld
+                ? sprintSpeed
+                : walkSpeed; //Sets the speed based on if the sprint button (shift currently) is down
+
         Vector3 finalMovement = moveDirection * speed + velocity;
         animator.SetFloat("Speed", moveDirection.magnitude); //Sets the speed value to the animator
         characterController.Move(finalMovement * Time.deltaTime);
     }
-    
+
     bool IsGrounded() //True if player on ground, fires raycast
     {
         float bottom = (characterController.height - 0.8f) - characterController.radius;
-        Vector3 origin = transform.position + Vector3.down * bottom;  //Ground check slightly under the player
+        Vector3 origin = transform.position + Vector3.down * bottom; //Ground check slightly under the player
         float rayLength = groundCheckDistance + 0.1f;
         return Physics.Raycast(origin, Vector3.down, rayLength, groundLayer); //Fire straight down to detect ground
     }
@@ -168,6 +168,7 @@ public class PlayerController : MonoBehaviour
     {
         controls.Disable();
     }
+
     private void HandleDialogueFinished(string _unusedStr)
     {
         controls.Enable();
@@ -187,14 +188,22 @@ public class PlayerController : MonoBehaviour
     private void HandleOnPauseToggled()
     {
         gameIsPaused = !gameIsPaused;
-        if (gameIsPaused) { controls.Disable(); }
-        else { controls.Enable(); }
+        if (gameIsPaused)
+        {
+            controls.Disable();
+        }
+        else
+        {
+            controls.Enable();
+        }
 
     }
 
     private void Die()
     {
-        // TODO...(die stuff)
+        controls.Disable();
+        isHittable = false;
+        animator.SetTrigger("Dead");
     }
 
     public void TakeDamage()
@@ -204,6 +213,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(HitCooldown());
         healthChangedEvent.TriggerEvent(meleeDamage);
     }
+
     System.Collections.IEnumerator HitCooldown()
     {
         yield return new WaitForSeconds(HIT_COOLDOWN);
@@ -215,20 +225,20 @@ public class PlayerController : MonoBehaviour
     void JumpingAndGravityLogic(bool grounded)
     {
         bool jumpPressed = controls.Player.Jump.triggered;
-        
+
         velocity.y += gravity * Time.deltaTime; //Gotta apply gravity constantly as we not using a rigidbody
-        
-        if (characterController.isGrounded && velocity.y < 0)//Reset Y velocity when grounded
-            velocity.y = -2f; 
-        
-        if (grounded &&  jumpPressed)
+
+        if (characterController.isGrounded && velocity.y < 0) //Reset Y velocity when grounded
+            velocity.y = -2f;
+
+        if (grounded && jumpPressed)
             velocity.y = jumpForce;
     }
 
     void AnimationHandling(bool grounded, bool sprintHeld) //Sprinting, Falling, Jumping animations
     {
         animator.SetBool("Grounded", grounded);
-        
+
         if (!grounded)
         {
             if (velocity.y > 0.1f)
@@ -247,7 +257,14 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
         }
+
         animator.SetBool("Sprinting", sprintHeld);
     }
-    
+
+    public void WeaponChanged(bool holdingWeapon)
+    {
+        animator.SetBool("HoldingGun", holdingWeapon);
+        animator.SetLayerWeight(1, holdingWeapon ? 1 : 0);
+    }
+
 }
