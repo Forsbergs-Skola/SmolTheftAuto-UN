@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.Behavior.NPCController
   damageToPlayer: 10
-  damageRange: 2
+  damageRange: 1
   damageCooldown: 1
 --- !u!114 &4839156870234653837
 MonoBehaviour:
