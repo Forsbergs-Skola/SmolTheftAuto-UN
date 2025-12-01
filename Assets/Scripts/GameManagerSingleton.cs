@@ -58,6 +58,7 @@ public class GameManagerSingleton : MonoBehaviour
     [Header("Quest Event Channels")]
     [SerializeField] private EnumQuestPayloadEvent questCompletedEvent;
     [SerializeField] private EnumQuestPayloadEvent questStartedEvent;
+    [SerializeField] private EmptyPayloadEvent endGameEvent;
 
     [Header("Menu Events")]
     [SerializeField] private EmptyPayloadEvent newGamePressedEvent;
@@ -141,9 +142,6 @@ public class GameManagerSingleton : MonoBehaviour
         }
         playerDataUpdatedEvent.TriggerEvent();
 
-
-        //cm.Ha
-
     }
 
     private PlayerData ResetPlayerData()
@@ -192,9 +190,9 @@ public class GameManagerSingleton : MonoBehaviour
         newGamePressedEvent.OnEventTriggered += HandleOnNewGamePressed;
         continuePressedEvent.OnEventTriggered += HandleContinuePressed;
         pausedEvent.OnEventTriggered += HandleOnGamePausedToggled;
-
         storeInteractionStartedEvent.OnEventTriggered += HandleOnStoreInteractionStarted;
         storeInteractionFinishedEvent.OnEventTriggered += HandleOnStoreInteractionFinished;
+        endGameEvent.OnEventTriggered += HandleOnEndGameEvent;
     }
     private void OnDisable()
     {
@@ -216,9 +214,9 @@ public class GameManagerSingleton : MonoBehaviour
         newGamePressedEvent.OnEventTriggered -= HandleOnNewGamePressed;
         continuePressedEvent.OnEventTriggered -= HandleContinuePressed;
         pausedEvent.OnEventTriggered -= HandleOnGamePausedToggled;
-
         storeInteractionStartedEvent.OnEventTriggered -= HandleOnStoreInteractionStarted;
         storeInteractionFinishedEvent.OnEventTriggered -= HandleOnStoreInteractionFinished;
+        endGameEvent.OnEventTriggered -= HandleOnEndGameEvent;
     }
 
     
@@ -577,6 +575,11 @@ public class GameManagerSingleton : MonoBehaviour
         Time.timeScale = 1.0f;
         cm.FinishStoreInteraction();
         playerDataUpdatedEvent.TriggerEvent();
+    }
+
+    private void HandleOnEndGameEvent()
+    {
+        Debug.Log("Endgame sequence begins");
     }
 
     public void SaveButtonPressed()

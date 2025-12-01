@@ -6214,6 +6214,10 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5301017697326879041, guid: 0732205d2452899429d81f2ffcd160eb, type: 3}
+      propertyPath: endGameEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 6316dc07c4d1d5743b342b0b3b0aebeb, type: 2}
+    - target: {fileID: 5301017697326879041, guid: 0732205d2452899429d81f2ffcd160eb, type: 3}
       propertyPath: npcKilledEvent
       value: 
       objectReference: {fileID: 11400000, guid: 67d5d28baafd598418d643ad4a74def6, type: 2}
