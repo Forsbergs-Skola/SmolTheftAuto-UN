@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7206965480839513763
+--- !u!1 &4682023443452098682
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4087684543061183023}
-  - component: {fileID: 8178852709843917753}
-  - component: {fileID: 2510656729043683257}
-  - component: {fileID: 5626692209917668776}
-  - component: {fileID: 9220580453987499865}
+  - component: {fileID: 6915280466416051051}
+  - component: {fileID: 1855875892149025637}
+  - component: {fileID: 141528421938800562}
+  - component: {fileID: 2159250213037018221}
+  - component: {fileID: 530589601104177303}
   m_Layer: 0
-  m_Name: MoneyPickup
+  m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4087684543061183023
+--- !u!4 &6915280466416051051
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7206965480839513763}
+  m_GameObject: {fileID: 4682023443452098682}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 3.09}
-  m_LocalScale: {x: 0.18, y: 0.18, z: 0.18}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 2.3074, y: 0.168, z: -45.677}
+  m_LocalScale: {x: 0.24253233, y: 0.009467613, z: 0.24253233}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8178852709843917753
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!33 &1855875892149025637
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7206965480839513763}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &2510656729043683257
+  m_GameObject: {fileID: 4682023443452098682}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &141528421938800562
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7206965480839513763}
+  m_GameObject: {fileID: 4682023443452098682}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dce6d0b309c5b284891420195cf692ec, type: 2}
+  - {fileID: 2100000, guid: d844a580376528046ba907e3fbf31387, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -91,13 +91,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5626692209917668776
-BoxCollider:
+--- !u!136 &2159250213037018221
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7206965480839513763}
+  m_GameObject: {fileID: 4682023443452098682}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -109,16 +109,18 @@ BoxCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9220580453987499865
+  serializedVersion: 2
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &530589601104177303
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7206965480839513763}
+  m_GameObject: {fileID: 4682023443452098682}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec84ada5b9f787048be74438f02dc7b9, type: 3}
@@ -126,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.Data.MoneyPickup
   moneyAmount: 10
   pickupRange: 2
-  rotationSpeed: 160
-  floatSpeed: 4
-  floatAmount: 0.1
+  rotationSpeed: 90
+  floatSpeed: 2
+  floatAmount: 0.5
   moneyEvent: {fileID: 11400000, guid: ac49038f3051f634d86cf7e241e32a79, type: 2}
