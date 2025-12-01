@@ -12,13 +12,18 @@ public class Gun : MonoBehaviour
 
     private float cooldown;
     private PlayerControls controls;
+    private PlayerController playerController;
 
     private GameManagerSingleton gm;
 
     [SerializeField] private EnumWeaponPayloadEvent fireEvent;
     [SerializeField] private EnumWeaponPayloadEvent reloadEvent;
 
-    private void Awake() => controls = new PlayerControls();
+    private void Awake()
+    {
+        controls = new PlayerControls();
+        playerController = GetComponentInParent<PlayerController>();
+    }
     private void OnEnable() => controls.Enable();
     private void OnDisable() => controls.Disable();
 
@@ -104,6 +109,7 @@ public class Gun : MonoBehaviour
         }
         
         OnFire.Invoke();
+        playerController.ShootAnimation();
         cooldown = gunCooldown;
     }
 

@@ -267,4 +267,11 @@ public class PlayerController : MonoBehaviour
         animator.SetLayerWeight(1, holdingWeapon ? 1 : 0);
     }
 
+    public void ShootAnimation()
+    {
+        animator.ResetTrigger("Shoot");
+        animator.Play("holding-right-shoot", 1, 0f);
+        animator.SetTrigger("Shoot");
+    }
+
 }
