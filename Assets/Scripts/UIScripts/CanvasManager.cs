@@ -208,6 +208,14 @@ public class CanvasManager : MonoBehaviour
         hud.ActivateMissionPassedEffect();
     }
 
+    public void ActivatePlayerDied()
+    {
+        ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
+        if (hudIC == null) { Debug.LogError("Can't get HUD canvas"); return; }
+        HudCanvas hud = hudIC.GetCanvasObject().GetComponent<HudCanvas>();
+        hud.ActivateYouDiedEffect();
+    }
+
     public void ShowHUD()
     {
         //GameManagerSingleton gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
