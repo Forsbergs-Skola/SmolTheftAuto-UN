@@ -319,7 +319,7 @@ public class GameManagerSingleton : MonoBehaviour
             CanvasManager cm = GetCanvasManager();
             cm.ActivatePlayerDied();
 
-            //Time.timeScale = 0.5f; 
+            Time.timeScale = 0.5f; 
 
             playerDataUpdatedEvent.TriggerEvent(); // Hud update
             return;
@@ -612,9 +612,6 @@ public class GameManagerSingleton : MonoBehaviour
         CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
         cm.ShowMain();
         SceneManager.LoadScene("Bootstrap");
-
-
-        // fix buttons
     }
 
     private CanvasManager? GetCanvasManager()

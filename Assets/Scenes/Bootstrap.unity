@@ -3310,7 +3310,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: you dead
+  m_text: WRAPPED...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a265b81d101e5824386feeac185b127b, type: 2}
   m_sharedMaterial: {fileID: -4932890831385545336, guid: a265b81d101e5824386feeac185b127b, type: 2}
