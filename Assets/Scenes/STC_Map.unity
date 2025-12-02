@@ -106222,6 +106222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2089576349319099145}
   - component: {fileID: 7783321683307111414}
+  - component: {fileID: 7783321683307111415}
   - component: {fileID: 7065145710006323394}
   - component: {fileID: 1236355581590849215}
   - component: {fileID: 1196046683882215472}
@@ -106351,6 +106352,22 @@ MonoBehaviour:
   playerDataChangedEvent: {fileID: 11400000, guid: d1afcc1ffdd608943bde2d7bbc4b8b01, type: 2}
   pauseToggledEvent: {fileID: 11400000, guid: 655d122db7dec524b8b19e29a5d21c92, type: 2}
   isAiming: 0
+--- !u!114 &7783321683307111415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7251974238936170605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9db4f96cbfc2745a3f0532aadb50b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerVehicleController
+  characterController: {fileID: 7065145710006323394}
+  playerController: {fileID: 7783321683307111414}
+  animator: {fileID: 1196046683882215472}
+  interactionRadius: 2
 --- !u!4 &7811056344765310216
 Transform:
   m_ObjectHideFlags: 0
