@@ -101,6 +101,8 @@ public class CanvasManager : MonoBehaviour
 
         pauseIC.GetCanvasObject().GetComponent<PauseCanvas>().HandleInventoryUpdate(gm.CurrentPlayerData);
         hudIC.GetCanvasObject().GetComponent<HudCanvas>().HandleOnPlayerDataUpdated(gm.CurrentPlayerData);
+
+
     }
 
     public void DisplayCanvas(EnumCanvasName? canvasName, bool clearFirst = true)
@@ -205,7 +207,7 @@ public class CanvasManager : MonoBehaviour
         ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
         if (hudIC == null) { Debug.LogError("Can't get HUD canvas"); return; }
         HudCanvas hud = hudIC.GetCanvasObject().GetComponent<HudCanvas>();
-        hud.ActivateMissionPassedEffect();
+        hud.ActivateUiEffect(HudCanvas.EnumOnActivateEffectBehavior.MISSION_PASSED, 0.75f);
     }
 
     public void ActivatePlayerDied()
@@ -213,7 +215,15 @@ public class CanvasManager : MonoBehaviour
         ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
         if (hudIC == null) { Debug.LogError("Can't get HUD canvas"); return; }
         HudCanvas hud = hudIC.GetCanvasObject().GetComponent<HudCanvas>();
-        hud.ActivateYouDiedEffect();
+        hud.ActivateUiEffect(HudCanvas.EnumOnActivateEffectBehavior.YOU_DIED, 0.75f);
+    }
+
+    public void ActivateEndgame()
+    {
+        ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
+        if (hudIC == null) { Debug.LogError("Can't get HUD canvas"); return; }
+        HudCanvas hud = hudIC.GetCanvasObject().GetComponent<HudCanvas>();
+        hud.ActivateUiEffect(HudCanvas.EnumOnActivateEffectBehavior.YOU_WIN, 0.75f);
     }
 
     public void ShowHUD()
@@ -269,9 +279,6 @@ public class CanvasManager : MonoBehaviour
     {
         foreach(ICanvasable canvas in canvases)
         {
-
-            Debug.Log(canvas.GetCanvasObject().name);
-
             canvas.GetCanvasObject().GetComponent<Canvas>().sortingOrder = 0;
             canvas.SetIsVisible(false);
         }

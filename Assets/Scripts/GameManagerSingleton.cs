@@ -580,6 +580,8 @@ public class GameManagerSingleton : MonoBehaviour
     private void HandleOnEndGameEvent()
     {
         Debug.Log("Endgame sequence begins");
+        CanvasManager cm = GetCanvasManager();
+        cm.ActivateEndgame();
     }
 
     public void SaveButtonPressed()
