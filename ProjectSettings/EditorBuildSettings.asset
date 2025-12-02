@@ -8,12 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Bootstrap.unity
     guid: 3e2961dd60ceafc4d8fb162d40581ae0
-  - enabled: 1
-    path: Assets/Scenes/STC_Map.unity
+  - enabled: 0
+    path: Assets/Scenes/STC_Map_1.unity
     guid: f354ad8230a47834da28b237eba6980c
   - enabled: 1
     path: Assets/Scenes/NPCScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/STC_Map.unity
+    guid: f1054a8702a3e6646bcb6d398aea196f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 04c5c3f90aa9c7c44911b3e678549f48, type: 3}
   m_UseUCBPForAssetBundles: 0

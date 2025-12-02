@@ -54,8 +54,6 @@ public class StoreTrigger : MonoBehaviour
 
     private bool GetIsPlayer(Collider _coll)
     {
-        //if (_coll.gameObject.GetComponent<UiTestPlayer>() != null) return true;
-        //if (_coll.gameObject.GetComponent<PlayerController>() != null) return true;
         if (_coll.gameObject.CompareTag("Player")) return true;
         return false;
     }
