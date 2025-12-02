@@ -18,8 +18,10 @@ public class HudCanvas : MonoBehaviour, ICanvasable
 
     [SerializeField] private GameObject missionPassedObject;
     [SerializeField] private GameObject youDiedObject;
+    [SerializeField] private GameObject youWinObject;
     [SerializeField] private TMP_Text missionPassedText;
     [SerializeField] private TMP_Text youDiedText;
+    [SerializeField] private TMP_Text youWinText;
 
     [SerializeField] private TMP_Text weaponText;
     [SerializeField] private TMP_Text ammoText;
@@ -28,6 +30,13 @@ public class HudCanvas : MonoBehaviour, ICanvasable
     [SerializeField] private TMP_Text checkpointsText;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private Button mainMenuButton;
+
+    public enum EnumOnActivateEffectBehavior
+    {
+        MISSION_PASSED,
+        YOU_DIED,
+        YOU_WIN
+    }
 
     private bool _isVisible = false;
     private bool isVisible
@@ -61,6 +70,11 @@ public class HudCanvas : MonoBehaviour, ICanvasable
         FixWeaponText(_data.equippedWeapon);
         FixAmmoText(_data.equippedWeapon);
         FixMoneyText(_data.money);
+
+        if (gm == null)
+        {
+            gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
+        }
 
         if (gm.CurrentQuestStartedData.gasCan && !_data.hasGasCan)
         {
@@ -135,11 +149,64 @@ public class HudCanvas : MonoBehaviour, ICanvasable
         };
     }
 
+    public void ActivateYouWinEffect()
+    {
+        youWinObject.transform.localScale = Vector3.one;
+        Tween scaleTween = TweenService.GetFloatTween(gameObject, 10f, 1f, 0.2f, EnumTweenEase.QUART, EnumTweenDirection.IN);
+        scaleTween.StartTween();
+        youWinObject.SetActive(true);
+        scaleTween.OnValueUpdated += (value) =>
+        {
+            Vector3 newScale = new Vector3(value.x, value.x, value.x);
+            youWinObject.transform.localScale = newScale;
+        };
+        scaleTween.OnFinished += () =>
+        {
+            StartCoroutine(WaitThenShowMainMenuButton(0.75f));
+        };
+    }
+
+    public void ActivateUiEffect(EnumOnActivateEffectBehavior behavior, float waitTime)
+    {
+        GameObject uiObj = null;
+        bool doFadeBehavior = false;
+        switch (behavior)
+        {
+            case EnumOnActivateEffectBehavior.YOU_WIN:
+                uiObj = youWinObject;
+                break;
+            case EnumOnActivateEffectBehavior.MISSION_PASSED:
+                doFadeBehavior = true;
+                uiObj = missionPassedObject;
+                break;
+            case EnumOnActivateEffectBehavior.YOU_DIED:
+                uiObj = youDiedObject;
+                break;
+        }
+        uiObj.transform.localScale = Vector3.one;
+        Tween scaleTween = TweenService.GetFloatTween(gameObject, 10f, 1f, 0.2f, EnumTweenEase.QUART, EnumTweenDirection.IN);
+        scaleTween.StartTween();
+        uiObj.SetActive(true);
+        scaleTween.OnValueUpdated += (value) =>
+        {
+            Vector3 newScale = new Vector3(value.x, value.x, value.x);
+            uiObj.transform.localScale = newScale;
+        };
+        scaleTween.OnFinished += () =>
+        {
+            if (doFadeBehavior) { StartCoroutine(WaitThenFade(waitTime)); }
+            else { StartCoroutine(WaitThenShowMainMenuButton(waitTime)); }
+        };
+
+
+    }
+
     public void MainMenuPressed()
     {
         mainMenuButton.gameObject.SetActive(false);
         youDiedObject.SetActive(false );
-        // signal the GM to load the bootstrap scene
+        missionPassedObject.SetActive(false);
+        youWinObject.SetActive(false);
     }
 
     private System.Collections.IEnumerator WaitThenShowMainMenuButton(float wait)
@@ -159,6 +226,9 @@ public class HudCanvas : MonoBehaviour, ICanvasable
             missionPassedText.color = newColor;
         };
     }
+
+
+
 
 
     public EnumCanvasName CanvasName()
