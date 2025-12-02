@@ -6677,7 +6677,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 67d5d28baafd598418d643ad4a74def6, type: 2}
     - target: {fileID: 5301017697326879041, guid: 0732205d2452899429d81f2ffcd160eb, type: 3}
       propertyPath: gameplaySceneName
-      value: 
+      value: STC_Map
       objectReference: {fileID: 0}
     - target: {fileID: 6324373554028542989, guid: 0732205d2452899429d81f2ffcd160eb, type: 3}
       propertyPath: m_LocalPosition.x
