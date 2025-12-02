@@ -8,14 +8,21 @@ public class WeaponSwitcher : MonoBehaviour
 {
     [SerializeField] private List<GameObject> weapons;
     [SerializeField] private EnumWeaponPayloadEvent swapWeaponEvent;
+   
     
     private int currentWeapon = 0;
     
     private PlayerControls controls;
     private GameManagerSingleton gm;
-
-    private void Awake() => controls = new PlayerControls();
+    private bool holdingWeapon;
+    private PlayerController player;
     
+    private void Awake()
+    {
+        controls = new PlayerControls();
+        player =  GetComponent<PlayerController>();
+    }
+
     private void Start()
     {
         gm = GameObject.FindGameObjectWithTag(Constants.Tags.GAME_MANAGER).GetComponent<GameManagerSingleton>();
@@ -54,6 +61,10 @@ public class WeaponSwitcher : MonoBehaviour
 
         for (int i = 0; i < weapons.Count; i++)
             weapons[i].SetActive(i == weaponNumber);
+
+        holdingWeapon = weaponNumber != 0;
+        
+        player.WeaponChanged(holdingWeapon);
 
         switch (weaponNumber)
         {

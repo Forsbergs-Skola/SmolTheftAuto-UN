@@ -17,7 +17,7 @@ public class AimCameraController : MonoBehaviour
 
     [SerializeField] private CinemachineThirdPersonFollow aimCamera;
     [SerializeField] private float shoulderSwapSpeed;
-
+    
     private float yaw;
     private float pitch;
     private float targetCameraSide;
