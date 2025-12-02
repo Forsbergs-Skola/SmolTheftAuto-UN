@@ -100,7 +100,7 @@ namespace GameTools
             {
                 if (kb.escapeKey.wasPressedThisFrame)
                 {
-                    Debug.Log("FOO");
+                    //Debug.Log("FOO");
 
                     if (gamePausedPressedEvent != null)
                     {
