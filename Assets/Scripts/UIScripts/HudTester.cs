@@ -84,7 +84,7 @@ public class HudTester : MonoBehaviour
 
     public void TakeDamage()
     {
-        healthEvent.TriggerEvent(-damage); // <-- negative value means damage
+        healthEvent.TriggerEvent(-1000); // <-- negative value means damage
     }
     public void Heal()
     {
