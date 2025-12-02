@@ -428,9 +428,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Vehicles.VehicleHealth
   maxHealth: 100
   currentHealth: 100
+  playerHealthEvent: {fileID: 11400000, guid: 253e17d71a966904a8e01c7aaab73b3e, type: 2}
   minImpactToDamage: 3
   damageMultiplier: 5
-  playerDeathEvent: {fileID: 0}
   destroyRoot: {fileID: 5197098502270616892}
 --- !u!1 &6155870160558898900
 GameObject:
