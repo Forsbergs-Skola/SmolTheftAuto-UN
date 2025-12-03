@@ -16,31 +16,31 @@ MonoBehaviour:
   lines:
   - speakerName: Mechanic Elf
     dialogueLine: Finally! Someone I can boss around.
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/ExampleElf
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 1
     subdueRight: 0
   - speakerName: Player
     dialogueLine: "\u2026Great."
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/ExampleElf
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 0
     subdueRight: 1
   - speakerName: Mechanic Elf
     dialogueLine: I need this car tested.
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/ExampleElf
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 1
     subdueRight: 0
   - speakerName: Mechanic Elf
     dialogueLine: Just drive through the checkpoints. Try not to explode.
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/ExampleElf
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 1
     subdueRight: 0
   - speakerName: Player
     dialogueLine: Encouraging.
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/ExampleElf
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 0
     subdueRight: 1

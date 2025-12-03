@@ -16,13 +16,13 @@ MonoBehaviour:
   lines:
   - speakerName: Mechanic Elf
     dialogueLine: "HEY! Careful with the paint! That car is\u2026"
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/ExampleElf
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 1
     subdueRight: 0
   - speakerName: Mechanic Elf
     dialogueLine: Well, it was decent once!
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/ExampleElf
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 1
     subdueRight: 0

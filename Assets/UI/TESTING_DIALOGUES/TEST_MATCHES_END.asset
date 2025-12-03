@@ -16,19 +16,19 @@ MonoBehaviour:
   lines:
   - speakerName: NPC Elf
     dialogueLine: You a cold blooded NPC killer, dawg
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/AltExampleElf_01
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 1
     subdueRight: 0
   - speakerName: NPC Elf
     dialogueLine: Here's some matches
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/AltExampleElf_01
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 1
     subdueRight: 0
   - speakerName: Player
     dialogueLine: Solid, bruh
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/AltExampleElf_01
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 0
     subdueRight: 1
