@@ -114,6 +114,27 @@ Centralized configuration for:
 - **Observer Pattern**: Listens to events from multiple systems
 - **State Management**: Maintains authoritative game state
 
+### Lessons Learned
+
+When I first implemented the GameManagerSingleton, I understood the theoretical concept of the Singleton pattern—ensuring a single instance exists across the entire application, but I was not yet fluent enough in the Unity idiom to implement it properly. Coming from a background primarily in Godot and GDScript, I found myself working with Unity's C# API for the first time in a substantial project.
+
+Looking at the `Awake()` method implementation:
+
+```110:115:Assets/Scripts/GameManagerSingleton.cs
+private void Awake()
+{
+    if (GameObject.FindGameObjectsWithTag(Constants.Tags.GAME_MANAGER).Length > 0) { Destroy(gameObject); }
+    tag = Constants.Tags.GAME_MANAGER;
+    DontDestroyOnLoad(gameObject);
+}
+```
+
+This implementation demonstrates my approach at the time: I understood the high-level functionality needed (ensuring uniqueness, persistence across scenes) and improvised a solution using the Unity concepts I was comfortable with: GameObject tags and the `FindGameObjectsWithTag` method. This achieved the goal of singleton behavior through tag-based lookup and instance destruction, rather than the more conventional Unity singleton pattern that uses static instance references and direct self-reference checks.
+
+Since implementing this, I have done additional research and practice with Unity-specific patterns and now understand the more idiomatic approaches to implementing singletons in Unity (typically using static instance references with null checks). However, given that this implementation works correctly and is deeply integrated throughout the project at this stage, and considering the project timeline constraints, I have chosen to leave the code as-is rather than perform a major refactoring that would touch many dependent systems.
+
+This experience highlights the importance of learning framework-specific idioms and patterns, while also demonstrating that functional solutions can be achieved through different approaches when working within one's current knowledge constraints. It has been a valuable lesson in balancing theoretical understanding with practical implementation, and recognizing when to prioritize stability over optimization in an active project.
+
 ---
 
 ## 3. User Interface System
