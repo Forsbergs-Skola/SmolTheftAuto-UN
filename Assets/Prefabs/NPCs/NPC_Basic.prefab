@@ -52,7 +52,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 898539e0896d44b44ba7b9c3244b6b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.Behavior.NPCController
-  damageToPlayer: 10
+  damageToPlayer: 80
   damageRange: 1
   damageCooldown: 1
 --- !u!114 &4839156870234653837
