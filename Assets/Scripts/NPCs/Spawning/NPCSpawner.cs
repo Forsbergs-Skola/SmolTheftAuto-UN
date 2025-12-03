@@ -16,6 +16,7 @@ namespace SmolTheftAuto.NPCs.Spawning
         [SerializeField] private float spawnRadius = 50f;
         [SerializeField] private float minSpawnDistanceFromPlayer = 10f;
         [SerializeField] private LayerMask spawnCheckLayers = -1;
+        [SerializeField] private Transform npcParent;
 
         [Header("Spawn Area")]
         [SerializeField] private Vector3 spawnCenter = Vector3.zero;
@@ -80,7 +81,7 @@ namespace SmolTheftAuto.NPCs.Spawning
                 return null;
             }
 
-            GameObject npc = Instantiate(npcPrefab, spawnPosition, Quaternion.identity);
+            GameObject npc = Instantiate(npcPrefab, spawnPosition, Quaternion.identity, npcParent);
             activeNPCs.Add(npc);
 
             return npc;
