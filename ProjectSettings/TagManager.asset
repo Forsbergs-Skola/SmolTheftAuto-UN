@@ -10,6 +10,7 @@ TagManager:
   - CANVAS_MANAGER
   - GAME_MANAGER
   - SAVE_MANAGER
+  - NPC
   layers:
   - Default
   - TransparentFX
