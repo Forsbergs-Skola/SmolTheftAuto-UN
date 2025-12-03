@@ -120,8 +120,6 @@ namespace SmolTheftAuto.NPCs.Behavior
 
                 currentHealth = Mathf.Max(0, value);
                 healthChangedEvent?.TriggerEvent(new Vector2(currentHealth, maxHealth));
-
-                Debug.Log("Health: " + currentHealth);
                 
                 if (currentHealth <= 0)
                     DestroyNPC();

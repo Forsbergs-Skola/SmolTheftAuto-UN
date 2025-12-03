@@ -64,42 +64,36 @@ public class Gun : MonoBehaviour
             
             case EnumWeapon.PISTOL:
                 ammo = gm.CurrentPlayerData.pistolInClipAmmo;
-                Debug.Log(ammo);
                 if (ammo > 0)
                 {
                     fireEvent.TriggerEvent(EnumWeapon.PISTOL);
                 }
                 else
                 {
-                    Debug.Log("Click");
                     return;
                 }
                 break;
             
             case EnumWeapon.RIFLE:
                 ammo = gm.CurrentPlayerData.rifleInClipAmmo;
-                Debug.Log(ammo);
                 if (ammo > 0)
                 {
                     fireEvent.TriggerEvent(EnumWeapon.RIFLE);
                 }
                 else
                 {
-                    Debug.Log("Click");
                     return;
                 }
                 break;
             
             case EnumWeapon.SHOTGUN:
                 ammo = gm.CurrentPlayerData.shotgunInClipAmmo;
-                Debug.Log(ammo);
                 if (ammo > 0)
                 {
                     fireEvent.TriggerEvent(EnumWeapon.SHOTGUN);
                 }
                 else
                 {
-                    Debug.Log("Click");
                     return;
                 }
                 break;
