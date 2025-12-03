@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 2909086421969243266}
   m_Layer: 0
   m_Name: race
-  m_TagString: Untagged
+  m_TagString: VEHICLE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -606,9 +606,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Vehicles.VehicleHealth
   maxHealth: 100
   currentHealth: 100
+  playerHealthEvent: {fileID: 0}
   minImpactToDamage: 3
   damageMultiplier: 5
-  playerDeathEvent: {fileID: 0}
+  minImpactToDamageNPC: 2
+  npcDamageMultiplier: 10
   destroyRoot: {fileID: 7179146662770629627}
 --- !u!1 &9138002778782425107
 GameObject:

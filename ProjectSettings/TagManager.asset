@@ -11,6 +11,7 @@ TagManager:
   - GAME_MANAGER
   - SAVE_MANAGER
   - NPC
+  - VEHICLE
   layers:
   - Default
   - TransparentFX
