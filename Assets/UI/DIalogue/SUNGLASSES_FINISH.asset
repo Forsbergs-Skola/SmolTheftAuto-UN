@@ -16,25 +16,25 @@ MonoBehaviour:
   lines:
   - speakerName: Stylish Elf
     dialogueLine: "Well well WELL\u2026 look who survived the Plaza chaos."
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/ExampleElf
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 1
     subdueRight: 0
   - speakerName: Player
     dialogueLine: "So\u2026 sunglasses?"
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/AltExampleElf_02
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 0
     subdueRight: 1
   - speakerName: Stylish Elf
     dialogueLine: As promised. Try not to look too cool.
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/AltExampleElf_02
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 1
     subdueRight: 0
   - speakerName: Player
     dialogueLine: No promises.
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/AltExampleElf_02
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 0
     subdueRight: 1
