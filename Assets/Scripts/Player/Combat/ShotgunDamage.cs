@@ -7,7 +7,7 @@ public class ShotgunDamage : MonoBehaviour
     [SerializeField] private float gunRange = 50f;
     [SerializeField] private int pellets = 8;
     [SerializeField] private float angleOfSpread = 5f;
-
+    [SerializeField] private GameObject hitEffect;
     [SerializeField] private Camera cam;
 
     public void Shoot()
@@ -23,6 +23,8 @@ public class ShotgunDamage : MonoBehaviour
 
             if (Physics.Raycast(pelletRaycast, out RaycastHit hit, gunRange))
             {
+                HitEffect(hit);
+                
                 if (hit.collider.TryGetComponent(out NPCHealth enemy))
                 {
                     enemy.Health -= damage;
@@ -36,6 +38,12 @@ public class ShotgunDamage : MonoBehaviour
                 }
             }
         } 
+    }
+    
+    private void HitEffect(RaycastHit hit)
+    {
+        GameObject effect = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+        Destroy(effect, 2f);
     }
 
     private Vector3 RandomSpreadDirection(Vector3 startDirection, float spreadAngle)

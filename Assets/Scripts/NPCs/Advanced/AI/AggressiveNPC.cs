@@ -248,13 +248,6 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             {
                 //playerController.TakeDamage((int)damageDealt);
             }
-
-            // Play attack animation
-            if (animator != null)
-            {
-                animator.SetTrigger("Attack");
-            }
-
             Debug.Log($"Aggressive NPC attacking player for {damageDealt} damage!");
         }
         

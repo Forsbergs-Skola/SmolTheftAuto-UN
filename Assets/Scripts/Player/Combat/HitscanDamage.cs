@@ -7,6 +7,7 @@ public class HitscanDamage : MonoBehaviour
     [SerializeField] private float damage;
     [SerializeField] private float gunRange;
     [SerializeField] private Camera cam;
+    [SerializeField] private GameObject hitEffect;
     
     public void Shoot()
     {
@@ -15,6 +16,8 @@ public class HitscanDamage : MonoBehaviour
 
         if (Physics.Raycast(gunRaycast, out RaycastHit hitInfo, gunRange))
         {
+            HitEffect(hitInfo);
+            
             //Firstly, check if we hit an NPC
             if (hitInfo.collider.TryGetComponent(out NPCHealth enemy))
             {
@@ -35,5 +38,11 @@ public class HitscanDamage : MonoBehaviour
 
             
         }
+    }
+
+    private void HitEffect(RaycastHit hit)
+    {
+        GameObject effect = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+        Destroy(effect, 2f);
     }
 }
