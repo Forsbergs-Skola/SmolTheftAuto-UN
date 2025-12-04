@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineSplineDolly
   m_SplineSettings:
-    Spline: {fileID: 0}
+    Spline: {fileID: 8533949112785131576, guid: 28283f0be9ee5ec439ac98653c9d65f1, type: 3}
     Position: 1
     Units: 2
   SplineOffset: {x: 0, y: 0, z: -11.004}
