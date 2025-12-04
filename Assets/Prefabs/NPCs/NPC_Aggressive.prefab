@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -8850597355757231793}
   - component: {fileID: 6942294440439264684}
   - component: {fileID: 5169799627511509055}
+  - component: {fileID: 3354115751690680907}
   m_Layer: 0
   m_Name: NPC_Aggressive
   m_TagString: NPC
@@ -107,7 +108,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2780268524105058632}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 853edfaf0b537c945b59cf627ee51572, type: 3}
   m_Name: 
@@ -191,6 +192,28 @@ MonoBehaviour:
   vehicleLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &3354115751690680907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2780268524105058632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326af8b0071b5ac459686a8a531393d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.Advanced.Behavior.AdvancedNPCHealth
+  maxHealth: 100
+  minMoneyDrop: 10
+  maxMoneyDrop: 50
+  moneyPickupPrefab: {fileID: 7206965480839513763, guid: 8945d29fc06b05b45b79b337a48f037c, type: 3}
+  shouldRespawn: 1
+  respawnDelay: 5
+  healthChangedEvent: {fileID: 11400000, guid: 97ea49e138e7a01498444ae678eb2efe, type: 2}
+  npcDestroyedEvent: {fileID: 11400000, guid: 67d5d28baafd598418d643ad4a74def6, type: 2}
+  npcDestroyedGameObjectEvent: {fileID: 11400000, guid: 74b900efdcb46a249b1c735f682712b0, type: 2}
+  moneyDroppedEvent: {fileID: 11400000, guid: f05e60616ae6cdb48808b794dcb62c2a, type: 2}
 --- !u!1001 &8601186581089428026
 PrefabInstance:
   m_ObjectHideFlags: 0

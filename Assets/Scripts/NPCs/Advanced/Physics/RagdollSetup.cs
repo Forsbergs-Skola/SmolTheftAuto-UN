@@ -3,10 +3,7 @@ using System.Collections.Generic;
 
 namespace SmolTheftAuto.NPCs.Advanced.Physics
 {
-    /// <summary>
-    /// Manages the ragdoll system for NPCs. Enables/disables ragdoll physics
-    /// when appropriate (death, vehicle collision, etc).
-    /// </summary>
+    // Manages ragdoll physics. Enables/disables ragdoll when needed (death, collision).
     public class RagdollSetup : MonoBehaviour
     {
         [Header("Ragdoll Settings")]
@@ -34,9 +31,7 @@ namespace SmolTheftAuto.NPCs.Advanced.Physics
             DisableRagdoll();
         }
 
-        /// <summary>
-        /// Disables ragdoll physics (kinematic mode). Used during normal movement.
-        /// </summary>
+        // Disables ragdoll (kinematic mode). Used during normal movement.
         public void DisableRagdoll()
         {
             if (isRagdollActive)
@@ -60,10 +55,7 @@ namespace SmolTheftAuto.NPCs.Advanced.Physics
             }
         }
 
-        /// <summary>
-        /// Enables ragdoll physics (dynamic mode). Used on death or vehicle impact.
-        /// Applies optional force for vehicle collisions.
-        /// </summary>
+        // Enables ragdoll (dynamic mode). Used on death or vehicle impact with optional force.
         public void EnableRagdoll(Vector3 forceDirection = default, float forceStrength = 0f)
         {
             if (!isRagdollActive)
@@ -92,10 +84,7 @@ namespace SmolTheftAuto.NPCs.Advanced.Physics
             }
         }
 
-        /// <summary>
-        /// Instantly freeze NPC movement (disables NavMeshAgent).
-        /// Called immediately upon death before animations.
-        /// </summary>
+        // Freeze NPC movement immediately (disables NavMeshAgent).
         public void FreezeMovement()
         {
             if (navMeshAgent != null && navMeshAgent.enabled)
@@ -104,10 +93,7 @@ namespace SmolTheftAuto.NPCs.Advanced.Physics
             }
         }
 
-        /// <summary>
-        /// Resumes NPC movement (re-enables NavMeshAgent).
-        /// Called during respawn.
-        /// </summary>
+        // Resume NPC movement (re-enable NavMeshAgent). Called during respawn.
         public void ResumeMovement()
         {
             if (navMeshAgent != null && !navMeshAgent.enabled)
@@ -118,9 +104,7 @@ namespace SmolTheftAuto.NPCs.Advanced.Physics
             }
         }
 
-        /// <summary>
-        /// Check if ragdoll is currently active.
-        /// </summary>
+        // Check if ragdoll is currently active.
         public bool IsRagdollActive => isRagdollActive;
 
         private void OnDrawGizmosSelected()

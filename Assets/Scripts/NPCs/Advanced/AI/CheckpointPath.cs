@@ -3,10 +3,7 @@ using System.Collections.Generic;
 
 namespace SmolTheftAuto.NPCs.Advanced.AI
 {
-    /// <summary>
-    /// Defines a path of checkpoints for NPCs to patrol.
-    /// NPCs follow waypoints in sequence, pausing at each checkpoint.
-    /// </summary>
+    // Defines patrol path with checkpoints. NPCs follow waypoints, pausing at each.
     public class CheckpointPath : MonoBehaviour
     {
         [Header("Path Settings")]
@@ -19,9 +16,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
         [SerializeField] private float waypointSize = 0.5f;
         [SerializeField] private Color pathColor = Color.green;
 
-        /// <summary>
-        /// Get the waypoint at specified index.
-        /// </summary>
+        // Get waypoint at specified index.
         public Transform GetWaypoint(int index)
         {
             if (waypoints.Count == 0) return null;
@@ -36,9 +31,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             }
         }
 
-        /// <summary>
-        /// Get next waypoint index. Returns -1 if path is complete (non-looping).
-        /// </summary>
+        // Get next waypoint index. Returns -1 if path is complete (non-looping).
         public int GetNextWaypointIndex(int currentIndex)
         {
             int nextIndex = currentIndex + 1;
@@ -53,19 +46,13 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             }
         }
 
-        /// <summary>
-        /// Get total number of waypoints in path.
-        /// </summary>
+        // Get total number of waypoints in path.
         public int GetWaypointCount() => waypoints.Count;
 
-        /// <summary>
-        /// Get pause time at checkpoints.
-        /// </summary>
+        // Get pause time at checkpoints.
         public float GetPauseTime() => pauseAtCheckpoint;
 
-        /// <summary>
-        /// Check if path loops or ends.
-        /// </summary>
+        // Check if path loops or ends.
         public bool IsLooping() => loopPath;
 
         private void OnDrawGizmosSelected()

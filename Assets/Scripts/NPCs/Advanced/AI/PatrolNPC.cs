@@ -3,10 +3,7 @@ using UnityEngine.AI;
 
 namespace SmolTheftAuto.NPCs.Advanced.AI
 {
-    /// <summary>
-    /// Type A: Patrol NPC. Walks along predefined checkpoint paths on sidewalks.
-    /// Non-aggressive, ignores player unless attacked.
-    /// </summary>
+    // Type A: Patrol NPC. Walks predefined checkpoint paths. Non-aggressive.
     public class PatrolNPC : MonoBehaviour
     {
         [Header("Patrol Settings")]
@@ -91,9 +88,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             UpdateAnimator();
         }
 
-        /// <summary>
-        /// Check if NPC has reached current waypoint.
-        /// </summary>
+        // Check if NPC has reached current waypoint.
         private bool HasReachedWaypoint()
         {
             if (navMeshAgent.pathPending)
@@ -108,9 +103,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             return true;
         }
 
-        /// <summary>
-        /// Start pause at current checkpoint.
-        /// </summary>
+        // Start pause at current checkpoint.
         private void StartCheckpointPause()
         {
             isPaused = true;
@@ -128,9 +121,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             Debug.Log($"NPC paused at checkpoint for {checkpointPauseTimer} seconds");
         }
 
-        /// <summary>
-        /// Move NPC to next waypoint in path.
-        /// </summary>
+        // Move NPC to next waypoint in path.
         private void MoveToNextWaypoint()
         {
             if (patrolPath == null) return;
@@ -157,9 +148,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             currentWaypointIndex = patrolPath.GetNextWaypointIndex(currentWaypointIndex);
         }
 
-        /// <summary>
-        /// Update animator parameters based on movement.
-        /// </summary>
+        // Update animator parameters based on movement.
         private void UpdateAnimator()
         {
             if (animator == null || navMeshAgent == null)
@@ -176,10 +165,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             animator.SetBool(IS_WALKING, isWalking);
         }
 
-        /// <summary>
-        /// Stop patrol and freeze in place.
-        /// Called when NPC is hit or needs to stop.
-        /// </summary>
+        // Stop patrol and freeze in place.
         public void StopPatrol()
         {
             if (navMeshAgent != null)
@@ -196,9 +182,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             }
         }
 
-        /// <summary>
-        /// Resume patrol from current position.
-        /// </summary>
+        // Resume patrol from current position.
         public void ResumePatrol()
         {
             isPaused = false;

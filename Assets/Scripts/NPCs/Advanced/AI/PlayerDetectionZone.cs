@@ -3,11 +3,7 @@ using System.Collections.Generic;
 
 namespace SmolTheftAuto.NPCs.Advanced.AI
 {
-    /// <summary>
-    /// Manages player detection for aggressive NPCs.
-    /// Uses trigger collider to detect when player enters detection radius.
-    /// When activated, alerts all nearby aggressive NPCs simultaneously.
-    /// </summary>
+    // Manages player detection for aggressive NPCs. Alerts all nearby NPCs simultaneously.
     public class PlayerDetectionZone : MonoBehaviour
     {
         [Header("Detection Settings")]
@@ -57,10 +53,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             }
         }
 
-        /// <summary>
-        /// Called when player enters detection zone.
-        /// Alerts this NPC and nearby aggressive NPCs.
-        /// </summary>
+        // Called when player enters detection zone. Alerts this NPC and nearby ones.
         private void OnPlayerDetected(GameObject player)
         {
             if (playerDetected) return;
@@ -78,9 +71,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             AlertNearbyNPCs(player);
         }
 
-        /// <summary>
-        /// Called when player leaves detection zone.
-        /// </summary>
+        // Called when player leaves detection zone.
         private void OnPlayerLost()
         {
             if (!playerDetected) return;
@@ -94,9 +85,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             }
         }
 
-        /// <summary>
-        /// Find and alert all aggressive NPCs within alert propagation radius.
-        /// </summary>
+        // Find and alert all aggressive NPCs within alert propagation radius.
         private void AlertNearbyNPCs(GameObject player)
         {
             Collider[] nearbyColliders = UnityEngine.Physics.OverlapSphere(

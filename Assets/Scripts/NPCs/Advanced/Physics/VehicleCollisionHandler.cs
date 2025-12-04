@@ -2,10 +2,7 @@ using UnityEngine;
 
 namespace SmolTheftAuto.NPCs.Advanced.Physics
 {
-    /// <summary>
-    /// Handles vehicle collisions with NPCs. Applies ragdoll physics when
-    /// a vehicle hits an NPC, throwing them away realistically.
-    /// </summary>
+    // Handles vehicle collisions. Applies ragdoll physics when vehicle hits NPC.
     public class VehicleCollisionHandler : MonoBehaviour
     {
         [Header("Collision Settings")]
@@ -37,10 +34,7 @@ namespace SmolTheftAuto.NPCs.Advanced.Physics
             }
         }
 
-        /// <summary>
-        /// Handles the physics response when a vehicle hits this NPC.
-        /// Calculates force based on vehicle velocity and applies ragdoll physics.
-        /// </summary>
+        // Handle physics response when vehicle hits NPC. Calculates impact force and applies ragdoll.
         private void HandleVehicleCollision(Collision collision)
         {
             // NEW: Get the vehicle's rigidbody for velocity

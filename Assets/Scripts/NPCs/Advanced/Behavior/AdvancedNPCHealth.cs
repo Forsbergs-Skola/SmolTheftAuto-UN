@@ -5,10 +5,10 @@ using Events;
 
 namespace SmolTheftAuto.NPCs.Advanced.Behavior
 {
-    /// <summary>
+   
     /// Enhanced NPC Health system for the advanced NPC framework.
     /// Handles death sequence: freeze movement → drop money → play animation → ragdoll/cleanup.
-    /// </summary>
+  
     public class AdvancedNPCHealth : MonoBehaviour
     {
         [Header("Health Settings")]
@@ -50,9 +50,8 @@ namespace SmolTheftAuto.NPCs.Advanced.Behavior
             }
         }
 
-        /// <summary>
         /// Apply damage to NPC. Triggers death sequence if health <= 0.
-        /// </summary>
+      
         public void TakeDamage(float damage, bool isWeaponDamage = true)
         {
             if (isDestroyed) return;
@@ -68,13 +67,13 @@ namespace SmolTheftAuto.NPCs.Advanced.Behavior
             }
         }
 
-        /// <summary>
+
         /// Main death sequence for NPC:
         /// 1. Freeze movement immediately
         /// 2. Drop money
         /// 3. Play death animation
         /// 4. Enable ragdoll after animation completes
-        /// </summary>
+
         private void DestroyNPC(bool isWeaponDamage = true)
         {
             if (isDestroyed) return;
@@ -120,9 +119,8 @@ namespace SmolTheftAuto.NPCs.Advanced.Behavior
             }
         }
 
-        /// <summary>
         /// Drop money immediately upon death (before animation).
-        /// </summary>
+    
         private void DropMoney()
         {
             int moneyAmount = Random.Range(minMoneyDrop, maxMoneyDrop + 1);
@@ -140,10 +138,10 @@ namespace SmolTheftAuto.NPCs.Advanced.Behavior
             moneyDroppedEvent?.TriggerEvent(moneyAmount);
         }
 
-        /// <summary>
+        
         /// Play appropriate death animation based on death cause.
         /// NEW: Supports different animations for weapon vs vehicle deaths.
-        /// </summary>
+        
         private void PlayDeathAnimation(bool isWeaponDamage)
         {
             // NEW: Play death animation if animator is available
@@ -166,9 +164,9 @@ namespace SmolTheftAuto.NPCs.Advanced.Behavior
             }
         }
 
-        /// <summary>
+       
         /// Handle NPC respawn at a random location.
-        /// </summary>
+      
         private void HandleRespawn()
         {
             INPCSpawner spawner = ServiceLocator.Get<INPCSpawner>();
@@ -182,9 +180,9 @@ namespace SmolTheftAuto.NPCs.Advanced.Behavior
             }
         }
 
-        /// <summary>
+     
         /// Reset health and state (called on respawn).
-        /// </summary>
+      
         public void ResetHealth()
         {
             currentHealth = maxHealth;

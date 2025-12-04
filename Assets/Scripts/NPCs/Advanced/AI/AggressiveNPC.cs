@@ -4,11 +4,7 @@ using SmolTheftAuto.Core;
 
 namespace SmolTheftAuto.NPCs.Advanced.AI
 {
-    /// <summary>
-    /// Type B: Aggressive Chase NPC. Hunts player when detected.
-    /// All nearby aggressive NPCs activate simultaneously when player detected.
-    /// Deals increased damage (configurable multiplier).
-    /// </summary>
+    // Type B: Aggressive Chase NPC. Hunts player when detected. All nearby NPCs alert together.
     public class AggressiveNPC : MonoBehaviour
     {
         [Header("NPC Type")]
@@ -99,9 +95,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             UpdateAnimator();
         }
 
-        /// <summary>
-        /// Create detection zone as child object for player detection.
-        /// </summary>
+        // Create detection zone as child object for player detection.
         private void CreateDetectionZone()
         {
             GameObject detectionObj = new GameObject("DetectionZone");
@@ -117,9 +111,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             }
         }
 
-        /// <summary>
-        /// Called by detection zone when player is detected.
-        /// </summary>
+        // Called by detection zone when player is detected.
         public void OnPlayerDetected(GameObject player)
         {
             detectedPlayer = player;
@@ -130,9 +122,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             }
         }
 
-        /// <summary>
-        /// Called by detection zone when player is lost.
-        /// </summary>
+        // Called by detection zone when player is lost.
         public void OnPlayerLost()
         {
             detectedPlayer = null;
@@ -245,9 +235,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             }
         }
 
-        /// <summary>
-        /// Attack the player with multiplied damage.
-        /// </summary>
+        // Attack the player with multiplied damage.
         private void AttackPlayer()
         {
             if (detectedPlayer == null) return;
@@ -288,9 +276,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             animator.SetBool(IS_ATTACKING, isAttacking);
         }
 
-        /// <summary>
-        /// Stop aggressive behavior (when hit by weapon, etc).
-        /// </summary>
+        // Stop aggressive behavior (when hit by weapon, etc).
         public void StopChasing()
         {
             currentState = NPCState.Idle;
