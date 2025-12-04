@@ -381,6 +381,12 @@ public class GameManagerSingleton : MonoBehaviour
             default:
                 return;
         }
+
+        if (currentPlayerData.hasGasCan && currentPlayerData.hasSunglasses && currentPlayerData.hasMatches)
+        {
+            questStartedEvent.TriggerEvent(EnumQuest.FINAL);
+        }
+
         playerDataUpdatedEvent.TriggerEvent();
     }
 
@@ -428,9 +434,12 @@ public class GameManagerSingleton : MonoBehaviour
 
     private void HandleOnNpcKilled()
     {
-        // do screen shake stuff
-        currentPlayerData.npcsKilled += 1;
-        playerDataUpdatedEvent.TriggerEvent();
+        if (!currentPlayerData.hasMatches && currentQuestStartedData.matches)
+        {
+            // do screen shake stuff
+            currentPlayerData.npcsKilled += 1;
+            playerDataUpdatedEvent.TriggerEvent();
+        }
     }
     private void HandleOnCheckpointReached()
     {
@@ -531,6 +540,8 @@ public class GameManagerSingleton : MonoBehaviour
             playerDataUpdatedEvent.TriggerEvent();
 
         }
+        healthChangedEvent.TriggerEvent(100);
+        playerDataUpdatedEvent.TriggerEvent();
         LoadGameplayScene();
     }
     private void HandleContinuePressed()

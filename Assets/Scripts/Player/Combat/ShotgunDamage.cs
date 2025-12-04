@@ -1,6 +1,6 @@
 using SmolTheftAuto.NPCs.Behavior;
 using UnityEngine;
-
+using Vehicles; // for VehicleHealth
 public class ShotgunDamage : MonoBehaviour
 {
     [SerializeField] private float damage = 10f;
@@ -23,9 +23,21 @@ public class ShotgunDamage : MonoBehaviour
 
             if (Physics.Raycast(pelletRaycast, out RaycastHit hit, gunRange))
                 if (hit.collider.TryGetComponent(out NPCHealth enemy))
+                   { 
                     enemy.Health -= damage;
-        }
-    }
+                    continue; // Cause multiple pellets can hit the diffrent targets i assume so no return here(ibad)
+                   }
+       
+        VehicleHealth vehicleHealth =
+                    hit.collider.GetComponentInParent<VehicleHealth>();
+
+                if (vehicleHealth != null)
+                {
+                    vehicleHealth.ApplyDamage(damage);
+                    continue; 
+                }
+              } 
+            }
 
     private Vector3 RandomSpreadDirection(Vector3 startDirection, float spreadAngle)
     {

@@ -65,8 +65,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'A shady fireworks elf asks for help removing troublemakers. Clearing the
-    area will earn the player a box of special matches. '
+  m_text: A shady fireworks elf asks for help removing troublemakers. Clearing the
+    area will earn the player a box of special matches. KILL 5 NPCS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 78f70291b293a0e45825ca5d30155179, type: 2}
   m_sharedMaterial: {fileID: -74709707466328134, guid: 78f70291b293a0e45825ca5d30155179, type: 2}

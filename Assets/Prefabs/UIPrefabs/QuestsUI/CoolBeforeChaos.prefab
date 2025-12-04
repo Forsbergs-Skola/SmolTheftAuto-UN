@@ -158,8 +158,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'A stylish elf refuses to support the player unless they prove themselves
-    by collecting money around the Plaza. '
+  m_text: A stylish elf refuses to support the player unless they prove themselves
+    by collecting money around the Plaza. COLLECT 100 MONEY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 78f70291b293a0e45825ca5d30155179, type: 2}
   m_sharedMaterial: {fileID: -74709707466328134, guid: 78f70291b293a0e45825ca5d30155179, type: 2}

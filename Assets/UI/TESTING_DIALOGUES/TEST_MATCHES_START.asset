@@ -16,13 +16,13 @@ MonoBehaviour:
   lines:
   - speakerName: NPC Elf
     dialogueLine: Kill some NPCs for some matches.
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/AltExampleElf_01
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 1
     subdueRight: 0
   - speakerName: Player
     dialogueLine: Okay boss.
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/AltExampleElf_01
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 0
     subdueRight: 1

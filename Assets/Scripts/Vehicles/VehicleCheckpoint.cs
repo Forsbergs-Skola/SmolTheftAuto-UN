@@ -38,7 +38,8 @@ public class VehicleCheckpoint : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // only care if the object is a player-controlled vehicle
-        if (other.gameObject.GetComponent<PlayerVehicleController>() == null) return;
+       // if (other.gameObject.GetComponent<PlayerVehicleController>() == null) return;
+        if(other.gameObject.CompareTag("VEHICLE") == false) return;
         if (!triggerable) return;
         enableCheckpoint(false);
         checkpointReachedEvent.TriggerEvent();

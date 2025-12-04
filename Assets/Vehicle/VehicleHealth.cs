@@ -1,7 +1,7 @@
 using UnityEngine;
 using Vehicles;
 using Events;  // for IntPayloadEvent
-
+using SmolTheftAuto.NPCs.Behavior;
 namespace Vehicles
 {
     [RequireComponent(typeof(Rigidbody))]
@@ -19,7 +19,9 @@ namespace Vehicles
         [Header("Damage From Collisions")]
         [SerializeField] private float minImpactToDamage = 3f;   // ignore tiny bumps
         [SerializeField] private float damageMultiplier = 5f;    // tweak this
-
+        [Header("Damage To NPCs")]
+      [SerializeField] private float minImpactToDamageNPC = 2f;   
+       [SerializeField] private float npcDamageMultiplier = 10f;
         [Header("Death Behaviour")]
         [Tooltip("Optional override for what to destroy (if car is a parent object). If null, destroys this.gameObject.")]
         [SerializeField] private GameObject destroyRoot;
@@ -45,17 +47,45 @@ namespace Vehicles
             Debug.Log($"[VehicleHealth] {name} HasPlayerDriver = {HasPlayerDriver}");
         }
 
-        private void OnCollisionEnter(Collision collision)
+       private void OnCollisionEnter(Collision collision)
+{
+    Collider other = collision.collider;
+
+    //Check if we hit an NPC/enemy 
+    NPCHealth npcHealth = other.GetComponentInParent<NPCHealth>();
+    bool isNPC =
+        npcHealth != null ||
+        other.CompareTag("NPC") ;
+
+    if (isNPC)
+    {
+        // Car damages NPC
+        float impact = collision.relativeVelocity.magnitude;
+
+        if (impact < minImpactToDamageNPC)
+            return;
+
+        float damageToNPC = (impact - minImpactToDamageNPC) * npcDamageMultiplier;
+
+        if (npcHealth != null && !npcHealth.IsDestroyed())
         {
-            // Basic impact damage using relative velocity magnitude
-            float impact = collision.relativeVelocity.magnitude;
-
-            if (impact < minImpactToDamage)
-                return;
-
-            float damage = (impact - minImpactToDamage) * damageMultiplier;
-            ApplyDamage(damage);
+            
+            npcHealth.Health -= damageToNPC;
         }
+
+        
+        return;
+    }
+
+    //Normal collision damage for everything else aas before
+    float selfImpact = collision.relativeVelocity.magnitude;
+
+    if (selfImpact < minImpactToDamage)
+        return;
+
+    float damageToSelf = (selfImpact - minImpactToDamage) * damageMultiplier;
+    ApplyDamage(damageToSelf);
+}
 
         public void ApplyDamage(float damage)
         {

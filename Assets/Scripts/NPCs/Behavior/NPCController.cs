@@ -26,28 +26,35 @@ namespace SmolTheftAuto.NPCs.Behavior
 
         private void Update()
         {
-            if (PlayerReference.PlayerTransform != null && !npcHealth.IsDestroyed())
+            // if (PlayerReference.PlayerTransform != null && !npcHealth.IsDestroyed())
+            // {
+            //     //CheckPlayerDamage();
+            // }
+        }
+
+        // private void CheckPlayerDamage()
+        // {
+        //     float distanceToPlayer = Vector3.Distance(transform.position, PlayerReference.PlayerTransform.position);
+
+        //     if (distanceToPlayer <= damageRange && Time.time >= lastDamageTime + damageCooldown)
+        //     {
+        //         DealDamageToPlayer();
+        //         lastDamageTime = Time.time;
+        //     }
+        // }
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.CompareTag("Player"))
             {
-                CheckPlayerDamage();
+                //DealDamageToPlayer();
+                other.gameObject.GetComponent<PlayerController>().TakeDamage();
             }
         }
-
-        private void CheckPlayerDamage()
-        {
-            float distanceToPlayer = Vector3.Distance(transform.position, PlayerReference.PlayerTransform.position);
-
-            if (distanceToPlayer <= damageRange && Time.time >= lastDamageTime + damageCooldown)
-            {
-                DealDamageToPlayer();
-                lastDamageTime = Time.time;
-            }
-        }
-
-        private void DealDamageToPlayer()
-        {
-            IDamageable damageable = PlayerReference.GetPlayerComponent<IDamageable>();
-            damageable?.TakeDamage(damageToPlayer);
-        }
+        // private void DealDamageToPlayer()
+        // {
+        //     IDamageable damageable = PlayerReference.GetPlayerComponent<IDamageable>();
+        //     damageable?.TakeDamage(damageToPlayer);
+        // }
 
         private void OnDrawGizmosSelected()
         {

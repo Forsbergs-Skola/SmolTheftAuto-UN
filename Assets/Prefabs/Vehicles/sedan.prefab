@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 4085348130130659058}
   m_Layer: 0
   m_Name: sedan
-  m_TagString: Untagged
+  m_TagString: VEHICLE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5197098502270616892}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75b03ac9b41ce2b4e90ce9ea61bbc371, type: 3}
   m_Name: 
@@ -431,6 +431,8 @@ MonoBehaviour:
   playerHealthEvent: {fileID: 11400000, guid: 253e17d71a966904a8e01c7aaab73b3e, type: 2}
   minImpactToDamage: 3
   damageMultiplier: 5
+  minImpactToDamageNPC: 2
+  npcDamageMultiplier: 10
   destroyRoot: {fileID: 5197098502270616892}
 --- !u!1 &6155870160558898900
 GameObject:
