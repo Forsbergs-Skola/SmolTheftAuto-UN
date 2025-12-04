@@ -6660,10 +6660,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5301017697326879041, guid: 0732205d2452899429d81f2ffcd160eb, type: 3}
-      propertyPath: maxHealth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5301017697326879041, guid: 0732205d2452899429d81f2ffcd160eb, type: 3}
       propertyPath: testScene
       value: 
       objectReference: {fileID: 1889629162}
@@ -6677,7 +6673,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 6316dc07c4d1d5743b342b0b3b0aebeb, type: 2}
     - target: {fileID: 5301017697326879041, guid: 0732205d2452899429d81f2ffcd160eb, type: 3}
       propertyPath: ammoRefilCost
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5301017697326879041, guid: 0732205d2452899429d81f2ffcd160eb, type: 3}
       propertyPath: npcKilledEvent

@@ -1,4 +1,5 @@
 using UnityEngine;
+using GameTools;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Events;
@@ -124,6 +125,8 @@ public class QuestPanel : MonoBehaviour
             StartQuest(EnumQuest.FINAL);
         }
     }
+
+    
 
     private QuestItem? GetItemFromActiveList(EnumQuest activeQuest)
     {
