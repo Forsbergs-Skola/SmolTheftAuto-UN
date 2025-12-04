@@ -17,11 +17,11 @@ namespace Vehicles
         [SerializeField] private IntPayloadEvent playerHealthEvent;
 
         [Header("Damage From Collisions")]
-        [SerializeField] private float minImpactToDamage = 3f;   // ignore tiny bumps
-        [SerializeField] private float damageMultiplier = 5f;    // tweak this
+        [SerializeField] private float minImpactToDamage = 3f;   
+        [SerializeField] private float damageMultiplier = 5f;    
         [Header("Damage To NPCs")]
-      [SerializeField] private float minImpactToDamageNPC = 2f;   
-       [SerializeField] private float npcDamageMultiplier = 10f;
+    [SerializeField] private float minImpactToDamageNPC = 2f;
+    [SerializeField] private float npcDamageMultiplier = 10f;
         [Header("Death Behaviour")]
         [Tooltip("Optional override for what to destroy (if car is a parent object). If null, destroys this.gameObject.")]
         [SerializeField] private GameObject destroyRoot;
@@ -47,44 +47,58 @@ namespace Vehicles
             Debug.Log($"[VehicleHealth] {name} HasPlayerDriver = {HasPlayerDriver}");
         }
 
-       private void OnCollisionEnter(Collision collision)
-{
-    Collider other = collision.collider;
-
-    //Check if we hit an NPC/enemy 
-    NPCHealth npcHealth = other.GetComponentInParent<NPCHealth>();
-    bool isNPC =
-        npcHealth != null ||
-        other.CompareTag("NPC") ;
-
-    if (isNPC)
+    private void OnCollisionEnter(Collision collision)
     {
-        // Car damages NPC
-        float impact = collision.relativeVelocity.magnitude;
+        Collider other = collision.collider;
 
-        if (impact < minImpactToDamageNPC)
-            return;
-
-        float damageToNPC = (impact - minImpactToDamageNPC) * npcDamageMultiplier;
+        // Check if we hit an NPC/enemy by looking for NPCHealth component
+        NPCHealth npcHealth = other.GetComponent<NPCHealth>();
+        if (npcHealth == null)
+            npcHealth = other.GetComponentInParent<NPCHealth>();
 
         if (npcHealth != null && !npcHealth.IsDestroyed())
         {
-            
-            npcHealth.Health -= damageToNPC;
+            // Car damages NPC
+            float impact = collision.relativeVelocity.magnitude;
+
+            if (impact >= minImpactToDamageNPC)
+            {
+                float damageToNPC = (impact - minImpactToDamageNPC) * npcDamageMultiplier;
+                Debug.Log($"[VehicleHealth] {name} hit NPC {npcHealth.gameObject.name} for {damageToNPC} damage. Impact: {impact}");
+                npcHealth.Health -= damageToNPC;
+            }
+            return;
         }
 
         
-        return;
-    }
-
-    //Normal collision damage for everything else aas before
-    float selfImpact = collision.relativeVelocity.magnitude;
+        float selfImpact = collision.relativeVelocity.magnitude;
 
     if (selfImpact < minImpactToDamage)
         return;
 
     float damageToSelf = (selfImpact - minImpactToDamage) * damageMultiplier;
     ApplyDamage(damageToSelf);
+}
+
+        private void OnTriggerEnter(Collider collider)
+{
+    
+    NPCHealth npcHealth = collider.GetComponent<NPCHealth>();
+    if (npcHealth == null)
+        npcHealth = collider.GetComponentInParent<NPCHealth>();
+
+    if (npcHealth != null && !npcHealth.IsDestroyed())
+    {
+        
+        float impact = GetComponent<Rigidbody>().linearVelocity.magnitude;
+        
+        if (impact >= minImpactToDamageNPC)
+        {
+            float damageToNPC = (impact - minImpactToDamageNPC) * npcDamageMultiplier;
+            Debug.Log($"[VehicleHealth] {name} hit trigger NPC {npcHealth.gameObject.name} for {damageToNPC} damage. Impact: {impact}");
+            npcHealth.Health -= damageToNPC;
+        }
+    }
 }
 
         public void ApplyDamage(float damage)
@@ -113,7 +127,7 @@ namespace Vehicles
                 $"playerHealthEvent={(playerHealthEvent == null ? "NULL" : playerHealthEvent.name)}"
             );
 
-            // If the player is currently inside this vehicle, trigger Brad's health event
+            // If the player is currently inside this vehicle trigger Brads health event
             if (HasPlayerDriver && playerHealthEvent != null)
             {
                 Debug.Log("[VehicleHealth] Triggering playerHealthEvent(-1000)");

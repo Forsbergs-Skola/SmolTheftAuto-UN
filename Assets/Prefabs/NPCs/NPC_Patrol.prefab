@@ -120,6 +120,11 @@ MonoBehaviour:
   npcDestroyedEvent: {fileID: 11400000, guid: 67d5d28baafd598418d643ad4a74def6, type: 2}
   npcDestroyedGameObjectEvent: {fileID: 11400000, guid: 74b900efdcb46a249b1c735f682712b0, type: 2}
   moneyDroppedEvent: {fileID: 11400000, guid: f05e60616ae6cdb48808b794dcb62c2a, type: 2}
+  collidersToDisable: []
+  navMeshAgent: {fileID: 3597048865775626248}
+  aiScriptsToDisable:
+  - {fileID: -5685027854939097290}
+  - {fileID: 2567684501395198511}
   animator: {fileID: 6085530435917590365}
 --- !u!114 &-5685027854939097290
 MonoBehaviour:
