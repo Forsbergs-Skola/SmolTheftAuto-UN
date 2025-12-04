@@ -65,8 +65,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'A mechanic elf needs help testing a car. Completing the driving route
-    will earn the player a special gasoline can. '
+  m_text: A mechanic elf needs help testing a car. Completing the driving route will
+    earn the player a special gasoline can.  CLEAR 3 CHECKPOINTS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 78f70291b293a0e45825ca5d30155179, type: 2}
   m_sharedMaterial: {fileID: -74709707466328134, guid: 78f70291b293a0e45825ca5d30155179, type: 2}
