@@ -11,6 +11,10 @@ namespace SmolTheftAuto.NPCs.AI
         [SerializeField] private float wanderRadius = 10f;
         [SerializeField] private float wanderTimer = 5f;
         [SerializeField] private bool useNavMesh = true;
+        
+        [Header("Animation Settings")]
+        [SerializeField] private Animator animator;
+        
 
         private NavMeshAgent navAgent;
         private float timer;
@@ -33,6 +37,9 @@ namespace SmolTheftAuto.NPCs.AI
         private void Update()
         {
             if (!useNavMesh || navAgent == null || !navAgent.enabled) return;
+            
+            float speedPercent = navAgent.velocity.magnitude / navAgent.speed;
+            animator.SetFloat("moveSpeed", speedPercent);
 
             timer += Time.deltaTime;
 

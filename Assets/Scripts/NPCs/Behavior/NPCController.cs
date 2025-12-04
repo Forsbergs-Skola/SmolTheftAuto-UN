@@ -11,10 +11,13 @@ namespace SmolTheftAuto.NPCs.Behavior
         [SerializeField] private float damageToPlayer = 10f;
         [SerializeField] private float damageRange = 2f;
         [SerializeField] private float damageCooldown = 1f;
-
+        
+        
+        [SerializeField]  private Animator animator;
+        
         private NPCHealth npcHealth;
         private float lastDamageTime = 0f;
-
+       
         private void Awake()
         {
             npcHealth = GetComponent<NPCHealth>();
@@ -48,8 +51,20 @@ namespace SmolTheftAuto.NPCs.Behavior
             {
                 //DealDamageToPlayer();
                 other.gameObject.GetComponent<PlayerController>().TakeDamage();
+                AttackAnimations();
             }
         }
+
+        private void AttackAnimations()
+        {
+            int random = Random.Range(0, 4);
+            float blend = random / 3f;
+            animator.SetFloat("attackNumber", blend);
+            animator.SetTrigger("attack");
+        }
+        
+        
+        
         // private void DealDamageToPlayer()
         // {
         //     IDamageable damageable = PlayerReference.GetPlayerComponent<IDamageable>();

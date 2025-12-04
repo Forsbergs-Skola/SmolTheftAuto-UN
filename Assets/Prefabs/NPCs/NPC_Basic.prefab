@@ -97,6 +97,7 @@ MonoBehaviour:
   damageToPlayer: 80
   damageRange: 1
   damageCooldown: 1
+  animator: {fileID: 2753696318029406123}
 --- !u!114 &4839156870234653837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +120,7 @@ MonoBehaviour:
   npcDestroyedEvent: {fileID: 11400000, guid: 67d5d28baafd598418d643ad4a74def6, type: 2}
   npcDestroyedGameObjectEvent: {fileID: 11400000, guid: 74b900efdcb46a249b1c735f682712b0, type: 2}
   moneyDroppedEvent: {fileID: 11400000, guid: f05e60616ae6cdb48808b794dcb62c2a, type: 2}
+  animator: {fileID: 2753696318029406123}
 --- !u!114 &7264764208673810577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,6 +136,7 @@ MonoBehaviour:
   wanderRadius: 10
   wanderTimer: 5
   useNavMesh: 1
+  animator: {fileID: 2753696318029406123}
 --- !u!1001 &8601186581089428026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -186,11 +189,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: character-male-c
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 1e9d7162c5549af40bd7bcbc705b4f02, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 020d9fc993a706242817b5a0c4e4a8ec, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 1e9d7162c5549af40bd7bcbc705b4f02, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e9d7162c5549af40bd7bcbc705b4f02, type: 3}
+--- !u!95 &2753696318029406123 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 1e9d7162c5549af40bd7bcbc705b4f02, type: 3}
+  m_PrefabInstance: {fileID: 8601186581089428026}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8131025800226686417 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1e9d7162c5549af40bd7bcbc705b4f02, type: 3}

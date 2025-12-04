@@ -29,6 +29,7 @@ namespace SmolTheftAuto.NPCs.Behavior
         [SerializeField] private IntPayloadEvent moneyDroppedEvent;
 
         private bool isDestroyed = false;
+        [SerializeField] private Animator animator;
 
         private void Awake()
         {
@@ -56,7 +57,8 @@ namespace SmolTheftAuto.NPCs.Behavior
         {
             if (isDestroyed) return;
             isDestroyed = true;
-
+            
+            animator.SetBool("isDead", true);
             DropMoney();
             npcDestroyedEvent?.TriggerEvent();
             //npcDestroyedGameObjectEvent?.TriggerEvent(gameObject);
