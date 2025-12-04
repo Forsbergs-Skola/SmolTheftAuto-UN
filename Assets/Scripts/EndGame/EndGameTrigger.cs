@@ -1,10 +1,14 @@
 using UnityEngine;
 using Events;
-
+using UnityEngine.Playables;
+using Unity.Cinemachine;
 public class EndGameTrigger : MonoBehaviour
 {
     [SerializeField] private EnumQuestPayloadEvent questStartedEvent;
     [SerializeField] private EmptyPayloadEvent endgameEvent;
+    [SerializeField] private PlayableDirector timeline;
+    [SerializeField] private GameObject player;
+    [SerializeField] private CinemachineCamera cutsceneCamera;
 
     private Collider myCollider;
     private bool triggerable = false; // <--Prevents redundant triggering
@@ -22,7 +26,11 @@ public class EndGameTrigger : MonoBehaviour
         // Disable the collider and kick off the end game sequence
         triggerable = false; 
         myCollider.enabled = false;
+        cutsceneCamera.Priority = 100;
+        player.SetActive(false); 
+        timeline.Play();
         endgameEvent.TriggerEvent();
+        
     }
 
     private void OnEnable()
