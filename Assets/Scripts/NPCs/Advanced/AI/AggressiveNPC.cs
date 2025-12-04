@@ -29,7 +29,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
         private NPCState currentState = NPCState.Idle;
 
         private NavMeshAgent navMeshAgent;
-        private Animator animator;
+        [SerializeField] Animator animator;
         private PlayerDetectionZone detectionZone;
 
         private GameObject detectedPlayer;
@@ -44,7 +44,6 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
         private void Awake()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
-            animator = GetComponent<Animator>();
 
             if (navMeshAgent == null)
             {
@@ -75,6 +74,9 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
         {
             if (!isAggressive || navMeshAgent == null)
                 return;
+            
+            float speedPercent = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
+            animator.SetFloat("moveSpeed", speedPercent);
 
             switch (currentState)
             {
@@ -91,8 +93,6 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
                     UpdateAttackingState();
                     break;
             }
-
-            UpdateAnimator();
         }
 
         // Create detection zone as child object for player detection.
@@ -257,24 +257,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
 
             Debug.Log($"Aggressive NPC attacking player for {damageDealt} damage!");
         }
-
-        private void UpdateAnimator()
-        {
-            if (animator == null || navMeshAgent == null)
-                return;
-
-            float speed = navMeshAgent.velocity.magnitude;
-            animator.SetFloat(SPEED_PARAM, speed);
-
-            bool isWalking = speed > 0.1f;
-            animator.SetBool(IS_WALKING, isWalking);
-
-            bool isChasing = currentState == NPCState.Chasing || currentState == NPCState.Detecting;
-            animator.SetBool(IS_CHASING, isChasing);
-
-            bool isAttacking = currentState == NPCState.Attacking;
-            animator.SetBool(IS_ATTACKING, isAttacking);
-        }
+        
 
         // Stop aggressive behavior (when hit by weapon, etc).
         public void StopChasing()

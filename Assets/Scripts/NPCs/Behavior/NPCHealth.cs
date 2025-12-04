@@ -35,23 +35,7 @@ namespace SmolTheftAuto.NPCs.Behavior
         {
             currentHealth = maxHealth;
         }
-
-        // Apply damage to the NPC
-       // public void TakeDamage(float damage)
-       // {
-       //     if (isDestroyed) return;
-//
-       //     currentHealth -= damage;
-       //     currentHealth = Mathf.Max(0, currentHealth);
-
-       //     healthChangedEvent?.TriggerEvent(payload: new Vector2(currentHealth, maxHealth));
-
-        //    if (currentHealth <= 0)
-      //      {
-       //         DestroyNPC();
-       //     }
-     //   }
-
+        
         // Destroy the NPC and handle money drop and respawn
         private void DestroyNPC()
         {

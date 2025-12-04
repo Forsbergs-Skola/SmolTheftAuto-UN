@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7206965480839513763}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 3.09}
+  m_LocalPosition: {x: 0, y: 3.5, z: 3.09}
   m_LocalScale: {x: 0.18, y: 0.18, z: 0.18}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -110,7 +110,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &9220580453987499865
 MonoBehaviour:
@@ -128,5 +128,5 @@ MonoBehaviour:
   pickupRange: 2
   rotationSpeed: 160
   floatSpeed: 4
-  floatAmount: 0.1
+  floatAmount: 0.05
   moneyEvent: {fileID: 11400000, guid: ac49038f3051f634d86cf7e241e32a79, type: 2}

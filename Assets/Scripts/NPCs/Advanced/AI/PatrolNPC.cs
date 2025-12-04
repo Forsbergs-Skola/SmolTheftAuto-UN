@@ -14,9 +14,10 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
         [Header("Behavior")]
         [SerializeField] private bool idleAtCheckpoints = true;
 
+        [SerializeField] Animator animator;
+        
         // State
         private NavMeshAgent navMeshAgent;
-        private Animator animator;
         private int currentWaypointIndex = 0;
         private float checkpointPauseTimer = 0f;
         private bool isPaused = false;
@@ -28,7 +29,6 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
         private void Awake()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
-            animator = GetComponent<Animator>();
 
             if (navMeshAgent == null)
             {
@@ -58,6 +58,9 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
         {
             if (navMeshAgent == null || patrolPath == null)
                 return;
+            
+            float speedPercent = navMeshAgent.velocity.magnitude / navMeshAgent.speed;
+            animator.SetFloat("moveSpeed", speedPercent);
 
             // NEW: Handle pausing at checkpoints
             if (isPaused)
@@ -83,9 +86,6 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
                     MoveToNextWaypoint();
                 }
             }
-
-            // NEW: Update animator with current speed
-            UpdateAnimator();
         }
 
         // Check if NPC has reached current waypoint.
@@ -113,11 +113,6 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             navMeshAgent.velocity = Vector3.zero;
             navMeshAgent.SetDestination(transform.position);
 
-            if (animator != null)
-            {
-                animator.SetBool(IS_WALKING, false);
-            }
-
             Debug.Log($"NPC paused at checkpoint for {checkpointPauseTimer} seconds");
         }
 
@@ -135,35 +130,14 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
 
             // NEW: Set destination for NavMeshAgent
             navMeshAgent.SetDestination(nextWaypoint.position);
-
-            // Update animator
-            if (animator != null)
-            {
-                animator.SetBool(IS_WALKING, true);
-            }
+            
 
             Debug.Log($"NPC moving to waypoint {currentWaypointIndex}");
 
             // Move to next waypoint index
             currentWaypointIndex = patrolPath.GetNextWaypointIndex(currentWaypointIndex);
         }
-
-        // Update animator parameters based on movement.
-        private void UpdateAnimator()
-        {
-            if (animator == null || navMeshAgent == null)
-                return;
-
-            // Calculate current speed
-            float speed = navMeshAgent.velocity.magnitude;
-
-            // Update speed parameter for blending
-            animator.SetFloat(SPEED_PARAM, speed);
-
-            // Update walking state
-            bool isWalking = speed > 0.1f && !isPaused;
-            animator.SetBool(IS_WALKING, isWalking);
-        }
+        
 
         // Stop patrol and freeze in place.
         public void StopPatrol()

@@ -13,11 +13,7 @@ GameObject:
   - component: {fileID: 3597048865775626248}
   - component: {fileID: 2567684501395198511}
   - component: {fileID: 4839156870234653837}
-  - component: {fileID: 7264764208673810577}
   - component: {fileID: -8850597355757231793}
-  - component: {fileID: 6942294440439264684}
-  - component: {fileID: 5169799627511509055}
-  - component: {fileID: 3354115751690680907}
   m_Layer: 0
   m_Name: NPC_Aggressive
   m_TagString: NPC
@@ -101,6 +97,7 @@ MonoBehaviour:
   damageToPlayer: 80
   damageRange: 1
   damageCooldown: 1
+  animator: {fileID: 2753696318029406123}
 --- !u!114 &4839156870234653837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,7 +105,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2780268524105058632}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 853edfaf0b537c945b59cf627ee51572, type: 3}
   m_Name: 
@@ -123,21 +120,7 @@ MonoBehaviour:
   npcDestroyedEvent: {fileID: 11400000, guid: 67d5d28baafd598418d643ad4a74def6, type: 2}
   npcDestroyedGameObjectEvent: {fileID: 11400000, guid: 74b900efdcb46a249b1c735f682712b0, type: 2}
   moneyDroppedEvent: {fileID: 11400000, guid: f05e60616ae6cdb48808b794dcb62c2a, type: 2}
---- !u!114 &7264764208673810577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2780268524105058632}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff7a84ca57ca79f4b8b0f917ac90dba0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.AI.NPCAI
-  wanderRadius: 10
-  wanderTimer: 5
-  useNavMesh: 1
+  animator: {fileID: 2753696318029406123}
 --- !u!114 &-8850597355757231793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,61 +142,7 @@ MonoBehaviour:
   attackRange: 2.5
   attackCooldown: 1.5
   baseDamageToPlayer: 10
---- !u!114 &6942294440439264684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2780268524105058632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d086dda6318cbb4c8e1fbf22b3d2cbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.Advanced.Physics.RagdollSetup
-  ragdollRigidbodies:
-  - {fileID: 0}
-  mainCollider: {fileID: 0}
-  ragdollMass: 1
---- !u!114 &5169799627511509055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2780268524105058632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df7c5f18da47ed6498b800cd12073980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.Advanced.Physics.VehicleCollisionHandler
-  baseForceStrength: 20
-  forceScaleWithVelocity: 1.5
-  vehicleLayer:
-    serializedVersion: 2
-    m_Bits: 128
---- !u!114 &3354115751690680907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2780268524105058632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 326af8b0071b5ac459686a8a531393d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.Advanced.Behavior.AdvancedNPCHealth
-  maxHealth: 100
-  minMoneyDrop: 10
-  maxMoneyDrop: 50
-  moneyPickupPrefab: {fileID: 7206965480839513763, guid: 8945d29fc06b05b45b79b337a48f037c, type: 3}
-  shouldRespawn: 1
-  respawnDelay: 5
-  healthChangedEvent: {fileID: 11400000, guid: 97ea49e138e7a01498444ae678eb2efe, type: 2}
-  npcDestroyedEvent: {fileID: 11400000, guid: 67d5d28baafd598418d643ad4a74def6, type: 2}
-  npcDestroyedGameObjectEvent: {fileID: 11400000, guid: 74b900efdcb46a249b1c735f682712b0, type: 2}
-  moneyDroppedEvent: {fileID: 11400000, guid: f05e60616ae6cdb48808b794dcb62c2a, type: 2}
+  animator: {fileID: 2753696318029406123}
 --- !u!1001 &8601186581089428026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -266,11 +195,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: character-male-c
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 1e9d7162c5549af40bd7bcbc705b4f02, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 1e9d7162c5549af40bd7bcbc705b4f02, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 020d9fc993a706242817b5a0c4e4a8ec, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e9d7162c5549af40bd7bcbc705b4f02, type: 3}
+--- !u!95 &2753696318029406123 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 1e9d7162c5549af40bd7bcbc705b4f02, type: 3}
+  m_PrefabInstance: {fileID: 8601186581089428026}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8131025800226686417 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1e9d7162c5549af40bd7bcbc705b4f02, type: 3}
