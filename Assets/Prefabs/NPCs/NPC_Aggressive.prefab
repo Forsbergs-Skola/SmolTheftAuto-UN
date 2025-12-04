@@ -14,8 +14,11 @@ GameObject:
   - component: {fileID: 2567684501395198511}
   - component: {fileID: 4839156870234653837}
   - component: {fileID: 7264764208673810577}
+  - component: {fileID: -8850597355757231793}
+  - component: {fileID: 6942294440439264684}
+  - component: {fileID: 5169799627511509055}
   m_Layer: 0
-  m_Name: NPC_Basic
+  m_Name: NPC_Aggressive
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +38,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8131025800226686417}
-  - {fileID: 7492939281936102971}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &8858211700608505735
@@ -127,7 +129,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2780268524105058632}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff7a84ca57ca79f4b8b0f917ac90dba0, type: 3}
   m_Name: 
@@ -135,68 +137,60 @@ MonoBehaviour:
   wanderRadius: 10
   wanderTimer: 5
   useNavMesh: 1
---- !u!1001 &6951022276252946896
-PrefabInstance:
+--- !u!114 &-8850597355757231793
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 9178955761270478720}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 3ebfd1d4f9197c4449b7732223f0b64c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3ebfd1d4f9197c4449b7732223f0b64c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3ebfd1d4f9197c4449b7732223f0b64c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3ebfd1d4f9197c4449b7732223f0b64c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3ebfd1d4f9197c4449b7732223f0b64c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3ebfd1d4f9197c4449b7732223f0b64c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3ebfd1d4f9197c4449b7732223f0b64c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3ebfd1d4f9197c4449b7732223f0b64c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3ebfd1d4f9197c4449b7732223f0b64c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 3ebfd1d4f9197c4449b7732223f0b64c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 3ebfd1d4f9197c4449b7732223f0b64c, type: 3}
-      propertyPath: m_Name
-      value: character-female-f
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3ebfd1d4f9197c4449b7732223f0b64c, type: 3}
---- !u!4 &7492939281936102971 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3ebfd1d4f9197c4449b7732223f0b64c, type: 3}
-  m_PrefabInstance: {fileID: 6951022276252946896}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2780268524105058632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76fd3f62a8d72b4fa5bead46dc743fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.Advanced.AI.AggressiveNPC
+  isAggressive: 1
+  detectionRadius: 20
+  losePlayerDistance: 45
+  chaseSpeed: 5.5
+  baseSpeed: 3.5
+  damageMultiplier: 1.5
+  attackRange: 2.5
+  attackCooldown: 1.5
+  baseDamageToPlayer: 10
+--- !u!114 &6942294440439264684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2780268524105058632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d086dda6318cbb4c8e1fbf22b3d2cbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.Advanced.Physics.RagdollSetup
+  ragdollRigidbodies:
+  - {fileID: 0}
+  mainCollider: {fileID: 0}
+  ragdollMass: 1
+--- !u!114 &5169799627511509055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2780268524105058632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7c5f18da47ed6498b800cd12073980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.Advanced.Physics.VehicleCollisionHandler
+  baseForceStrength: 20
+  forceScaleWithVelocity: 1.5
+  vehicleLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1001 &8601186581089428026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -248,10 +242,6 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1e9d7162c5549af40bd7bcbc705b4f02, type: 3}
       propertyPath: m_Name
       value: character-male-c
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 1e9d7162c5549af40bd7bcbc705b4f02, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
