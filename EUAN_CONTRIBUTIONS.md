@@ -4,10 +4,6 @@
 ## 1. Player Movement System
 
 
-### Location
-`Assets/Scripts/Player/Movement`
-
-
 ### Input & Control Handling
 
 
@@ -74,14 +70,6 @@ orbital camera, and press "V" to switch the shoulder
 ### Cutscene
 I made a timeline asset that plays a cutscene for the endgame. This involves triggering another Cinemachine camera
 on a dolly spline, triggering effects on the Christmas tree.
-
-
-
-
-
-
-
-
 
 
 ---
