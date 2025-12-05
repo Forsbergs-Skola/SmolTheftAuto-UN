@@ -306,7 +306,7 @@ where each bullet lands, which includes every pellet for the shotgun.
 ---
 
 
-## 10. Last-Minute Fixes, Additions & Critical Bug Solving
+## 9. Last-Minute Fixes, Additions & Critical Bug Solving
 
 
 After a push that reordered the hierarchy (lots of additions, parenting, etc.) the scene was unable to be merged by anyone. I took it upon myself to fix it, learning
