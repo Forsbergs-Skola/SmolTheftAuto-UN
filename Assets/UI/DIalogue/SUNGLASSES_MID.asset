@@ -16,7 +16,7 @@ MonoBehaviour:
   lines:
   - speakerName: Stylish Elf
     dialogueLine: Come on, darling! Go earn that sparkle!
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/AltExampleElf_02
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 1
     subdueRight: 0

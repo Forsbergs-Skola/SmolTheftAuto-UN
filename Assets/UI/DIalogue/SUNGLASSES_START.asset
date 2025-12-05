@@ -16,32 +16,32 @@ MonoBehaviour:
   lines:
   - speakerName: Stylish Elf
     dialogueLine: "Whoa, whoa \u2014 you can't just stand here without STYLE."
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/AltExampleElf_02
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 1
     subdueRight: 0
   - speakerName: Player
     dialogueLine: "I\u2019m\u2026 working on it?"
-    leftTexturePath: DialoguePortraits/RightFacingElf
+    leftTexturePath: 
     rightTexturePath: 
     subdueLeft: 0
     subdueRight: 1
   - speakerName: Stylish Elf
     dialogueLine: "Prove it. Go collect 100 money around the plaza. Then maybe I\u2019ll
       share my sunglasses."
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/AltExampleElf_02
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 1
     subdueRight: 0
   - speakerName: Player
     dialogueLine: "\u2026Seriously?"
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/AltExampleElf_02
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 0
     subdueRight: 1
   - speakerName: Stylish Elf
     dialogueLine: Fashion is serious.
-    leftTexturePath: DialoguePortraits/RightFacingElf
-    rightTexturePath: DialoguePortraits/AltExampleElf_02
+    leftTexturePath: 
+    rightTexturePath: 
     subdueLeft: 1
     subdueRight: 0
