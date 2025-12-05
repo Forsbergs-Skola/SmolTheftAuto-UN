@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
     public Sound[] musicSounds, sfxSounds, winJingles, loseJingles;
-    public AudioSource musicSource,  sfxSource, jingleSource;
+    public AudioSource musicSource,  sfxSource, jingleSource, pickupSource;
     
     private void Awake()
     {
@@ -66,6 +66,13 @@ public class AudioManager : MonoBehaviour
         Sound gunshot = Array.Find(sfxSounds, sound => sound.name == SFX);
         if (gunshot != null)
             AudioSource.PlayClipAtPoint(gunshot.clip, position);
+    }
+
+    public void PickupSfx()
+    {
+        Sound pickup = Array.Find(sfxSounds, sound => sound.name == "Money");
+        if (pickup != null)
+            pickupSource.PlayOneShot(pickup.clip);
     }
     
     public void PauseAudio()

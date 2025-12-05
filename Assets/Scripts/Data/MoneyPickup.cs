@@ -50,7 +50,7 @@ namespace SmolTheftAuto.Data
                 if (!collectible) return;
                 collectible = false;
 
-                Debug.Log("MONEY PICKUP HAS BEEN TRIGGERED");
+                AudioManager.Instance.PickupSfx();
 
                 moneyEvent.TriggerEvent(moneyAmount);
                 Destroy(gameObject);
