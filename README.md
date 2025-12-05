@@ -38,6 +38,13 @@ See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for detailed folder organizatio
 - ✅ Quest system
 - ✅ Save/Load system
 
+## Caveats
+### Bugs
+- After dying, the game requires a hard restart to refresh the HUD health bar in a new game
+
+### Features
+- Replace placeholder UI elements with professional assets
+
 ## Getting Started
 
 ### Setup
