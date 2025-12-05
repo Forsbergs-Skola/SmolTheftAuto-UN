@@ -45,11 +45,11 @@ This section briefly outlines known bugs, missing features, and optimization opp
 
 ### Bugs
 - After dying, the game requires a hard restart to refresh the HUD health bar in a new game
-- Aggressive NPCs die inappropriately when driving the car
 
 ### Features & Improvements
 - Replace placeholder UI elements with professional assets
 - Add respawn logic to all NPC types
+- The Car is slippery. we could fix it or add a line to the mechanic saying how "slippery the road is"
 
 ### Optimization & Performance
 - Backend refactor: replace tag-based singletons with static instances
