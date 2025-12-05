@@ -83,5 +83,27 @@ seat trigger, and the player controller will know exactly **where to sit**
   - Ensured that vehicle damage events can later be surfaced to UI (e.g.
     vehicle HP) via the existing event systems.
 
+## 5. Vehicle Scripts Created
+*   **AIVehicleController.cs**
+*   **PlayerVehicleeController.cs**
+*   **VehicleMover.cs**
+*   **VehicleSeatInteraction.cs**
+
+## 6. Key Bug Fixes & Integrations
+
+### NPCHealth.cs
+*   **Issue:** NPCs were staying alive after being killed.
+*   **Fix:** Modified the script to ensure the NPC is properly disabled upon death by turning off the `NavMeshAgent`, `AIController`, and `Collider`.
+
+### VehicleHealth.cs
+*   **Issue 1:** Initially targeted only NPC colliders to run them over. When the "Deal Damage to Player" feature was added to NPCs, it broke the code because the NPC's collider was triggering unexpectedly.
+*   **Fix 1:** Fixed this by targeting trigger colliders as well.
+*   **Issue 2:** When the `AggressiveNPC` variant was added (which includes a Detection System with a large sphere), a bug occurred where the vehicle would take damage from the detection sphere while the player was inside.
+*   **Fix 2:** Added a check in the `OnTriggerEnter` method to ignore the detection sphere, resolving the issue.
+
+### System Integrations
+*   **Bullet Hit System:** Leveraged the existing Bullet Hit method to implement damage dealing to the vehicle.
+*   **Cross-System Connection:** Successfully connected and integrated the NPC systems with the Vehicle and PlayerController systems to ensure seamless interaction.
+
 
 
