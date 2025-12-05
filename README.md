@@ -14,10 +14,11 @@ A Christmas-themed Small Theft Auto game built in Unity with C#.
 See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for detailed folder organization.
 
 ## Individual Contributions
-- Brad: Architecture, backend systems, UI -- [BRAD_CONTRIBUTIONS.md](BRAD_CONTRIBUTIONS.md)
+- Brad: Architecture, Backend Systems, UI -- [BRAD_CONTRIBUTIONS.md](BRAD_CONTRIBUTIONS.md)
 - Abdessamad: NPC System, Project Stracture... [ABDESSAMAD_CONTRIBUTIONS.md](ABDESSAMAD_CONTRIBUTIONS.md)
-- Ibad :Vehicle Systems or Vroom Vroom *crashnoise* *runningoverNPCnoise* [Ibads Contributions](https://github.com/Forsbergs-Skola/SmolTheftAuto-UN/blob/main/ibad's%20Contributions.md) 
-
+- Ibad :Vehicle Systems or Vroom Vroom *crashnoise* *runningoverNPCnoise* [Ibads Contributions](https://github.com/Forsbergs-Skola/SmolTheftAuto-UN/blob/main/ibad's%20Contributions.md)
+- Euan: Player, Camera, Weapons, Animations, VFX/SFX [EUAN_CONTRIBUTIONS.md](https://github.com/Forsbergs-Skola/SmolTheftAuto-UN/blob/main/EUAN_CONTRIBUTIONS.md)
+- Stephanny: GDD, World, Assets, UI, Music [STEPHANNY_CONTRIBUTIONS.md](https://github.com/Forsbergs-Skola/SmolTheftAuto-UN/blob/main/STEPHANNY_CONTRIBUTIONS.md)
 
 ## Features
 
@@ -45,11 +46,11 @@ This section briefly outlines known bugs, missing features, and optimization opp
 
 ### Bugs
 - After dying, the game requires a hard restart to refresh the HUD health bar in a new game
+- Camera moves during cutscenes while in aim camera mode
 
 ### Features & Improvements
 - Replace placeholder UI elements with professional assets
 - Add respawn logic to all NPC types
-- The Car is slippery. we could fix it or add a line to the mechanic saying how "slippery the road is"
 
 ### Optimization & Performance
 - Backend refactor: replace tag-based singletons with static instances
