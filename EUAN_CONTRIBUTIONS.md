@@ -1,15 +1,6 @@
 # Euan Scott – Project Contributions
 
 
-## Overview
-
-
-(Brief high-level summary of your role: gameplay systems, combat, VFX, animation, polish, bug fixing, etc.)
-
-
----
-
-
 ## 1. Player Movement System
 
 
