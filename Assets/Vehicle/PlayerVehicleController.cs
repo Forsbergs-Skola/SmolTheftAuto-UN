@@ -150,7 +150,7 @@ public class PlayerVehicleController : MonoBehaviour
         transform.SetParent(null, worldPositionStays: true);
         
         if (playerHead != null)
-            playerHead.SetActive(false);
+            playerHead.SetActive(true);
 
         // Put player just to the left of the seat
         if (currentSeat != null)
