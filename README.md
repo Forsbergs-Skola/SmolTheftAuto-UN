@@ -39,11 +39,19 @@ See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for detailed folder organizatio
 - ✅ Save/Load system
 
 ## Caveats
+
+This section briefly outlines known bugs, missing features, and optimization opportunities that we are aware of, but were not able to address before the final change freeze of the alpha release (5th December 2025) 
+
 ### Bugs
 - After dying, the game requires a hard restart to refresh the HUD health bar in a new game
+- Aggressive NPCs die inappropriately when driving the car
 
-### Features
+### Features & Improvements
 - Replace placeholder UI elements with professional assets
+- Add respawn logic to all NPC types
+
+### Optimization & Performance
+- Backend refactor: replace tag-based singletons with static instances
 
 ## Getting Started
 

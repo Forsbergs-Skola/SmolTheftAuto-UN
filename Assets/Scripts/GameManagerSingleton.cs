@@ -295,7 +295,7 @@ public class GameManagerSingleton : MonoBehaviour
         else { currentPlayerData.money += moneyAdded; }
         playerDataUpdatedEvent.TriggerEvent();
 
-        Debug.Log($"GAME MANAGER says: Player current money = {currentPlayerData.money}");
+        //Debug.Log($"GAME MANAGER says: Player current money = {currentPlayerData.money}");
 
     }
     private void HandleOnHealthChanged(int health)
@@ -305,7 +305,7 @@ public class GameManagerSingleton : MonoBehaviour
         if (currentPlayerData.health + health > maxHealth)
         {
             currentPlayerData.health = maxHealth;
-            Debug.Log("Already at max health");
+            //Debug.Log("Already at max health");
             playerDataUpdatedEvent.TriggerEvent();
             return;
         }
@@ -615,7 +615,7 @@ public class GameManagerSingleton : MonoBehaviour
 
     private void LoadGameplayScene()
     {
-        Debug.Log($"Loading scene: {gameplaySceneName}");
+        //Debug.Log($"Loading scene: {gameplaySceneName}");
         CanvasManager cm = GameObject.FindGameObjectWithTag(Constants.Tags.CANVAS_MANAGER).GetComponent<CanvasManager>();
         cm.ShowAndFadeLoadingScreen();
         SceneManager.LoadScene(gameplaySceneName);

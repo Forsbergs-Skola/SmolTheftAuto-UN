@@ -1,3 +1,5 @@
+// Put this prefab under the GameMangerSingleton object in Bootstrap if it is not already there.
+
 using UnityEngine;
 using GameTools;
 using Events;
@@ -36,9 +38,9 @@ public class HealthRegenerator : MonoBehaviour
         // if the player is < their max health, increase their health by 1
         int maxHealth = gm.MaxHealth;
         int currentHealth = gm.CurrentPlayerData.health;
-        if (currentHealth < maxHealth)
+        if (currentHealth < maxHealth && currentHealth > 0)
         {
-            Debug.Log("Player heals by 1.");
+            //Debug.Log("Player heals by 1.");
             healthEvent.TriggerEvent(1);
         }
     }

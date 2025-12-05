@@ -59,7 +59,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             if (playerDetected) return;
             playerDetected = true;
 
-            Debug.Log("Player detected! Alerting aggressive NPCs...");
+            //Debug.Log("Player detected! Alerting aggressive NPCs...");
 
             // Alert this NPC
             if (ownerNPC != null)
@@ -77,7 +77,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             if (!playerDetected) return;
             playerDetected = false;
 
-            Debug.Log("Player lost!");
+            //Debug.Log("Player lost!");
 
             if (ownerNPC != null)
             {
@@ -105,7 +105,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
                 }
             }
 
-            Debug.Log($"Alerted {alertedNPCs.Count} nearby aggressive NPCs");
+            //Debug.Log($"Alerted {alertedNPCs.Count} nearby aggressive NPCs");
         }
 
         public bool IsPlayerDetected => playerDetected;
