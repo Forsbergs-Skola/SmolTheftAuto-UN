@@ -340,7 +340,7 @@ We were also facing crashes, which started happening in the last week. To fix th
 Ensured NPCs attacked the player properly and consistently -> Me and Brad paired with Abdessemad to rewrite his damage logic to use triggers
 
 
-During the penultimate day before submission, several new NPC systems were added which created conflicts. I took ownership of fixing all major issues to stabilize the project which I outline below. Before this me and Abdessemad paired up to go through his new systems to remove nonfunctioning aspects and fix most of the errors.
+During the penultimate day before submission, several new systems were added which created conflicts. I took ownership of fixing all major issues to stabilize the project which I outline below. Before this me and Abdessemad paired up to go through the new advanced NPC systems to remove nonfunctioning aspects and fix most of the errors.
 
 
 My last pushes during the final day were:
@@ -384,7 +384,7 @@ Throughout this project I designed, implemented, and polished the core gameplay 
 
 I focused heavily on strong architecture and modular code, ensuring future features or weapons could be added easily without rewriting existing systems. I also implemented the full audio and VFX pipeline to strengthen game feel, as I believe "game feel" is one of, if not THE, most important aspects of making a game fun.
 
-Beyond my main responsibilities, I proactively fixed critical bugs, resolved merge issues, repaired broken systems, and took ownership of late-stage problems when the project needed stabilisation. I consistently kept the team on track with requirements, contributed solutions when systems overlapped, and ensured the final build was functional, presentable, and enjoyable.
+Beyond my main responsibilities, I proactively fixed critical bugs, resolved merge issues, repaired broken systems, and took ownership of late-stage problems when the project needed stabilisation. I believe I consistently kept the team on track with requirements, contributed solutions when systems overlapped, and ensured the final build was functional, presentable, and enjoyable.
 
 I paired up to work with all team members this project, helping each one fix merge conflicts along with:
 
@@ -392,6 +392,6 @@ I paired up to work with all team members this project, helping each one fix mer
 
 -Ibad -> Merged my player controller and cameras with his vehicle controller to make sure they integrated
 
--Abdessemad -> Rewrote the NPC damage system with him. Integrated his advanced NPCs probably, making sure to show all changes and talk it through
+-Abdessemad -> Rewrote the NPC damage system with him moving it to a trigger. Integrated his advanced NPCs probably, fixing errors and removing redundant code
 
 -Stephany -> Worked together replacing music, fixing the UI, choosing assets and making aesthetic decisions.
