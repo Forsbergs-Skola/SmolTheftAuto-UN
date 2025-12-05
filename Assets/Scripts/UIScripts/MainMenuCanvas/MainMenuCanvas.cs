@@ -31,6 +31,7 @@ public class MainMenuCanvas : MonoBehaviour, ICanvasable
     private void Awake()
     {
         isVisible = gameObject.activeInHierarchy;
+        AudioManager.Instance.PlayMusic("MenuMusic");
     }
 
     private void Start()

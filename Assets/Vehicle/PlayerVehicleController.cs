@@ -8,6 +8,7 @@ public class PlayerVehicleController : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [SerializeField] private PlayerController playerController; //  Euans existing player movement script
     [SerializeField] private Animator animator;     
+    [SerializeField] private GameObject playerHead;
 
     [Header("Vehicle Interaction")]
     [SerializeField] private float interactionRadius = 2f;
@@ -95,6 +96,10 @@ public class PlayerVehicleController : MonoBehaviour
 
   private void StartDriving(VehicleMover vehicle, Transform seat)
     {
+        
+        if (playerHead != null)
+            playerHead.SetActive(false);
+        
         currentVehicle = vehicle;
         currentSeat    = seat;
         isDriving      = true;
@@ -143,6 +148,9 @@ public class PlayerVehicleController : MonoBehaviour
 
         // Detach from car
         transform.SetParent(null, worldPositionStays: true);
+        
+        if (playerHead != null)
+            playerHead.SetActive(true);
 
         // Put player just to the left of the seat
         if (currentSeat != null)

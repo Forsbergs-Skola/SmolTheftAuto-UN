@@ -82,6 +82,16 @@ public class PauseCanvas : MonoBehaviour, ICanvasable
     public void SetIsVisible(bool val)
     {
         isVisible = val;
+
+        if (isVisible)
+        {
+            AudioManager.Instance.PauseAudio();
+        }
+        else
+        {
+            AudioManager.Instance.ResumeAudio();;
+        }
+            
     }
     public void HandleInventoryUpdate(PlayerData _data)
     {

@@ -206,6 +206,7 @@ public class CanvasManager : MonoBehaviour
 
     public void ActivateMissionPassed()
     {
+        AudioManager.Instance.PlayWinJingle();
         ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
         if (hudIC == null) { Debug.LogError("Can't get HUD canvas"); return; }
         HudCanvas hud = hudIC.GetCanvasObject().GetComponent<HudCanvas>();
@@ -214,6 +215,7 @@ public class CanvasManager : MonoBehaviour
 
     public void ActivatePlayerDied()
     {
+        AudioManager.Instance.PlayLoseJingle();
         ICanvasable hudIC = GetCanvasWithName(EnumCanvasName.HUD);
         if (hudIC == null) { Debug.LogError("Can't get HUD canvas"); return; }
         HudCanvas hud = hudIC.GetCanvasObject().GetComponent<HudCanvas>();
