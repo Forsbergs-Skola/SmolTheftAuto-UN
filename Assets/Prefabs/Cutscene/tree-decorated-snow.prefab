@@ -4849,9 +4849,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1658704669119379709}
-  - component: {fileID: 2954170973497075529}
   - component: {fileID: 656438470388109569}
-  - component: {fileID: 5069277256519249187}
   m_Layer: 0
   m_Name: Cutscene Trigger
   m_TagString: Untagged
@@ -4874,27 +4872,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1274244449860614553}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2954170973497075529
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9028996045287888529}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.17449789, y: 0.25543487, z: 0.1217454}
-  m_Center: {x: -0.0073639126, y: 0.11923317, z: -0.04364691}
 --- !u!320 &656438470388109569
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -4928,22 +4905,6 @@ PlayableDirector:
     m_References:
     - 1984f8e661ee5eb41803390d9fd49af5: {fileID: 0}
     - fcc3534f653c25047b7d6ca5bf1ca7a2: {fileID: 0}
---- !u!114 &5069277256519249187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9028996045287888529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8025759d3b6dd534aad9a04574b77e41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CutsceneTrigger
-  timeline: {fileID: 656438470388109569}
-  player: {fileID: 0}
-  cutsceneCamera: {fileID: 0}
-  playerAnimator: {fileID: 0}
 --- !u!1001 &107881550537646433
 PrefabInstance:
   m_ObjectHideFlags: 0
