@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.Advanced.AI.PatrolNPC
   patrolPath: {fileID: 0}
   stoppingDistance: 0.5
-  patrolSpeed: 3.5
+  patrolSpeed: 5
   idleAtCheckpoints: 1
   animator: {fileID: 6085530435917590365}
 --- !u!1001 &4391961643427162021

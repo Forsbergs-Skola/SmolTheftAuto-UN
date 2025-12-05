@@ -142,10 +142,10 @@ MonoBehaviour:
   isAggressive: 1
   detectionRadius: 20
   losePlayerDistance: 45
-  chaseSpeed: 5.5
+  chaseSpeed: 7
   baseSpeed: 3.5
   damageMultiplier: 1.5
-  attackRange: 2.5
+  attackRange: 0.5
   attackCooldown: 1.5
   baseDamageToPlayer: 10
   animator: {fileID: 2753696318029406123}

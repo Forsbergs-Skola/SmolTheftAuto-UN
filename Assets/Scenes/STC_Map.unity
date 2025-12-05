@@ -847,6 +847,10 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 4.35
       objectReference: {fileID: 0}
+    - target: {fileID: 4519451529205996956, guid: 18620f368e3148f41ba0f72c5d740c38, type: 3}
+      propertyPath: attackRange
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6124948840788856989, guid: 18620f368e3148f41ba0f72c5d740c38, type: 3}
       propertyPath: m_IsActive
       value: 1

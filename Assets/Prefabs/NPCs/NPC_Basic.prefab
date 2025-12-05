@@ -115,7 +115,7 @@ MonoBehaviour:
   maxMoneyDrop: 50
   moneyPickupPrefab: {fileID: 7206965480839513763, guid: 8945d29fc06b05b45b79b337a48f037c, type: 3}
   shouldRespawn: 1
-  respawnDelay: 5
+  respawnDelay: 1.5
   healthChangedEvent: {fileID: 11400000, guid: 97ea49e138e7a01498444ae678eb2efe, type: 2}
   npcDestroyedEvent: {fileID: 11400000, guid: 67d5d28baafd598418d643ad4a74def6, type: 2}
   npcDestroyedGameObjectEvent: {fileID: 11400000, guid: 74b900efdcb46a249b1c735f682712b0, type: 2}
@@ -138,8 +138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff7a84ca57ca79f4b8b0f917ac90dba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SmolTheftAuto.NPCs.AI.NPCAI
-  wanderRadius: 10
-  wanderTimer: 5
+  wanderRadius: 8
+  wanderTimer: 4
   useNavMesh: 1
   animator: {fileID: 6766747900016345270}
 --- !u!1001 &6951022276252946896
