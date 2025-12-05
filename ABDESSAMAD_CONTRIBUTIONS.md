@@ -18,17 +18,6 @@
 ### 3. **Patrol NPC System** (PatrolNPC.cs, CheckpointPath.cs)
 - Waypoint-based patrol with pause/resume at checkpoints
 - Flexible path looping (can end or repeat)
-- AnimatorController integration for movement states
-
-### 4. **Physics-Based Ragdoll** (Advanced/Physics/)
-- RagdollSetup.cs: Toggle ragdoll on/off, apply impact forces
-- VehicleCollisionHandler.cs: Vehicle collision detection and force application
-- AdvancedNPCHealth.cs: Death animation with ragdoll integration
-
-### 5. **Animation Integration** (NPCAnimationController.cs)
-- Animator parameter management for NPC states
-- Speed, walking, chasing, and attacking animation states
-- Reference: ANIMATION_SETUP_GUIDE.md
 
 ## Files I Created/Modified
 
