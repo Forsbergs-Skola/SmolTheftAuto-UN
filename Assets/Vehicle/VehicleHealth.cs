@@ -1,6 +1,7 @@
 using UnityEngine;
 using Vehicles;
-using Events;  // for IntPayloadEvent
+using Events;
+using SmolTheftAuto.NPCs.Advanced.AI; // for IntPayloadEvent
 using SmolTheftAuto.NPCs.Behavior;
 namespace Vehicles
 {
@@ -20,8 +21,8 @@ namespace Vehicles
         [SerializeField] private float minImpactToDamage = 3f;   
         [SerializeField] private float damageMultiplier = 5f;    
         [Header("Damage To NPCs")]
-    [SerializeField] private float minImpactToDamageNPC = 2f;
-    [SerializeField] private float npcDamageMultiplier = 10f;
+        [SerializeField] private float minImpactToDamageNPC = 2f;
+        [SerializeField] private float npcDamageMultiplier = 10f;
         [Header("Death Behaviour")]
         [Tooltip("Optional override for what to destroy (if car is a parent object). If null, destroys this.gameObject.")]
         [SerializeField] private GameObject destroyRoot;
@@ -75,24 +76,27 @@ namespace Vehicles
         
         float selfImpact = collision.relativeVelocity.magnitude;
 
-    if (selfImpact < minImpactToDamage)
-        return;
+        if (selfImpact < minImpactToDamage)
+            return;
 
-    float damageToSelf = (selfImpact - minImpactToDamage) * damageMultiplier;
-    ApplyDamage(damageToSelf);
-}
+        float damageToSelf = (selfImpact - minImpactToDamage) * damageMultiplier;
+        ApplyDamage(damageToSelf);
+    }
 
         private void OnTriggerEnter(Collider collider)
-{
-    
-    NPCHealth npcHealth = collider.GetComponent<NPCHealth>();
-    if (npcHealth == null)
-        npcHealth = collider.GetComponentInParent<NPCHealth>();
+        {
 
-    if (npcHealth != null && !npcHealth.IsDestroyed())
-    {
+            if (collider.GetComponent<PlayerDetectionZone>() != null)
+                return;
+    
+        NPCHealth npcHealth = collider.GetComponent<NPCHealth>();
+        if (npcHealth == null)
+         npcHealth = collider.GetComponentInParent<NPCHealth>();
+
+        if (npcHealth != null && !npcHealth.IsDestroyed())
+        {
         
-        float impact = GetComponent<Rigidbody>().linearVelocity.magnitude;
+         float impact = GetComponent<Rigidbody>().linearVelocity.magnitude;
         
         if (impact >= minImpactToDamageNPC)
         {
@@ -100,7 +104,7 @@ namespace Vehicles
             //Debug.Log($"[VehicleHealth] {name} hit trigger NPC {npcHealth.gameObject.name} for {damageToNPC} damage. Impact: {impact}");
             npcHealth.Health -= damageToNPC;
         }
-    }
+        }
 }
 
         public void ApplyDamage(float damage)
