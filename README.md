@@ -15,6 +15,7 @@ See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for detailed folder organizatio
 
 ## Individual Contributions
 - Brad: Architecture, backend systems, UI -- [BRAD_CONTRIBUTIONS.md](BRAD_CONTRIBUTIONS.md)
+- Abdessamad: NPC System, Project Stracture... [ABDESSAMAD_CONTRIBUTIONS.md](ABDESSAMAD_CONTRIBUTIONS.md)
 
 
 ## Features
@@ -31,11 +32,11 @@ See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for detailed folder organizatio
 - ✅ Vehicle system (entry/exit, driving, damage)
 
 ### Additional Features (Tasks for VG)
-- Ammunition system
-- Store system
-- Grenade system
-- Quest system
-- Save/Load system
+- ✅ Ammunition system
+- ✅ Store system
+- ✅ Grenade system
+- ✅ Quest system
+- ✅ Save/Load system
 
 ## Getting Started
 
