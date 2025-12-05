@@ -113,7 +113,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             navMeshAgent.velocity = Vector3.zero;
             navMeshAgent.SetDestination(transform.position);
 
-            Debug.Log($"NPC paused at checkpoint for {checkpointPauseTimer} seconds");
+            //Debug.Log($"NPC paused at checkpoint for {checkpointPauseTimer} seconds");
         }
 
         // Move NPC to next waypoint in path.
@@ -132,7 +132,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             navMeshAgent.SetDestination(nextWaypoint.position);
             
 
-            Debug.Log($"NPC moving to waypoint {currentWaypointIndex}");
+            //Debug.Log($"NPC moving to waypoint {currentWaypointIndex}");
 
             // Move to next waypoint index
             currentWaypointIndex = patrolPath.GetNextWaypointIndex(currentWaypointIndex);

@@ -91,7 +91,7 @@ public class PlayerVehicleController : MonoBehaviour
             }
         }
 
-        Debug.Log("No vehicle nearby to enter.");
+        //Debug.Log("No vehicle nearby to enter.");
     }
 
   private void StartDriving(VehicleMover vehicle, Transform seat)

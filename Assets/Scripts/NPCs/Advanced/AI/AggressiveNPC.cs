@@ -118,7 +118,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             if (currentState != NPCState.Chasing && currentState != NPCState.Attacking)
             {
                 currentState = NPCState.Detecting;
-                Debug.Log($"{gameObject.name} detected player and entering chase state!");
+                //Debug.Log($"{gameObject.name} detected player and entering chase state!");
             }
         }
 
@@ -127,7 +127,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
         {
             detectedPlayer = null;
             currentState = NPCState.Patrol;
-            Debug.Log($"{gameObject.name} lost player, returning to patrol.");
+            //Debug.Log($"{gameObject.name} lost player, returning to patrol.");
         }
 
         private void UpdatePatrolState()
@@ -248,7 +248,7 @@ namespace SmolTheftAuto.NPCs.Advanced.AI
             {
                 //playerController.TakeDamage((int)damageDealt);
             }
-            Debug.Log($"Aggressive NPC attacking player for {damageDealt} damage!");
+            //Debug.Log($"Aggressive NPC attacking player for {damageDealt} damage!");
         }
         
 

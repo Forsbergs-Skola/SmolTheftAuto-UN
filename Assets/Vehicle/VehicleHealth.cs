@@ -46,7 +46,7 @@ namespace Vehicles
         public void SetPlayerDriver(bool hasPlayer)
         {
             HasPlayerDriver = hasPlayer;
-            Debug.Log($"[VehicleHealth] {name} HasPlayerDriver = {HasPlayerDriver}");
+            //Debug.Log($"[VehicleHealth] {name} HasPlayerDriver = {HasPlayerDriver}");
         }
 
     private void OnCollisionEnter(Collision collision)
@@ -97,7 +97,7 @@ namespace Vehicles
         if (impact >= minImpactToDamageNPC)
         {
             float damageToNPC = (impact - minImpactToDamageNPC) * npcDamageMultiplier;
-            Debug.Log($"[VehicleHealth] {name} hit trigger NPC {npcHealth.gameObject.name} for {damageToNPC} damage. Impact: {impact}");
+            //Debug.Log($"[VehicleHealth] {name} hit trigger NPC {npcHealth.gameObject.name} for {damageToNPC} damage. Impact: {impact}");
             npcHealth.Health -= damageToNPC;
         }
     }
@@ -110,7 +110,7 @@ namespace Vehicles
             currentHealth -= damage;
             currentHealth = Mathf.Max(currentHealth, 0f);
 
-            Debug.Log($"[VehicleHealth] {name} took {damage} damage, HP = {currentHealth}");
+            //Debug.Log($"[VehicleHealth] {name} took {damage} damage, HP = {currentHealth}");
 
             if (currentHealth <= 0f)
             {

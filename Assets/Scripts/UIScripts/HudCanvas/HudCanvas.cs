@@ -28,6 +28,7 @@ public class HudCanvas : MonoBehaviour, ICanvasable
     [SerializeField] private TMP_Text moneyText;
     [SerializeField] private TMP_Text killsText;
     [SerializeField] private TMP_Text checkpointsText;
+    [SerializeField] private TMP_Text grenadesText;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private Button mainMenuButton;
 
@@ -102,6 +103,11 @@ public class HudCanvas : MonoBehaviour, ICanvasable
         int total = gm.GetTotalAmmo(weapon);
         string ammoString = $"{AMMO_PREFIX} {inClip} / {total}";
         ammoText.text = ammoString;
+
+        int grenades = gm.CurrentPlayerData.granades;
+        grenadesText.text = $"Grenades: {grenades}";
+
+
     }
 
     private void FixMoneyText(int money)
