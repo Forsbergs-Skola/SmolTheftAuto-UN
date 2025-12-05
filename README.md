@@ -16,6 +16,7 @@ See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for detailed folder organizatio
 ## Individual Contributions
 - Brad: Architecture, backend systems, UI -- [BRAD_CONTRIBUTIONS.md](BRAD_CONTRIBUTIONS.md)
 - Abdessamad: NPC System, Project Stracture... [ABDESSAMAD_CONTRIBUTIONS.md](ABDESSAMAD_CONTRIBUTIONS.md)
+- Ibad :Vroom Vroom *crashnoise* *runningoverNPCnoise* [Ibads Contributions](https://github.com/Forsbergs-Skola/SmolTheftAuto-UN/blob/main/ibad's%20Contributions.md) 
 
 
 ## Features
