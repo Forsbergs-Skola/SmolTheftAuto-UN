@@ -18,6 +18,11 @@ public class EndGameTrigger : MonoBehaviour
         myCollider = GetComponent<Collider>();
         myCollider.enabled = false;
     }
+
+    private void Start()
+    {
+        timeline.stopped += OnTimelineFinished;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (!triggerable) return;
@@ -26,10 +31,14 @@ public class EndGameTrigger : MonoBehaviour
         // Disable the collider and kick off the end game sequence
         triggerable = false; 
         myCollider.enabled = false;
+        
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayMusic("EndingMusic");
+        
         cutsceneCamera.Priority = 100;
         player.SetActive(false); 
         timeline.Play();
-        endgameEvent.TriggerEvent();
+        
         
     }
 
@@ -48,5 +57,10 @@ public class EndGameTrigger : MonoBehaviour
         if (quest != EnumQuest.FINAL) return;
         myCollider.enabled = true;
         triggerable = true;
+    }
+
+    private void OnTimelineFinished(PlayableDirector director)
+    {
+        endgameEvent.TriggerEvent();
     }
 }

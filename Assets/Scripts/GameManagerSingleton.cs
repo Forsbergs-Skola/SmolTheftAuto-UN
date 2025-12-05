@@ -152,9 +152,9 @@ public class GameManagerSingleton : MonoBehaviour
                 rifleClipCapacity,      // total rifle ammo
                 pistolClipCapacity,     // total pistol ammo
                 shotgunClipCapacity,    // total shotgun ammo
-                rifleClipCapacity -5,                      // rifle in clip
-                pistolClipCapacity -3,                      // pistol in clip
-                shotgunClipCapacity -2,                      // shotgun in clip
+                rifleClipCapacity ,                      // rifle in clip
+                pistolClipCapacity ,                      // pistol in clip
+                shotgunClipCapacity ,                      // shotgun in clip
                 3,            // grenades
                 maxHealth,              // player health
                 0,                      // checkpoints reached

@@ -28,6 +28,8 @@ namespace Vehicles
 
         private VehicleMover mover;
         private bool isDead = false;
+        
+        [SerializeField] private GameObject explosionEffect;
 
         // Set by PlayerVehicleController when player enters / exits
         public bool HasPlayerDriver { get; private set; }
@@ -133,12 +135,17 @@ namespace Vehicles
                 Debug.Log("[VehicleHealth] Triggering playerHealthEvent(-1000)");
                 playerHealthEvent.TriggerEvent(-1000);
             }
+            
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            AudioManager.Instance.GunshotSFX("CarBoom", transform.position);
 
             // Despawn / destroy the car (NPC or player car)
             if (destroyRoot != null)
                 Destroy(destroyRoot);
             else
                 Destroy(gameObject);
+                
+                
         }
 
         public void Heal(float amount)

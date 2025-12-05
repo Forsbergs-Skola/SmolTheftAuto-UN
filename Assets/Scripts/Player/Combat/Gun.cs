@@ -67,6 +67,7 @@ public class Gun : MonoBehaviour
                 if (ammo > 0)
                 {
                     fireEvent.TriggerEvent(EnumWeapon.PISTOL);
+                    AudioManager.Instance.GunshotSFX("PistolShot", transform.position);
                 }
                 else
                 {
@@ -79,6 +80,7 @@ public class Gun : MonoBehaviour
                 if (ammo > 0)
                 {
                     fireEvent.TriggerEvent(EnumWeapon.RIFLE);
+                    AudioManager.Instance.GunshotSFX("RifleShot", transform.position);
                 }
                 else
                 {
@@ -91,6 +93,7 @@ public class Gun : MonoBehaviour
                 if (ammo > 0)
                 {
                     fireEvent.TriggerEvent(EnumWeapon.SHOTGUN);
+                    AudioManager.Instance.GunshotSFX("ShotgunShot", transform.position);
                 }
                 else
                 {

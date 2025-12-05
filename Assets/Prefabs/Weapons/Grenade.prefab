@@ -101,6 +101,7 @@ MonoBehaviour:
   explosionForce: 300
   damage: 10
   explosionEffect: {fileID: 4593184484909914552, guid: 2e1e9506f5904a64b81744324fb7cd50, type: 3}
+  confettiEffect: {fileID: 304602074014669683, guid: 10a48e29c9005084c9bd513b347b3fb2, type: 3}
   hasExploded: 0
 --- !u!54 &5729697345081084510
 Rigidbody:
